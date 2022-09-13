@@ -67,7 +67,7 @@
              */
             public function constructProfileView()
             {
-                
+                 
             }
 
             /**
