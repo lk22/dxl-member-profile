@@ -1,0 +1,18 @@
+{
+    "name": "leoknudsen/dxl-member-profile",
+    "description": "Member profile plugin for Danish Xbox League e-sport association",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "DxlProfile\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Leo Knudsen",
+            "email": "knudsenudvikling@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
