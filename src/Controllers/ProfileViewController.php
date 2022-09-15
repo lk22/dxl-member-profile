@@ -85,7 +85,6 @@
                         //     return new ProfileTournamentsView();
     
                         case 'update': 
-              
                     }
                 } else {
                     $profile = (new ProfileMainView())->render();
