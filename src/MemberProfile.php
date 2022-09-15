@@ -72,9 +72,8 @@
              */
             public function dxlMemberProfile()
             {
-                $profileViewController = new ProfileViewController();
                 if (is_page('manager-profile')) {
-                    $profileViewController->render();
+                    $profileViewController = (new ProfileViewController())->manage();
                 }
             }
         }

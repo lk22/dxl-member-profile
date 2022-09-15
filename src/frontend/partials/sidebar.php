@@ -61,14 +61,14 @@
         ];
     }
 
-    if( $profile_settings->is_trainer ) {
+    if( $profile["profileSettings"]->is_trainer ) {
         $altMenu["Events"]["sub"]["Træning"] = array(
             "url" => $manager_url . "?view=events&type=training",
             "icon" => '<i class="far fa-calendar-check"></i>'
         );
     }
 
-    if( $profile_settings->is_tournament_author ) {
+    if( $profile["profileSettings"]->is_tournament_author ) {
         $altMenu["Events"]["sub"]["Turneringer"] = array(
             "url" => "?view=events&type=tournaments",
             "icon" => '<i class="far fa-calendar-check"></i>'
