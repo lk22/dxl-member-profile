@@ -6,12 +6,15 @@
     use DxlMembership\Classes\Repositories\MemberRepository;
     use DxlEvents\Classes\Repositories\CooperationEventRepository;
     use DxlEvents\Classes\Repositories\TrainingRepository;
+    use DxlEvents\Classes\Repositories\LanRepository;
+
+    use DxlProfile\Repositories\ProfileMemberGamesRepository;
 
     if ( ! defined('ABSPATH') ) exit;
 
-    if ( ! class_exists('ProfileEventsView') ) 
+    if ( ! class_exists('ProfileEventListView') ) 
     {
-        class ProfileEventsView implements ViewInterface 
+        class ProfileEventListView implements ViewInterface 
         {
 
             /**
@@ -19,7 +22,7 @@
              *
              * @var string
              */
-            protected $view = "module";
+            protected $view = "list";
 
             /**
              * Cooperation events repository
@@ -29,6 +32,13 @@
             public $cooperationEventsRepository;
 
             /**
+             * Games attached to profile
+             *
+             * @var [type]
+             */
+            public $profileMemberGamesRepository;
+
+            /**
              * Construct events view
              */
             public function __construct() 
@@ -36,7 +46,7 @@
                 $this->memberRepository = new MemberRepository();
                 $this->cooperationEventsRepository = new CooperationEventRepository();
                 $this->traininRepository = new TrainingRepository();
-                $this->render();
+                $this->profileMemberGamesRepository = new ProfileMemberGamesRepository();
             }
 
             /**
@@ -47,12 +57,14 @@
                 $profile = $this->memberRepository->select()->where('user_id', get_current_user_id())->getRow();
                 $cooperationEvents = $this->cooperationEventsRepository->select()->where('author', $profile->user_id)->get();
                 $trainingEvents = $this->traininRepository->select()->where('author', $profile->user_id)->get();
-
+                $games = $this->profileMemberGamesRepository->getMemberGames($profile->id);
+                $this->repository->table("dxl_event_participants")->select(['id', 'name'])->whereIn('event_id', $event->id)->whereAnd('is_training', '1', 'IN')->get();
                 return [
                     "member" => $profile,
                     "cooperationEvents" => $cooperationEvents,
                     "trainingEvents" => $trainingEvents,
-                    "view" => "module/events/" . $this->view . ""
+                    "games" => $games,
+                    "view" => "modules/events/" . $this->view . ""
                 ];
             }
         }

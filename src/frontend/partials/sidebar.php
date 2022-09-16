@@ -13,26 +13,26 @@
             "icon" => '<i class="far fa-calendar-check"></i>',
             "sub" => array(
                 "Hygge" => array(
-                    "url" => $manager_url . "?view=events",
+                    "url" => $manager_url . "?module=events",
                     "icon" => '<i class="far fa-calendar-check"></i>',
                 )
             )
         ),
         "Rediger profil" => array(
-            "url" => $manager_url . "?view=settings",
+            "url" => $manager_url . "?module=settings",
             "icon" => '<i class="fas fa-user-cog"></i>'
         ),
         "Indstillinger" => [
             "icon" =>'<i class="fas fa-user-cog"></i>',
             "sub" => [
                 "Spil indstillinger" => [
-                    "url" => $manager_url . "?view=profilesettings&type=games",
+                    "url" => $manager_url . "?module=profilesettings&type=games",
                     "icon" => '<i class="fas fa-gamepad"></i>'
                 ]
             ]
         ],
         // "invitationer" => array(
-        // 	"url" => $manager_url . "?view=invitations",
+        // 	"url" => $manager_url . "?module=invitations",
         // 	"icon" => '<i class="fas fa-user-friends"></i>'
         // )
     );
@@ -45,11 +45,11 @@
             "icon" =>'<i class="fas fa-user-cog"></i>',
             "sub" => [
                 "Generelt" => [
-                    "url" => $manager_url . "?view=profilesettings",
+                    "url" => $manager_url . "?module=profilesettings",
                     "icon" => '<i class="fas fa-cog"></i>'
                 ],
                 "Spil indstillinger" => [
-                    "url" => $manager_url . "?view=profilesettings&type=games",
+                    "url" => $manager_url . "?module=profilesettings&type=games",
                     "icon" => '<i class="fas fa-gamepad"></i>'
                 ]
             ]
@@ -57,18 +57,18 @@
 
         $altMenu["Invitationer"] = [
             "icon" => '<i class="fas fa-user-friends"></i>',
-            "url" => $manager_url . "?view=invitations" 
+            "url" => $manager_url . "?module=invitations" 
         ];
     }
 
-    if( $profile["profileSettings"]->is_trainer ) {
+    if( isset($profile["profileSettings"]->is_trainer) ) {
         $altMenu["Events"]["sub"]["Træning"] = array(
-            "url" => $manager_url . "?view=events&type=training",
+            "url" => $manager_url . "?module=events&type=training",
             "icon" => '<i class="far fa-calendar-check"></i>'
         );
     }
 
-    if( $profile["profileSettings"]->is_tournament_author ) {
+    if( isset($profile["profileSettings"]->is_tournament_author )) {
         $altMenu["Events"]["sub"]["Turneringer"] = array(
             "url" => "?view=events&type=tournaments",
             "icon" => '<i class="far fa-calendar-check"></i>'
