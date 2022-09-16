@@ -1,13 +1,13 @@
 <?php 
     namespace DxlProfile\Views;
 
+    // interfaces
     use Dxl\Interfaces\ViewInterface;
 
+    // Repositories
     use DxlMembership\Classes\Repositories\MemberRepository;
     use DxlEvents\Classes\Repositories\CooperationEventRepository;
     use DxlEvents\Classes\Repositories\TrainingRepository;
-    use DxlEvents\Classes\Repositories\LanRepository;
-
     use DxlProfile\Repositories\ProfileMemberGamesRepository;
 
     if ( ! defined('ABSPATH') ) exit;
@@ -25,6 +25,13 @@
             protected $view = "list";
 
             /**
+             * Undocumented variable
+             *
+             * @var DxlMembership\Classes\Repositories\MemberRepository;
+             */
+            public $memberRepository;
+
+            /**
              * Cooperation events repository
              *
              * @var DxlEvents\Classes\Repositories\CooperationEventRepository
@@ -34,7 +41,7 @@
             /**
              * Games attached to profile
              *
-             * @var [type]
+             * @var DxlProfile\Repositories\ProfileMemberGamesRepository;
              */
             public $profileMemberGamesRepository;
 
@@ -58,12 +65,19 @@
                 $cooperationEvents = $this->cooperationEventsRepository->select()->where('author', $profile->user_id)->get();
                 $trainingEvents = $this->traininRepository->select()->where('author', $profile->user_id)->get();
                 $games = $this->profileMemberGamesRepository->getMemberGames($profile->id);
-                $this->repository->table("dxl_event_participants")->select(['id', 'name'])->whereIn('event_id', $event->id)->whereAnd('is_training', '1', 'IN')->get();
+                
+                $count = count($cooperationEvents) + count($trainingEvents);
+
                 return [
                     "member" => $profile,
                     "cooperationEvents" => $cooperationEvents,
                     "trainingEvents" => $trainingEvents,
                     "games" => $games,
+                    "count" => $count,
+                    "events" => [
+                        "cooperation" => $cooperationEvents,
+                        "training" => $trainingEvents
+                    ],
                     "view" => "modules/events/" . $this->view . ""
                 ];
             }

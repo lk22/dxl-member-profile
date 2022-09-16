@@ -4,13 +4,13 @@
 	 */
  ?>
  <div class="events-heading">
- 	<h3 class="heading">Begivenheder (<?php echo $collection["count"]; ?>)</h3>
+ 	<h3 class="heading">Begivenheder (<?php echo $profile["count"]; ?>)</h3>
  </div>
 
  <div class="event-list-container">
  	<div class="col-md-12 events-container">
  	<?php 
- 		if( $collection["events"] ){
+ 		if( $profile["events"] ){
  			?>
 				<table class="table table-responsive event-list-table">
 			 		<thead>
@@ -22,8 +22,9 @@
 			 		</thead>
 			 		<tbody>
 			 			<?php 
-			 				foreach ($collection["events"] as $item) {
-			 					$is_draft = $item->is_draft;
+                        // var_dump($profile["events"]);
+			 				foreach ($profile["events"]["cooperation"] as $event) {
+			 					$is_draft = $event->is_draft;
 
 			 					if( $is_draft == 1 ) {
 			 						$draft = "Ja";
@@ -32,15 +33,15 @@
 			 					}
 
 			 					?>
-									<tr class="event-list-item" data-event="<?php echo $item->id ?>">
+									<tr class="event-list-item" data-event="<?php echo $event->id ?>">
 										<td>
-											<a href="<?php echo $_SERVER["REQUEST_URI"] . "&action=show&slug={$item->slug}" ?>">
-												<?php echo $item->title ?>
+											<a href="<?php echo $_SERVER["REQUEST_URI"] . "&action=show&slug={$event->slug}" ?>">
+												<?php echo $event->title ?>
 											</a>
 										</td>
-										<td><?php echo $item->participants_count; ?></td>
-										<td><?php echo date('d-m-Y', $item->event_date); ?></td>
-										<td class="hidden-xs hidden-sm"><?php echo date('H:i', $item->start_time); ?></td>
+										<td><?php echo $event->participants_count; ?></td>
+										<td><?php echo date('d-m-Y', $event->event_date); ?></td>
+										<td class="hidden-xs hidden-sm"><?php echo date('H:i', $event->start_time); ?></td>
 										<td><div class="label label-<?php echo ($is_draft) ? "success" : "danger"; ?>"><?php echo $draft; ?></div></td>
 									</tr>
 			 					<?php
@@ -90,7 +91,7 @@
           	<h4 class="label">Vælg spil</h4>
           	<select name="game" id="games">
           		<?php 
-          			foreach($collection["games"] as $game) {
+          			foreach($profile["games"] as $game) {
           				?>
 							<option value="<?php echo $game->id ?>"><?php echo $game->name ?></option>
           				<?php

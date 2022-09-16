@@ -15,7 +15,7 @@
              *
              * @var string
              */
-            protected $repository = "dxl_member_games";
+            protected $repository = "member_games";
 
             /**
              * Primary key
