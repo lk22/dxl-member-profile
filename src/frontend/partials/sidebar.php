@@ -11,12 +11,13 @@
         // ),
         "Events" => array(
             "icon" => '<i class="far fa-calendar-check"></i>',
-            "sub" => array(
-                "Hygge" => array(
-                    "url" => $manager_url . "?module=events",
-                    "icon" => '<i class="far fa-calendar-check"></i>',
-                )
-            )
+            "url" => $manager_url . "?module=events",
+            // "sub" => array(
+            //     "Hygge" => array(
+            //         "url" => $manager_url . "?module=events",
+            //         "icon" => '<i class="far fa-calendar-check"></i>',
+            //     )
+            // )
         ),
         "Rediger profil" => array(
             "url" => $manager_url . "?module=settings",
@@ -61,19 +62,19 @@
         ];
     }
 
-    if( isset($profile["profileSettings"]->is_trainer) ) {
-        $altMenu["Events"]["sub"]["Træning"] = array(
-            "url" => $manager_url . "?module=events&type=training",
-            "icon" => '<i class="far fa-calendar-check"></i>'
-        );
-    }
+    // if( isset($profile["profileSettings"]->is_trainer) ) {
+    //     $altMenu["Events"]["sub"]["Træning"] = array(
+    //         "url" => $manager_url . "?module=events&type=training",
+    //         "icon" => '<i class="far fa-calendar-check"></i>'
+    //     );
+    // }
 
-    if( isset($profile["profileSettings"]->is_tournament_author )) {
-        $altMenu["Events"]["sub"]["Turneringer"] = array(
-            "url" => "?view=events&type=tournaments",
-            "icon" => '<i class="far fa-calendar-check"></i>'
-        );
-    }
+    // if( isset($profile["profileSettings"]->is_tournament_author )) {
+    //     $altMenu["Events"]["sub"]["Turneringer"] = array(
+    //         "url" => "?view=events&type=tournaments",
+    //         "icon" => '<i class="far fa-calendar-check"></i>'
+    //     );
+    // }
 
     show_admin_bar(false);
 

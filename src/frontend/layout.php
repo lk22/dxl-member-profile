@@ -4,7 +4,13 @@
             <?php require DXL_PROFILE_PARTIALS_PATH . '/sidebar.php'; ?>
         </div>
         <div class="col-md-9">
-            <?php require DXL_PROFILE_VIEW_PATH . "/" . $profile["view"] . ".php"; ?>
+            <?php 
+                if ( isset($_GET["module"]) ) {
+                    require DXL_PROFILE_VIEW_PATH . "/" . $profile["view"] . ".php";
+                } else {
+                    require DXL_PROFILE_VIEW_PATH . "/" . "main.php";
+                }
+            ?>
         </div>
     </div>
 </div>

@@ -8,6 +8,7 @@
     use DxlMembership\Classes\Repositories\MemberRepository;
     use DxlEvents\Classes\Repositories\CooperationEventRepository;
     use DxlEvents\Classes\Repositories\TrainingRepository;
+    use DxlEvents\Classes\Repositories\TournamentRepository;
     use DxlProfile\Repositories\ProfileMemberGamesRepository;
 
     if ( ! defined('ABSPATH') ) exit;
@@ -46,6 +47,13 @@
             public $profileMemberGamesRepository;
 
             /**
+             * Tournament Repository
+             *
+             * @var DXLEvents\Classes\Repositories\TournamentRepository
+             */
+            public $tournamentRepository;
+
+            /**
              * Construct events view
              */
             public function __construct() 
@@ -54,6 +62,7 @@
                 $this->cooperationEventsRepository = new CooperationEventRepository();
                 $this->traininRepository = new TrainingRepository();
                 $this->profileMemberGamesRepository = new ProfileMemberGamesRepository();
+                $this->tournamentRepository = new TournamentRepository();
             }
 
             /**
@@ -64,19 +73,19 @@
                 $profile = $this->memberRepository->select()->where('user_id', get_current_user_id())->getRow();
                 $cooperationEvents = $this->cooperationEventsRepository->select()->where('author', $profile->user_id)->get();
                 $trainingEvents = $this->traininRepository->select()->where('author', $profile->user_id)->get();
+                $tournaments = $this->tournamentRepository->select()->where('author', $profile->user_id)->get();
                 $games = $this->profileMemberGamesRepository->getMemberGames($profile->id);
                 
                 $count = count($cooperationEvents) + count($trainingEvents);
 
                 return [
                     "member" => $profile,
-                    "cooperationEvents" => $cooperationEvents,
-                    "trainingEvents" => $trainingEvents,
                     "games" => $games,
                     "count" => $count,
                     "events" => [
-                        "cooperation" => $cooperationEvents,
-                        "training" => $trainingEvents
+                        "cooperation" => $cooperationEvents ?? [],
+                        "training" => $trainingEvents ?? [],
+                        "tournaments" => $tournaments ?? []
                     ],
                     "view" => "modules/events/" . $this->view . ""
                 ];

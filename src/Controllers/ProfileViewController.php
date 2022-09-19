@@ -5,6 +5,7 @@
 
     use DxlProfile\Views\ProfileMainView;
     use DxlProfile\Views\ProfileEventListView;
+    use DxlProfile\Views\ProfileEventDetailsView;
 
     if ( ! defined('ABSPATH') ) exit;
 
@@ -77,7 +78,13 @@
                 if ( isset($_GET["module"])) {
                     switch($_GET["module"]) {
                         case 'events': 
-                            $profile = (new ProfileEventListView())->render();
+                            
+                            if (isset($_GET["action"]) && $_GET["action"] == 'details') {
+                                $profile = (new ProfileEventDetailsView())->render();
+                                var_dump($profile);
+                            } else {
+                                $profile = (new ProfileEventListView())->render();
+                            }
                             
                         case 'settings': 
                         //     return new ProfileSettingsView();
