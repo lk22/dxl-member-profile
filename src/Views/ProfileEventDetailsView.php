@@ -108,14 +108,13 @@
                 }
 
                 $member = $this->memberRepository->select()->where('user_id', wp_get_current_user()->ID)->getRow();
-                $games = $this->profileGameRepository->select()->where('member_id', $member->id)->get()
+                $games = $this->profileGameRepository->select()->where('member_id', $member->id)->get();
 
                 return [
-                    "view" => "module/events/" . $this->view . "",
+                    "view" => "modules/events/" . $this->view . "",
                     "module" => $this->module,
-                    "event" => [
-                        "details" => $details
-                    ]
+                    "details" => $details,
+                    "games" => $games
                 ];
             }
 
@@ -126,12 +125,16 @@
              */
             protected function getCooperationEventDetails(): Iterable
             {
-                $event = $this->cooperationEventRepository->select()->where('slug', $_GET["slug"])->getRow();
-                $participants = $this->getParticipants('is_cooperation');
+                $event = $this->cooperationEventRepository->select()->where('slug', "'$_GET[slug]'")->getRow();
+                $participants = $this->getParticipants('is_cooperation', $event->id);
+                $game = $this->profileGameRepository->find($event->game_id);
+                
+                var_dump($event);
 
                 return [
                     "event" => $event,
-                    "participants" => $participants
+                    "participants" => $participants,
+                    "game" => $game
                 ];
             }
 
@@ -142,17 +145,14 @@
              */
             protected function trainingDetails(): Iterable
             {
-                $event = $this->trainingRepository->select()->where('slug', $_GET["slug"])->getRow();
-                var_dump($event);
-                // $event = $this->trainingRepository->find($_GET["slug"]);
-                $participants = $this->getParticipants("is_training");
-
-                $event["date"] = date("d.m.Y", strtotime($event["date"]));
-                $event["time"] = date("H:i", strtotime($event["time"]));
+                $event = $this->trainingRepository->select()->where('slug', "'$_GET[slug]'")->getRow();
+                $participants = $this->getParticipants("is_training", $event->id);
+                $game = $this->profileGameRepository->find($event->game_id);
 
                 return [
                     "event" => $event,
-                    "participants" => $participants
+                    "participants" => $participants,
+                    "game" => $game
                 ];
             }
 
@@ -164,7 +164,7 @@
             protected function tournamentDetails(): Iterable
             {
                 $event = $this->tournamentRepository->find($_GET["id"]);
-                $participants = $this->getParticipants();
+                $participants = $this->getParticipants('', $event->id);
 
                 $event["date"] = date("d.m.Y", strtotime($event["date"]));
                 $event["time"] = date("H:i", strtotime($event["time"]));
@@ -181,18 +181,17 @@
              * @param string $type
              * @return void
              */
-            private function getParticipants(string $type = ""): Iterable
+            private function getParticipants(string $type = "", int $event): Iterable
             {
-
                 if (empty($type)) {
                     $participants = $this->participantRepository
                         ->select()
-                        ->where("event_id", $_GET["id"])
+                        ->where("event_id", $event)
                         ->get();
                 } else {
                     $participants = $this->participantRepository
                         ->select()
-                        ->where("event_id", $_GET["id"])
+                        ->where("event_id", $event)
                         ->whereAnd($type, 1)
                         ->get();
                 }

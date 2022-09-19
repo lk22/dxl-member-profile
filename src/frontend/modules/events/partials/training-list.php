@@ -12,7 +12,7 @@
                 </thead>
                 <tbody>
                     <?php 
-                        foreach ($profile["events"]["cooperation"] as $event) {
+                        foreach ($profile["events"]["training"] as $event) {
                             $is_draft = $event->is_draft;
 
                             if( $is_draft == 1 ) {
@@ -25,12 +25,12 @@
                             <tr class="event-list-item" data-event="<?php echo $event->id ?>">
                                 <td>
                                     <a href="<?php echo $_SERVER["REQUEST_URI"] . "&action=details&type=training&slug={$event->slug}" ?>">
-                                        <?php echo $event->title ?>
+                                        <?php echo $event->name ?>
                                     </a>
                                 </td>
                                 <td><?php echo $event->participants_count; ?></td>
-                                <td><?php echo date('d-m-Y', $event->event_date); ?></td>
-                                <td class="hidden-xs hidden-sm"><?php echo date('H:i', $event->start_time); ?></td>
+                                <td><?php echo date('d-m-Y', $event->start_date); ?></td>
+                                <td class="hidden-xs hidden-sm"><?php echo date('H:i', $event->starttime); ?></td>
                                 <td><div class="label label-<?php echo ($is_draft) ? "success" : "danger"; ?>"><?php echo $draft; ?></div></td>
                             </tr>
                             <?php

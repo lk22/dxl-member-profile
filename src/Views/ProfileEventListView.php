@@ -60,7 +60,7 @@
             {
                 $this->memberRepository = new MemberRepository();
                 $this->cooperationEventsRepository = new CooperationEventRepository();
-                $this->traininRepository = new TrainingRepository();
+                $this->trainingRepository = new TrainingRepository();
                 $this->profileMemberGamesRepository = new ProfileMemberGamesRepository();
                 $this->tournamentRepository = new TournamentRepository();
             }
@@ -72,7 +72,7 @@
             {
                 $profile = $this->memberRepository->select()->where('user_id', get_current_user_id())->getRow();
                 $cooperationEvents = $this->cooperationEventsRepository->select()->where('author', $profile->user_id)->get();
-                $trainingEvents = $this->traininRepository->select()->where('author', $profile->user_id)->get();
+                $trainingEvents = $this->trainingRepository->select()->where('author', $profile->user_id)->get();
                 $tournaments = $this->tournamentRepository->select()->where('author', $profile->user_id)->get();
                 $games = $this->profileMemberGamesRepository->getMemberGames($profile->id);
                 

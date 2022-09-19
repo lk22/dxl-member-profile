@@ -81,7 +81,6 @@
                             
                             if (isset($_GET["action"]) && $_GET["action"] == 'details') {
                                 $profile = (new ProfileEventDetailsView())->render();
-                                var_dump($profile);
                             } else {
                                 $profile = (new ProfileEventListView())->render();
                             }
@@ -89,17 +88,12 @@
                         case 'settings': 
                         //     return new ProfileSettingsView();
     
-                        case 'tournaments': 
-                        //     return new ProfileTournamentsView();
-    
                         case 'update': 
                     }
                 } else {
                     $profile = (new ProfileMainView())->render();
-
                 }
                 
-
                 require_once DXL_PROFILE_VIEW_PATH . '/layout.php';
             }
         }
