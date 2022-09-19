@@ -20,7 +20,7 @@
             // )
         ),
         "Rediger profil" => array(
-            "url" => $manager_url . "?module=settings",
+            "url" => $manager_url . "?module=update",
             "icon" => '<i class="fas fa-user-cog"></i>'
         ),
         "Indstillinger" => [
@@ -56,10 +56,10 @@
             ]
         ];
 
-        $altMenu["Invitationer"] = [
-            "icon" => '<i class="fas fa-user-friends"></i>',
-            "url" => $manager_url . "?module=invitations" 
-        ];
+        // $altMenu["Invitationer"] = [
+        //     "icon" => '<i class="fas fa-user-friends"></i>',
+        //     "url" => $manager_url . "?module=invitations" 
+        // ];
     }
 
     // if( isset($profile["profileSettings"]->is_trainer) ) {

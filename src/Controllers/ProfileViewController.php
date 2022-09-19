@@ -7,6 +7,8 @@
     use DxlProfile\Views\ProfileEventListView;
     use DxlProfile\Views\ProfileEventDetailsView;
 
+    use DxlProfile\Views\UpdateProfileView;
+
     if ( ! defined('ABSPATH') ) exit;
 
     if ( ! class_exists('ProfileViewController') )
@@ -84,12 +86,13 @@
                             } else {
                                 $profile = (new ProfileEventListView())->render();
                             }
-                            
+                            break;
                         case 'settings': 
-                        //     return new ProfileSettingsView();
-    
-                        case 'update': 
-                    }
+                            break;
+                            case 'update': 
+                                $profile = (new UpdateProfileView())->render();
+                                break;
+                        }
                 } else {
                     $profile = (new ProfileMainView())->render();
                 }
