@@ -46,11 +46,11 @@
             "icon" =>'<i class="fas fa-user-cog"></i>',
             "sub" => [
                 "Generelt" => [
-                    "url" => $manager_url . "?module=profilesettings",
+                    "url" => $manager_url . "?module=settings",
                     "icon" => '<i class="fas fa-cog"></i>'
                 ],
                 "Spil indstillinger" => [
-                    "url" => $manager_url . "?module=profilesettings&type=games",
+                    "url" => $manager_url . "?module=settings&type=games",
                     "icon" => '<i class="fas fa-gamepad"></i>'
                 ]
             ]
@@ -92,7 +92,7 @@
                 ?>
                     <li class="list-item">
                         <?php
-                            if( !empty($item["sub"]) ){
+                            if ( !empty($item["sub"]) ){
                                 ?>
                                     <div class="item-container">
                                         <span class="icon"><?php echo $item['icon'] ?> </span> 	
@@ -110,11 +110,11 @@
                         ?>
                         
                         <?php 
-                            if( !empty($item["sub"]) ){
+                            if ( ! empty( $item["sub"] ) ){
                                 ?>
                                     <ul class="menu-sub">
                                         <?php 
-                                            foreach($item["sub"] as $sk => $subItem){
+                                            foreach ( $item["sub"] as $sk => $subItem ){
                                                 ?>
                                                     <li class="list-item">
                                                         <a href="<?php echo $subItem["url"] ?>">

@@ -101,7 +101,7 @@
              * @param array $member
              * @return Iterable
              */
-            private function getProfileSettings($member): Object
+            private function getProfileSettings( $member ): Object
             {
                 return $this->memberProfileRepository
                     ->select()
@@ -115,7 +115,7 @@
              * @param object $member
              * @return Object
              */
-            private function getCurrentMembership($member): Object
+            private function getCurrentMembership( $member ): Object
             {
                 return $this->membershipRepository
                     ->select()

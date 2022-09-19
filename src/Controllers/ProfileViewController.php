@@ -1,19 +1,19 @@
 <?php 
     namespace DxlProfile\Controllers;
 
-    use Dxl\Classes\Abstracts\AbstractActionController;
+    use Dxl\Interfaces\RegistersAdminActionsInterface;
 
     use DxlProfile\Views\ProfileMainView;
     use DxlProfile\Views\ProfileEventListView;
     use DxlProfile\Views\ProfileEventDetailsView;
-
     use DxlProfile\Views\UpdateProfileView;
+    use DxlProfile\Views\ProfileSettingsView;
 
     if ( ! defined('ABSPATH') ) exit;
 
     if ( ! class_exists('ProfileViewController') )
     {
-        class ProfileViewController extends AbstractActionController
+        class ProfileViewController implements RegistersAdminActionsInterface
         {
             /**
              * Profile view controller constructor
@@ -38,7 +38,8 @@
              *
              * @return void
              */
-            public function registerAdminActions() {
+            public function registerAdminActions(): void 
+            {
                 // add_action('wp_ajax_dxl_event_create', $this, 'createEvent');
                 // add_action('wp_ajax_dxl_event_update', $this, 'updateEvent');
                 // add_action('wp_ajax_dxl_event_delete', $this, 'deleteEvent');
@@ -64,8 +65,6 @@
                 // add_action('wp_ajax_dxl_profile_resend_invitation', new ProfileInvitation(), 'ajaxResendInvitation');
             }
 
-            public function registerGuestActions() {}
-
             /**
              * Constructing profile view
              *
@@ -77,17 +76,21 @@
                     // wp_redirect( home_url() );
                     exit;
                 }
-                if ( isset($_GET["module"])) {
-                    switch($_GET["module"]) {
+                if ( isset( $_GET["module"] ) ) {
+                    switch( $_GET["module"] ) {
                         case 'events': 
                             
-                            if (isset($_GET["action"]) && $_GET["action"] == 'details') {
+                            if ( isset( $_GET["action"] ) && $_GET["action"] == 'details' ) {
                                 $profile = (new ProfileEventDetailsView())->render();
                             } else {
                                 $profile = (new ProfileEventListView())->render();
                             }
+
                             break;
                         case 'settings': 
+
+                                $profile = (new ProfileSettingsView())->render();
+
                             break;
                             case 'update': 
                                 $profile = (new UpdateProfileView())->render();
