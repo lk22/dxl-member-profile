@@ -1,0 +1,10 @@
+/*
+  Apply heading sizes to a selector
+*/
+@mixin applyHeadingSizes() {
+  @each $size in map-keys($headings) {
+    #{$size} {
+      font-size: map-get($headings, $size);
+    }
+  }
+}
