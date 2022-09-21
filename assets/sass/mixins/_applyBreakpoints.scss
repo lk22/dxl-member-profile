@@ -1,0 +1,9 @@
+@mixin applyBreakPoints($breakpoints) {
+  @each $breakpoint in $breakpoints {
+    .container-#{$breakpoint} {
+      max-width: map-get($container-widths, $breakpoint);
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+}
