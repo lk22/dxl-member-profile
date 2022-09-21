@@ -88,7 +88,9 @@
 
                             break;
                         case 'settings': 
+
                                 $profile = (new ProfileSettingsView())->render();
+
                             break;
                             case 'update': 
                                 $profile = (new UpdateProfileView())->render();
