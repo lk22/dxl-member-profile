@@ -56,7 +56,6 @@
              */
             public function render()
             {
-                
                 $member = $this->memberRepository
                     ->select()
                     ->where('user_id', get_current_user_id() )

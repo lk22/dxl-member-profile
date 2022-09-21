@@ -1,0 +1,41 @@
+.container-xs {
+  max-width: map-get($container-widths, 'xs');
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-sm {
+  max-width: map-get($container-widths, 'sm');
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-md {
+  max-width: map-get($container-widths, 'md');
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-lg {
+  max-width: map-get($container-widths, 'lg');
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-xl {
+  max-width: map-get($container-widths, 'xl');
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-xxl {
+  max-width: map-get($container-widths, 'xxl');
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-widescreen {
+  max-width: map-get($container-widths, 'widescreen');
+  width: 100%;
+  margin: 0 auto;
+}

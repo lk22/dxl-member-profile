@@ -1,0 +1,9 @@
+#profile-layout-main {
+  font-family: $font;
+
+  .layout-content {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    @extend .util-rounded;
+  }
+}
