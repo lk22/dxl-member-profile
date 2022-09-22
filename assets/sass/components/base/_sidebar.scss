@@ -5,10 +5,14 @@
   padding: 0;
   margin: 0;
   @extend .util-rounded; // apply 15 px border radius to sidebar
-  
+  ul.navigation {
+    padding-left: 0rem !important;
+  }
   li {
     padding: 0.5rem 0;
     list-style: none;
+    text-align: center;
+    
     a {
       color: #fff;
       text-decoration: none;
