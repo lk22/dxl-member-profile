@@ -48,7 +48,7 @@
              */
             public function enqueueProfileStyles()
             {
-                wp_enqueue_style('dxl-member-profile', plugins_url('/assets/css/dxl-member-profile.css', __FILE__));
+                wp_enqueue_style('dxl-member-profile', plugins_url('dist/assets/css/app.min.css', __FILE__));
             }
 
             /**
