@@ -88,7 +88,6 @@
 
                             break;
                         case 'settings': 
-
                                 $profile = (new ProfileSettingsView())->render();
 
                             break;

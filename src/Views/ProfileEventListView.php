@@ -78,15 +78,14 @@
                 
                 $count = count($cooperationEvents) + count($trainingEvents);
 
+                $allEvents = array_merge($cooperationEvents, $trainingEvents, $tournaments);
+                var_dump($allEvents);
+
                 return [
                     "member" => $profile,
                     "games" => $games,
                     "count" => $count,
-                    "events" => [
-                        "cooperation" => $cooperationEvents ?? [],
-                        "training" => $trainingEvents ?? [],
-                        "tournaments" => $tournaments ?? []
-                    ],
+                    "events" => array_merge($cooperationEvents, $trainingEvents, $tournaments),
                     "view" => "modules/events/" . $this->view . ""
                 ];
             }

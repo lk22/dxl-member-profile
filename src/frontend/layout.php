@@ -3,7 +3,7 @@
         <div class="col-md-2 sidebar">
             <?php require DXL_PROFILE_PARTIALS_PATH . '/sidebar.php'; ?>
         </div>
-        <div class="col-md-9 ms-4 p-5">
+        <div class="col-md-9 ms-4 p-5 rounded-md shadow-sm">
             <?php 
                 if ( isset($_GET["module"]) ) {
                     require DXL_PROFILE_VIEW_PATH . "/" . $profile["view"] . ".php";

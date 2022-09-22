@@ -96,7 +96,7 @@
              */
             public function render() 
             {
-                if( isset($_GET["type"]) && $_GET["type"] == "training" ) {
+                if( isset($_GET["type"]) && $_GET["type"] == "træning" ) {
                     $this->view = "training-details";
                     $details = $this->trainingDetails();
                 } else if ( isset($_GET["type"]) && $_GET["type"] == "tournament" ) {
@@ -128,13 +128,15 @@
                 $event = $this->cooperationEventRepository->select()->where('slug', "'$_GET[slug]'")->getRow();
                 $participants = $this->getParticipants('is_cooperation', $event->id);
                 $game = $this->profileGameRepository->find($event->game_id);
-                
+
                 var_dump($event);
 
                 return [
-                    "event" => $event,
-                    "participants" => $participants,
-                    "game" => $game
+                    "event" => [
+                        "item" => $event,
+                        "participants" => $participants,
+                        "game" => $game
+                    ]
                 ];
             }
 

@@ -1,7 +1,17 @@
 
 <div class="profile-main">
 	<div class="profile-information">
-		<div class="info-row container">
+		<div class="info-row container-fluid">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-9">
+						<h1>Hej <?php echo strtoupper($profile["member"]->name) ?></h1>
+					</div>
+					<div class="col-3">
+						<a href="<?php echo $manager_url . "/?module=update" ?>" class="btn btn-primary">Rediger profil</a>
+					</div>
+				</div>
+			</div>
 			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 				<h5>Medlemsskab</h5>
 				<div class="membership-fields">

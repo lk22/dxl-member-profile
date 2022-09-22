@@ -18,9 +18,9 @@
     require_once __DIR__ . '/vendor/autoload.php';
 
     use DxlProfile\MemberProfile;
-
+    define('DXL_PROFILE_ASSETS_PATH', __DIR__ . '/assets/');
     define('DXL_PROFILE_VIEW_PATH', __DIR__ . '/src/frontend');
-    define('DXL_PROFILE_ASSETS_PATH', __DIR__ . '/src/frontend/assets');
+    // define('DXL_PROFILE_ASSETS_PATH', __DIR__ . '/src/frontend/assets');
     define('DXL_PROFILE_PARTIALS_PATH', __DIR__ . '/src/frontend/partials');
     define('DXL_PROFILE_MODULE_PATH', __DIR__ . '/src/frontend/modules');
 
