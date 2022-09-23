@@ -79,7 +79,6 @@
                 $count = count($cooperationEvents) + count($trainingEvents);
 
                 $allEvents = array_merge($cooperationEvents, $trainingEvents, $tournaments);
-                var_dump($allEvents);
 
                 return [
                     "member" => $profile,

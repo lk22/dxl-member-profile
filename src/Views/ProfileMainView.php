@@ -54,7 +54,7 @@
                     ? date('F d, Y', strtotime('last day of june this year')) 
                     : date('F d, Y', strtotime('last day of december this year'));
 
-                $renewalDate = "Udløber d. " . $expireDate;
+                $renewalDate = "Udløber: " . $expireDate;
 
                 $lan = $this->isLanParticipant($profile->id);
 

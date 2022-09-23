@@ -1,3 +1,14 @@
+/*
+  Base component styles
+*/
 @import "base/sidebar";
 @import "base/button";
+
+/*
+  Event Components
+*/
 @import "events/event-card";
+/*
+  Membership Components
+*/
+@import "membership/overview";

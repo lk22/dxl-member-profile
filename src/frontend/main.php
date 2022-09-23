@@ -3,18 +3,27 @@
 	<div class="profile-information">
 		<div class="info-row container-fluid">
 			<div class="col-12">
-				<div class="row">
-					<div class="col-9">
-						<h1>Hej <?php echo strtoupper($profile["member"]->name) ?></h1>
+				<div class="row d-flex align-items-center py-4">
+					<div class="col-10">
+						<h1>Hej <?php echo $profile["member"]->name ?></h1>
 					</div>
-					<div class="col-3">
-						<a href="<?php echo $manager_url . "/?module=update" ?>" class="btn btn-primary">Rediger profil</a>
+					<div class="col-2 d-flex justify-content-end">
+						<a href="<?php echo $manager_url . "/?module=update" ?>" class="btn btn-success">Rediger profil</a>
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-				<h5>Medlemsskab</h5>
-				<div class="membership-fields">
+			<div class="col-12 membership-overview">
+				<div class="row membership-heading">
+					<div class="col-11">
+						<h3>Medlemsskab</h3>
+					</div>
+					<div class="col-1">
+						<p class="text-sm float-right">
+							<?php echo $profile["profileMembership"]->length; ?> måneder
+						</p>
+					</div>
+				</div>
+				<div class="membership-fields mt-4">
 					<p class="label label-success">
 						<?php 
 							echo $profile["renewalDate"];
@@ -22,7 +31,7 @@
 					</p>
 					<p class="text-bold">
 						Auto fornyelse: 
-						<span class="label label-<?php echo ($profile["member"]->auto_renew) ? "success" : "danger" ?>">
+						<span class="badge badge-<?php echo ($profile["member"]->auto_renew) ? "success" : "danger" ?>">
 							<?php echo ($profile["member"]->auto_renew) ? "Aktiveret" : "Deaktiveret"; ?>
 						</span>
 					</p>
@@ -31,11 +40,11 @@
 						<?php 
 							if( $profile["profileSettings"]->trainer_permissions_requested ) {
 								?>
-									<span class="label label-primary">Afventer godkendelse</span>
+									<span class="badge badge-primary">Afventer godkendelse</span>
 								<?php 
 							} else {
 								?> 
-									<span class="label label-<?php echo ($profile["profileSettings"]->is_trainer) ? "success": "danger" ?>"><?php echo ($profile["profileSettings"]->is_trainer) ? "Aktiveret" : "Deaktiveret"  ?></span>
+									<span class="badge badge-<?php echo ($profile["profileSettings"]->is_trainer) ? "success": "danger" ?>"><?php echo ($profile["profileSettings"]->is_trainer) ? "Aktiveret" : "Deaktiveret"  ?></span>
 								<?php 
 							}
 						?>
@@ -51,7 +60,7 @@
 								<?php
 							} else {
 								?>
-									<span class="label label-<?php echo ($profile["profileSettings"]->is_tournament_author) ? "success": "danger" ?>"><?php echo ($profile["profileSettings"]->is_tournament_author	) ? "Aktiveret" : "Deaktiveret"  ?></span>
+									<span class="badge badge-<?php echo ($profile["profileSettings"]->is_tournament_author) ? "success": "danger" ?>"><?php echo ($profile["profileSettings"]->is_tournament_author	) ? "Aktiveret" : "Deaktiveret"  ?></span>
 								<?php
 							}
 						?>
@@ -78,11 +87,11 @@
 				<?php 
 					if( $profile["lan"] ) {
 						?>
-							<div class="alert <?php echo ($profile["lan"]["participant"]) ? 'alert-success' : 'alert-info' ?>">
+							<div class="alert <?php echo ($profile["lan"]["participant"]) ? 'alert-success' : 'alert-info' ?> d-flex align-items-center">
 								<?php 
 									if( $profile["lan"]["participant"] ) {
 										?>
-											<p>Du er tilmeldt <?php echo $profile["lan"]["event"]->title ?></p>
+											<p class="mb-0">Du er tilmeldt <?php echo $profile["lan"]["event"]->title ?></p>
 										<?php
 									} else {
 										?>

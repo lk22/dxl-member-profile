@@ -16,12 +16,12 @@
  		if( $profile["events"] ){
 			foreach ( $profile["events"] as $event ) {
 				?>
-					<div class="event-card col-4 position-relative">
+					<div class="event-card col-4 col-xl-5 position-relative">
 						<div class="card-heading row mx-0 align-items-center pt-3">
 							<div class="col-10">
-								<p class="fw-semibold mb-0"><?php echo $event->name ?? $event->title ?></p>
+								<h4 class="fw-semibold mb-0"><?php echo $event->name ?? $event->title ?></h4>
 							</div>
-							<div class="col-2 event-type">
+							<div class="col-2 event-type mt-2">
 								<?php 
 									if ( isset( $event->is_recurring ) ) $type = "træning";
 									elseif ( isset( $event->type)  ) $type = "turnering";
@@ -29,6 +29,10 @@
 									if( isset( $type ) ) {
 										?>
 											<small class="p-2 rounded-full rounded bg-white text-black"><?php echo $type; ?></small>
+										<?php
+									} else {
+										?>
+											<small class="p-2 rounded-full rounded bg-white text-black">Hygge</small>
 										<?php
 									}
 

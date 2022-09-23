@@ -1,5 +1,6 @@
 module.exports = {
   entry: [__dirname + "/assets/sass/app.scss"],
+  mode: "production",
   module: {
     rules: [
       {

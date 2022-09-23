@@ -48,7 +48,9 @@
              */
             public function enqueueProfileStyles()
             {
-                wp_enqueue_style('dxl-member-profile', plugins_url('./../dist/assets/css/app.min.css', __FILE__));
+                if( is_page('manager-profile') ) {
+                    wp_enqueue_style('dxl-member-profile', plugins_url('./../dist/assets/css/app.min.css', __FILE__));
+                }
             }
 
             /**
