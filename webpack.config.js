@@ -1,13 +1,8 @@
 module.exports = {
-  entry: [__dirname + "/assets/sass/app.scss"],
+  entry: [__dirname + "/assets/sass/app.scss", __dirname + "/assets/js/app.js"],
   mode: "production",
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: [],
-      },
       {
         test: /\.scss$/,
         use: [
@@ -18,6 +13,16 @@ module.exports = {
           "sass-loader",
         ],
       },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
+      }
     ],
   },
 };

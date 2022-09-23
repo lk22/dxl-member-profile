@@ -1,74 +1,73 @@
-<?php 
-
-    echo "test training view"
-
-?>
-
 <div class="row event-show-information-container">
 	<div class="inner">
-		<div class="col-md-12 event-show-heading">
-			<div class="col-md-10">
-				<h3 class="heading"><?php echo $profile["details"]["event"]->name; ?>
-					<?php 
-						if($profile["details"]["event"]->is_draft) {
-							?> <small>(Udkast)</small> <?php
-						} else {
-							?> <small>(Offentlig begivenhed)</small> <?php
-						}
-					 ?>
-				</h3>
+		<div class="col-md-12 event-detail-header p-3">
+			<div class="row">
+				<div class="col-md-10">
+					<h3 class="heading"><?php echo $profile["details"]["event"]->name; ?></h3>
+					<p class="mb-0">Træningsbegivenhed</p>
+				</div>
+				<div class="col-md-2 d-flex align-items-center justif-content-end gap-4">
+					<p class="text-sm mb-0">
+						<?php 
+							if($profile["details"]["event"]->is_draft) {
+								?> <small>(Udkast)</small> <?php
+							} else {
+								?> <small>(Offentlig begivenhed)</small> <?php
+							}
+						 ?>
+					</p>
+					<button class="btn btn-danger delete-training-btn" data-event="<?php echo $profile["details"]["event"]->id ?>">Slet <i class="fas fa-trash"></i></button>
+				</div>
 			</div>
-			<div class="col-md-2">
-				<button class="delete-training-btn" data-event="<?php echo $profile["details"]["event"]->id ?>">Slet <i class="fas fa-trash"></i></button>
-			</div>
-		</div>
-		
-		<div class="col-md-6 event_date">
-			<h5>Start dato</h5>
-			<h5 class="date"><?php echo date('d-m-Y', $profile["details"]["event"]->start_date) ?></h5>
 		</div>
 
-		<div class="col-md-6 event_time">
-			<h5>Start tidspunkt</h5>
-			<h5 class="time"><?php echo date('H:i', $profile["details"]["event"]->starttime) ?></h5>
-		</div>
+		<div class="row p-4">
+			<div class="col-md-6 event_date mb-4">
+				<h5>Start dato</h5>
+				<h5 class="date"><?php echo date('d-m-Y', $profile["details"]["event"]->start_date) ?></h5>
+			</div>
+
+			<div class="col-md-6 event_time mb-4">
+				<h5>Start tidspunkt</h5>
+				<h5 class="time"><?php echo date('H:i', $profile["details"]["event"]->starttime) ?></h5>
+			</div>
 
 		<?php 
 			if($profile["details"]["game"]->name){
 				?>
-					<div class="col-md-12 game">
+					<div class="col-md-6 game mb-4">
 						<h5>Valgt spil</h5>
 						<h5><?php echo $profile["details"]["game"]->name ?></h5>
 					</div>
-				<?php
+					<?php
 			}
-		 ?>
-
-		 <?php 
-		 	if($profile["details"]["event"]->event_day){
-		 		?>
-					<div class="event-day col-md-12">
-						<p><b>Fast dag: hver <?php echo $profile["details"]["event"]->event_day; ?></b></p>
-					</div>
-		 		<?php
-		 	}
-		 ?>
-
+			?>
+			
+					 <?php 
+						 if($profile["details"]["event"]->event_day){
+							 ?>
+								<div class="event-day col-md-6 mb-4">
+									<p><b>Fast dag: hver <?php echo $profile["details"]["event"]->event_day; ?></b></p>
+								</div>
+							 <?php
+						 }
+					 ?>
 		<?php 
 			if( $profile["details"]["event"]->description ){
 				?>
-					<div class="col-md-12 event-information-description">
+					<div class="col-md-12 mb-4 event-information-description">
 						<p class="heading"><b><?php echo str_replace(['\n', '/', '\\'], "\n", ucfirst($profile["details"]["event"]->description)); ?></b></p>
 					</div>
 				<?php
 			} else {
 				?>
-					<div class="event-information-description col-md-12">
+					<div class="event-information-description col-md-12 mb-4">
 						<p>Der er ikke angivet nogle beskrivelse</p>
 					</div>
 				<?php
 			}
 		 ?>
+		</div>
 
 		<div class="col-md-12 participants-container">
 			

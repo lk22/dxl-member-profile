@@ -75,7 +75,6 @@
                 $trainingEvents = $this->trainingRepository->select()->where('author', $profile->user_id)->get();
                 $tournaments = $this->tournamentRepository->select()->where('author', $profile->user_id)->get();
                 $games = $this->profileMemberGamesRepository->getMemberGames($profile->id);
-                
                 $count = count($cooperationEvents) + count($trainingEvents);
 
                 $allEvents = array_merge($cooperationEvents, $trainingEvents, $tournaments);

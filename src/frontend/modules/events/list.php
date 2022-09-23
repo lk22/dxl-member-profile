@@ -3,8 +3,13 @@
 	 * Profile manager list partial
 	 */
  ?>
- <div class="events-heading">
- 	<h3 class="heading">Begivenheder (<?php echo $profile["count"]; ?>)</h3>
+ <div class="events-heading row">
+	<div class="col-9">
+		<h3>Events</h3>
+	</div>
+	<div class="col-3">
+		Du har <?php echo $profile["count"] ?> begivenheder
+	</div>
  </div>
 
  <div class="event-list-container">
@@ -21,7 +26,7 @@
 							<div class="col-10">
 								<h4 class="fw-semibold mb-0"><?php echo $event->name ?? $event->title ?></h4>
 							</div>
-							<div class="col-2 event-type mt-2">
+							<div class="col-2 event-type mt-2 d-flex align-items-center justify-content-end">
 								<?php 
 									if ( isset( $event->is_recurring ) ) $type = "træning";
 									elseif ( isset( $event->type)  ) $type = "turnering";
@@ -35,7 +40,6 @@
 											<small class="p-2 rounded-full rounded bg-white text-black">Hygge</small>
 										<?php
 									}
-
 								?>
 							</div>
 						</div>
@@ -71,10 +75,6 @@
 					</div>
 				<?php
 			}
-
- 			// include DXL_PROFILE_MODULE_PATH . '/events/partials/cooperation-list.php';
-			// include DXL_PROFILE_MODULE_PATH . "/events/partials/training-list.php";
-			// include DXL_PROFILE_MODULE_PATH . "/events/partials/tournaments-list.php";
  		}
  	 ?>
 	 </div>
@@ -82,9 +82,8 @@
  	<button data-bs-toggle="modal" data-bs-target="#cooperationEventCreateModal" class="btn btn-primary create-cooperation-event-btn">Ny begivenhed</button>
  </div>
 
-
-<div class="modal fade manager-modal" id="cooperationEventCreateModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<div class="modal modal-lg fade manager-modal" id="cooperationEventCreateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -101,13 +100,13 @@
             <h4 class="label">Beskrivelse:</h4>
             <textarea name="event_description" id="event_description" cols="30" rows="3"></textarea>
           </div>
-		<div class="form-group">
+					<div class="form-group">
           	<h4 class="label">Vælg spil</h4>
           	<select name="game" id="games">
           		<?php 
           			foreach($profile["games"] as $game) {
           				?>
-							<option value="<?php echo $game->id ?>"><?php echo $game->name ?></option>
+										<option value="<?php echo $game->id ?>"><?php echo $game->name ?></option>
           				<?php
           			}
           		 ?>

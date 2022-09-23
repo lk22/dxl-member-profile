@@ -4,12 +4,19 @@
 
     use DxlProfile\Controllers\ProfileViewController;
 
+    // use DxlMembership\Classes\Repositories\MemberRepository;
+    // use DxlProfile\Repositories\ProfileMemberRepository;
+
     if ( ! defined('ABSPATH') ) exit;
 
     if ( ! class_exists('MemberProfile') ) 
     {
         class MemberProfile 
         {
+
+            // public $membeRepository;
+
+            // public $profileMemberRepository;
 
             /**
              * Member profile constructor
@@ -60,11 +67,19 @@
              */
             public function enqueueScripts()
             {
-                wp_enqueue_script('dxl-member-profile', plugins_url('/assets/js/dxl-member-profile.js', __FILE__), ['jquery'], '1.0.0', true);
-                wp_localize_script('dxl-member-profile', 'dxlMemberProfile', [
-                    'ajax_url' => admin_url('admin-ajax.php'),
-                    'nonce' => wp_create_nonce('dxl_member_profile_nonce')
-                ]);
+                global $wpdb, $current_user;
+                if( is_page('manager-profile') ) {
+
+                    $member = $wpdb->get_row("SELECT * FROM dxl_members WHERE user_id = " . $current_user->ID);
+                    $profile = $wpdb->get_row("SELECT * FROM dxl_member_profile_settings WHERE member_id = " . $member->id);
+                    wp_enqueue_script('dxl-member-profile', plugins_url('../dist/main.js', __FILE__), ['jquery'], '1.0.0', true);
+                    wp_localize_script('dxl-member-profile', 'dxlMemberProfile', [
+                        'ajax_url' => admin_url('admin-ajax.php'),
+                        'nonce' => wp_create_nonce('dxl_member_profile_nonce'),
+                        'profile' => $profile,
+                        'member' => $member
+                    ]);
+                }
             }
 
             /**

@@ -9,10 +9,10 @@
 	<div class="inner">
 		<!-- Event detail header -->
 		<div class="col-md-12 event-show-heading">
-			<div class="row event-detail-header">
+			<div class="row event-detail-header p-4">
 				<div class="col-8">
 					<h3 class="heading"><?php echo strtoupper($profile["details"]["event"]["item"]->title); ?></h3>
-					<p class="mb">Hygge begivenhed</p>
+					<p class="mb-0">Hygge begivenhed</p>
 				</div>
 				<div class="col-4 d-flex align-items-center justify-content-end">
 					<span class="lead me-4">
@@ -32,27 +32,47 @@
 					</button>
 				</div>
 			</div>
-			
 		</div> <!-- Event detail header end -->
-		<div class="col-md-12 event_date">
-			<h5>Start dato: <?php echo date('d-m-Y', $profile["details"]["event"]["item"]->event_date) ?></h5>
-			<h5>Start tidspunkt: <?php echo date('H:i', $profile["details"]["event"]["item"]->start_time) ?></h5>
-			<h5>Tilknyttet spil: <?php echo $profile["details"]["event"]["game"]->name ?></h5>
-			<?php 
-				if( $profile["details"]["event"]["item"]->description ){
-					?>
-						<div class="col-md-12 event-information-description">
-							<p class="heading"><?php echo str_replace(['/', '\n'], "\n", ucfirst($profile["details"]["event"]["item"]->description)); ?></p>
-						</div>
-					<?php
-				} else {
-					?>
-						<div class="event-information-description col-md-12">
-							<p>Der er ikke angivet nogle beskrivelse</p>
-						</div>
-					<?php
-				}
-			?>
+		<div class="row p-3">
+			<div class="col-6">
+				<h5>Start dato: </h5>
+				<p class="lead">
+					<?php echo date('d-m-Y', $profile["details"]["event"]["item"]->event_date) ?>
+				</p>
+			</div>
+			<div class="col-6">
+				<h5>Start tidspunkt: </h5>
+				<p class="lead">
+					<?php echo date('H:i', $profile["details"]["event"]["item"]->start_time) ?>
+				</p>
+			</div>
+			<div class="col-6">
+				<h5>
+					Tilknyttet spil:
+				</h5>
+				<p class="lead">
+					<?php echo $profile["details"]["event"]["game"]->name ?>
+				</p>
+			</div>
+			<div class="col-6">
+				<h5>Beskrivelse:</h5>
+				<?php 
+					if( $profile["details"]["event"]["item"]->description ){
+						?>
+							<div class="col-md-12 event-information-description">
+								<p class="heading"><?php echo str_replace(['/', '\n'], "\n", ucfirst($profile["details"]["event"]["item"]->description)); ?></p>
+							</div>
+						<?php
+					} else {
+						?>
+							<div class="event-information-description col-md-12">
+								<p>Der er ikke angivet nogle beskrivelse</p>
+							</div>
+						<?php
+					}
+				?>
+			</div>
+			<div class="col-6"></div>
 		</div>
 
 		 <!-- participants list component  -->
@@ -86,7 +106,7 @@
 		 	 ?>	
 		 	
 		 </div> <!-- Participants list component end -->
-		 
+
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<button 
 				data-bs-toggle="modal" 
@@ -170,7 +190,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default button-danger" data-dismiss="modal">Luk</button>
+        <button type="button" class="btn btn-default button-danger" data-bs-dismiss="modal">Luk</button>
         <button type="button" class="btn btn-primary update-event-btn button-success">Opdater</button>
       </div>
     </div><!-- /.modal-content -->
