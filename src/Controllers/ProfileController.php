@@ -9,20 +9,22 @@
     use DxlProfile\Views\UpdateProfileView;
     use DxlProfile\Views\ProfileSettingsView;
 
+    use DxlProfile\Controllers\ProfileEventController;
+
     if ( ! defined('ABSPATH') ) exit;
 
-    if ( ! class_exists('ProfileViewController') )
+    if ( ! class_exists('ProfileController') )
     {
-        class ProfileViewController implements RegistersAdminActionsInterface
+        class ProfileController implements RegistersAdminActionsInterface
         {
             /**
              * Profile view controller constructor
              */
             public function __construct()
             {
-                $this->registerAdminActions();
+                // $this->registerAdminActions();
             }
-
+            
             /**
              * Managing profile view rendering
              *
@@ -31,6 +33,7 @@
             public function manage()
             {
                 return $this->constructProfileView();
+                add_action('wp_ajax_dxl_profile_event_create', [new ProfileEventController, 'create']);
             }
 
             /**
@@ -40,7 +43,7 @@
              */
             public function registerAdminActions(): void 
             {
-                // add_action('wp_ajax_dxl_event_create', $this, 'createEvent');
+                add_action('wp_ajax_dxl_profile_create_event', [new ProfileEventController, 'create']);
                 // add_action('wp_ajax_dxl_event_update', $this, 'updateEvent');
                 // add_action('wp_ajax_dxl_event_delete', $this, 'deleteEvent');
                 // add_action('wp_ajax_dxl_event_publish', $this, 'publisEvent');

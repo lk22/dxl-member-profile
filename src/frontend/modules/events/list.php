@@ -79,39 +79,46 @@
  	 ?>
 	 </div>
  	</div>
- 	<button data-bs-toggle="modal" data-bs-target="#cooperationEventCreateModal" class="btn btn-primary create-cooperation-event-btn">Ny begivenhed</button>
+ 	<button data-bs-toggle="modal" data-bs-target="#createEventModal" class="btn btn-primary create-cooperation-event-btn">Ny begivenhed</button>
  </div>
 
-<div class="modal modal-lg fade manager-modal" id="cooperationEventCreateModal" tabindex="-1" role="dialog">
+<div class="modal modal-lg fade manager-modal" id="createEventModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Opret Begivenhed</h4>
       </div>
       <div class="modal-body">
-        <form action="#" method="POST" class="create-cooperation-event-modal-form">
-        	<div class="form-group">
-        		<h4 class="label">Titel:</h4>
-        		<input type="text" class="form-control" name="event_title" required>
-        	</div>
+        <form action="#" method="POST" class="create-event-modal-form">
+			<div class="form-group">
+				<h4 class="label">Titel:</h4>
+				<input type="text" class="form-control" name="event_title" required>
+			</div>
 
-          <div class="form-group">
-            <h4 class="label">Beskrivelse:</h4>
-            <textarea name="event_description" id="event_description" cols="30" rows="3"></textarea>
-          </div>
-					<div class="form-group">
-          	<h4 class="label">Vælg spil</h4>
-          	<select name="game" id="games">
-          		<?php 
-          			foreach($profile["games"] as $game) {
-          				?>
-										<option value="<?php echo $game->id ?>"><?php echo $game->name ?></option>
-          				<?php
-          			}
-          		 ?>
-          	</select>
-        </div>
+			<div class="form-group">
+				<label for="event-type">Begivenhedstype</label>
+				<select name="event-type" id="#event-type-field">
+					<option value="cooperation">Hygge</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<h4 class="label">Beskrivelse:</h4>
+				<textarea name="event_description" id="event_description" cols="30" rows="3"></textarea>
+			</div>
+			<div class="form-group">
+				<h4 class="label">Vælg spil</h4>
+				<select name="game" id="games">
+					<?php 
+						foreach($profile["games"] as $game) {
+							?>
+								<option value="<?php echo $game->id ?>"><?php echo $game->name ?></option>
+							<?php
+						}
+					?>
+				</select>
+			</div>
 
         	<div class="form-group">
         		<h4 class="label">Start Dato:</h4>

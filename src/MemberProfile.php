@@ -2,7 +2,7 @@
 
     namespace DxlProfile;
 
-    use DxlProfile\Controllers\ProfileViewController;
+    use DxlProfile\Controllers\ProfileController;
 
     // use DxlMembership\Classes\Repositories\MemberRepository;
     // use DxlProfile\Repositories\ProfileMemberRepository;
@@ -14,15 +14,16 @@
         class MemberProfile 
         {
 
-            // public $membeRepository;
-
-            // public $profileMemberRepository;
+            public $profileController;
 
             /**
              * Member profile constructor
              */
             public function __construct()
             {
+                $this->profileController = new ProfileController();
+                $this->profileController->registerAdminActions();
+                // add_action('wp_ajax_dxl_profile_create_event', [$this, 'createEvent']);
                 $this->constructProfileShortcode();
                 $this->enqueueProfileScripts();
             }
@@ -74,7 +75,7 @@
                     $profile = $wpdb->get_row("SELECT * FROM dxl_member_profile_settings WHERE member_id = " . $member->id);
                     wp_enqueue_script('dxl-member-profile', plugins_url('../dist/main.js', __FILE__), ['jquery'], '1.0.0', true);
                     wp_localize_script('dxl-member-profile', 'dxlMemberProfile', [
-                        'ajax_url' => admin_url('admin-ajax.php'),
+                        'ajaxurl' => admin_url('admin-ajax.php'),
                         'nonce' => wp_create_nonce('dxl_member_profile_nonce'),
                         'profile' => $profile,
                         'member' => $member
@@ -90,10 +91,9 @@
             public function dxlMemberProfile()
             {
                 if (is_page('manager-profile')) {
-                    $profileViewController = (new ProfileViewController())->manage();
+                    $this->profileController->manage();
                 }
             }
         }
     }
-
 ?>
