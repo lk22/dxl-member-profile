@@ -48,28 +48,41 @@ console.log(dxlMemberProfile.member);
      * Bind all profile events
      */
     bindEvents: () => {
-      /**
-       * Append event types depending on permissions
-       */
-      // profile.modals.createEventModal.find('select#event-type-field').append('<option value="1">Træning</option>');
-      if (dxlMemberProfile.profile.is_trainer == 1) {
-        $("select#event-type-field").append(
-          '<option value="2">Træning</option>'
-        );
-      }
-
-      if (dxlMemberProfile.profile.is_tournament_author == 1) {
-        $("#event-type-field").append('<option value="3">Turnering</option>');
-      }
-
       profile.bindCreateEvent();
       profile.bindRequestTrainerPermissions();
     },
-
+    
     /**
      * Bind create event action
      */
     bindCreateEvent: () => {
+
+      /**
+       * @TODO: check for event type, and append correct form fields to modal
+       */
+      console.log($("select[name='event-type']").val());
+
+      const eventType = $("select[name='event-type']");
+
+      eventType.change((e) => {
+
+        if ( e.target.value === "training" ) {
+          $('.training-fields').removeClass('d-none');
+          $('.tournament-fields').addClass('d-none');
+          $('.cooperation-fields').addClass('d-none');
+        } else if (e.target.value == "tournament") {
+          $('.tournament-fields').removeClass('d-none')
+          $('.training-fields').addClass('d-none');
+        } else {
+          $('.training-fields').addClass('d-none');
+          $('.tournament-fields').addClass('d-none');
+          $('.cooperation-fields').removeClass('d-none');
+        }
+      })
+
+      /**
+       * When the create event button is clicked, submit the fields to the server to create the event
+       */
       profile.buttons.createEventButton.click((e) => {
         e.preventDefault();
         const values = getFormValues(profile.forms.createEventForm);

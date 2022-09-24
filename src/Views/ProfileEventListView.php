@@ -6,6 +6,7 @@
 
     // Repositories
     use DxlMembership\Classes\Repositories\MemberRepository;
+    use DxlMembership\Classes\Repositories\MemberProfileRepository;
     use DxlEvents\Classes\Repositories\CooperationEventRepository;
     use DxlEvents\Classes\Repositories\TrainingRepository;
     use DxlEvents\Classes\Repositories\TournamentRepository;
@@ -26,11 +27,18 @@
             protected $view = "list";
 
             /**
-             * Undocumented variable
+             * Member repository
              *
              * @var DxlMembership\Classes\Repositories\MemberRepository;
              */
             public $memberRepository;
+
+            /**
+             * Member profile repository
+             *
+             * @var DxlMembership\Classes\Repositories\MemberProfileRepository;
+             */
+            public $memberProfileRepository;
 
             /**
              * Cooperation events repository
@@ -59,6 +67,7 @@
             public function __construct() 
             {
                 $this->memberRepository = new MemberRepository();
+                $this->memberProfileRepository = new MemberProfileRepository();
                 $this->cooperationEventsRepository = new CooperationEventRepository();
                 $this->trainingRepository = new TrainingRepository();
                 $this->profileMemberGamesRepository = new ProfileMemberGamesRepository();
@@ -70,17 +79,19 @@
              */
             public function render() 
             {
-                $profile = $this->memberRepository->select()->where('user_id', get_current_user_id())->getRow();
-                $cooperationEvents = $this->cooperationEventsRepository->select()->where('author', $profile->user_id)->get();
-                $trainingEvents = $this->trainingRepository->select()->where('author', $profile->user_id)->get();
-                $tournaments = $this->tournamentRepository->select()->where('author', $profile->user_id)->get();
-                $games = $this->profileMemberGamesRepository->getMemberGames($profile->id);
+                $member = $this->memberRepository->select()->where('user_id', get_current_user_id())->getRow();
+                $profile = $this->memberProfileRepository->select()->where('member_id', $member->id)->getRow();
+                $cooperationEvents = $this->cooperationEventsRepository->select()->where('author', $member->user_id)->get();
+                $trainingEvents = $this->trainingRepository->select()->where('author', $member->user_id)->get();
+                $tournaments = $this->tournamentRepository->select()->where('author', $member->user_id)->get();
+                $games = $this->profileMemberGamesRepository->getMemberGames($member->id);
                 $count = count($cooperationEvents) + count($trainingEvents);
 
                 $allEvents = array_merge($cooperationEvents, $trainingEvents, $tournaments);
 
                 return [
-                    "member" => $profile,
+                    "member" => $member,
+                    "profile" => $profile,
                     "games" => $games,
                     "count" => $count,
                     "events" => array_merge($cooperationEvents, $trainingEvents, $tournaments),
@@ -89,6 +100,5 @@
             }
         }
     }
-
 
 ?>

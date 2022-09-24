@@ -137,8 +137,8 @@
 	</div>
 </div>
 
-<div class="modal fade manager-modal" id="cooperationEventUpdateModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<div class="modal modal-xl fade manager-modal" id="cooperationEventUpdateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -167,9 +167,9 @@
         			<?php 
         				foreach($profile["details"]["games"] as $game) {
         					?>
-										<option value="<?php echo $game->id ?>">
-											<?php echo $game->name ?>
-										</option>
+								<option value="<?php echo $game->id ?>">
+									<?php echo $game->name ?>
+								</option>
         					<?php
         				}
         			 ?>
@@ -183,8 +183,8 @@
         		</div>
 
         		<div class="col-md-6">
-        			<h5 class="label">Start dato</h5>
-        			<input type="time" name="starttime" class="starttime form-control" value="<?php echo date('H:m', $collection["details"]["event"]["item"]->start_time) ?>">
+        			<h5 class="label">Start tidspunkt</h5>
+        			<input type="time" name="starttime" class="starttime form-control" value="<?php echo date('H:m', $profile["details"]["event"]["item"]->start_time) ?>">
         		</div>
         	</div>
         </form>

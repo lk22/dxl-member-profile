@@ -36,27 +36,19 @@
           case 'cooperation':
             $this->createCooperationEvent();
             break;
-          // case 'training':
-          //   $this->trainingEventRepository->create($_REQUEST);
-          //   break;
-          // case 'tournament':
-          //   $this->tournamentEventRepository->create($_REQUEST);
-          //   break;
-            default: 
-
+          case 'training':
+            $this->createTrainingEvent();
             break;
         }
       }
 
-      public function createCooperationEvent(CreateEventRequest $request) {
-        $validated = $request->validate();
-        if( ! $validated ) {
-          return json_encode([
-            'status' => 'error',
-            'message' => 'Validation failed'
-          ]);
-        }
-
+      /**
+       * Creating cooperation event ressource
+       *
+       * @return void
+       */
+      public function createCooperationEvent() 
+      {
         $created = $this->cooperationEventRepository->create([
           "title" => $_REQUEST['event_title'],
           "slug" => str_replace(' ', '-', $_REQUEST['event_title']), // creating slug from title
@@ -89,6 +81,46 @@
       }
 
       /**
+       * Creating training event ressource
+       *
+       * @return void
+       */
+      private function createTrainingEvent() 
+      {
+        $created = $this->trainingRepository->create([
+          "name" => $_REQUEST['event_title'],
+          "slug" => str_replace(' ', '-', $_REQUEST['event_title']), // creating slug from title
+          "description" => $_REQUEST['event_description'],
+          "participants_count" => 0,
+          "game_id" => $_REQUEST['game'],
+          "author" => $_REQUEST['profile'],
+          "created_at" => time(),
+          "updated_at" => 0,
+          "is_draft" => 1,
+          "start_date" => strtotime($_REQUEST['date']),
+          "starttime" => strtotime($_REQUEST['starttime']),
+          "endtime" => strtotime($_REQUEST['endtime']),
+          "event_day" => $_REQUEST['event-day'],
+          "is_recurring" => $_REQUEST["is-recurring"],
+        ]);
+
+        if ( ! $created ) {
+          echo wp_json_encode([
+            "status" => "error",
+            "response" => "Begivenhed ikke oprettet, prøv igen senere",
+            "data" => $_REQUEST
+          ]);
+          wp_die('', 409);
+        }
+
+        echo json_encode([
+          "status" => "success",
+          "response" => "Begivenhed oprettet"
+        ]);
+        wp_die('', 201);
+      }
+
+      /**
        * Updating event action
        *
        * @return void
@@ -99,4 +131,5 @@
       }
     }
   }
+
 ?>

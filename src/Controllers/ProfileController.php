@@ -10,6 +10,7 @@
     use DxlProfile\Views\ProfileSettingsView;
 
     use DxlProfile\Controllers\ProfileEventController;
+    use DxlProfile\Controllers\ProfileMemberController;
 
     if ( ! defined('ABSPATH') ) exit;
 
@@ -66,6 +67,8 @@
                 // add_action('wp_ajax_dxl_profile_delete_game', $this, 'ajaxDeleteProfileGame');
                 // add_action('wp_ajax_dxl_profile_delete_send_invitation', new ProfileInvitation(), 'ajaxDeleteSendedInvitation');
                 // add_action('wp_ajax_dxl_profile_resend_invitation', new ProfileInvitation(), 'ajaxResendInvitation');
+
+                add_action('wp_ajax_dxl_profile_update_profile_information', [new ProfileMemberController, 'update']);
             }
 
             /**

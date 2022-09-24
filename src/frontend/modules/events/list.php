@@ -18,7 +18,7 @@
 
 		
  	<?php 
- 		if( $profile["events"] ){
+ 		if( $profile["events"] ) {
 			foreach ( $profile["events"] as $event ) {
 				?>
 					<div class="event-card col-4 col-xl-5 position-relative">
@@ -82,7 +82,7 @@
  	<button data-bs-toggle="modal" data-bs-target="#createEventModal" class="btn btn-primary create-cooperation-event-btn">Ny begivenhed</button>
  </div>
 
-<div class="modal modal-lg fade manager-modal" id="createEventModal" tabindex="-1" role="dialog">
+<div class="modal modal-xl fade manager-modal" id="createEventModal" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -100,6 +100,15 @@
 				<label for="event-type">Begivenhedstype</label>
 				<select name="event-type" id="#event-type-field">
 					<option value="cooperation">Hygge</option>
+					<?php 
+						if ( $profile["profile"]->is_trainer ) {
+							echo "<option value='training'>Træning</option>";
+						}
+
+						if ( $profile["profile"]->is_tournament_author ) {
+							echo "<option value='tournament'>Turnering</option>";
+						}
+					?>
 				</select>
 			</div>
 
@@ -120,15 +129,58 @@
 				</select>
 			</div>
 
-        	<div class="form-group">
-        		<h4 class="label">Start Dato:</h4>
-        		<input type="date" name="date" class="end form-control">
-        	</div>
+			<div class="cooperation-fields">
+				<div class="form-group">
+					<h4 class="label">Start Dato:</h4>
+					<input type="date" name="date" class="end form-control">
+				</div>
 
-        	<div class="form-group">
-        		<h4 class="label">Start Tidspunlt:</h4>
-        		<input type="time" name="starttime" class="starttime form-control">
-        	</div>
+				<div class="form-group">
+					<h4 class="label">Start Tidspunlt:</h4>
+					<input type="time" name="starttime" class="starttime form-control">
+				</div>
+			</div>
+			
+			<div class="training-fields d-none">
+				<div class="form-group">
+					<h4 class="label">Start Dato:</h4>
+					<input type="date" name="date" class="end form-control">
+				</div>
+				<div class="row time-fields">
+					<div class="col-6">
+						<div class="form-group">
+							<h4 class="label">Start Tidspunkt:</h4>
+							<input type="time" name="starttime" class="starttime form-control">
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="form-group">
+							<h4 class="label">Slut Tidspunkt:</h4>
+							<input type="time" name="endtime" class="endtime form-control">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<h4 class="label">Vælg afholdelses dag</h4>
+					<select name="event-day" id="event-day">
+						<option value="mandag">Mandag</option>
+						<option value="tirsdag">Tirsdag</option>
+						<option value="onsdag">Onsdag</option>
+						<option value="torsdag">Torsdag</option>
+						<option value="fredag">Fredag</option>
+						<option value="lørdag">Lørdag</option>
+						<option value="søndag">Søndag</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<h4 class="label">Er begivenheden gentagende?</h4>
+					<label for="">Ja</label>
+					<input type="checkbox" name="is-recurring" id="is-recurring" value="1">
+					<label for="">Nej</label>
+					<input type="checkbox" name="is-recurring" id="is-recurring" value="0">
+				</div>
+			</div>
+        	
         </form>
       </div>
       <div class="modal-footer">
