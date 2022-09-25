@@ -7,7 +7,7 @@
   use DxlEvents\Classes\Repositories\TrainingRepository;
   use DxlEvents\Classes\Repositories\TournamentRepository;
 
-  use DxlProfile\Requests\CreateEventRequest;
+  use DxlProfile\ActionsCreateEvent;
 
   if ( ! class_exists('ProfileEventController') )
   {
@@ -29,15 +29,50 @@
        */
       public function create()
       {
-        
-        // echo 'create event';
-        // wp_die();
         switch ( $_REQUEST['event-type'] ) {
           case 'cooperation':
+            // TODO: refactor to use CreateCooperationEvent class
             $this->createCooperationEvent();
             break;
           case 'training':
+            // TODO: refactor to use CreateTrainingEvent class
             $this->createTrainingEvent();
+            break;
+        }
+      }
+
+      /**
+       * Updating event action
+       *
+       * @return void
+       */
+      public function update() 
+      {
+        if ( ! isset( $_REQUEST["type"] ) ) {
+          echo wp_json_encode([
+            'status' => 'error',
+            'message' => 'Event type is not set'
+          ]);
+        }
+
+        $data = [];
+
+        // implement all request values to data array
+        foreach ( $_REQUEST as $key => $value ) {
+          if( $key == "event" ) {
+            continue;
+          } else {
+            $data[$key] = $value;
+          }
+        }
+
+        switch ( $_REQUEST["type"] ) {
+          case 'cooperation':
+            $this->createCooperationRepsository->update($data, $_REQUEST['event']);
+            break;
+
+          case 'training':
+            $this->trainingRepository->update($data, $_REQUEST['event']);
             break;
         }
       }
@@ -47,7 +82,7 @@
        *
        * @return void
        */
-      public function createCooperationEvent() 
+      private function createCooperationEvent() 
       {
         $created = $this->cooperationEventRepository->create([
           "title" => $_REQUEST['event_title'],
@@ -62,7 +97,7 @@
           "created_at" => time(),
           "is_draft" => 1
         ]);
-
+  
         if ( ! $created ) {
           echo wp_json_encode([
             "status" => "error",
@@ -71,15 +106,15 @@
           ]);
           wp_die(409);
         }
-
+  
         echo json_encode([
           "status" => "success",
           "response" => "Begivenhed oprettet"
         ]);
-
+  
         wp_die(201);
       }
-
+  
       /**
        * Creating training event ressource
        *
@@ -103,7 +138,7 @@
           "event_day" => $_REQUEST['event-day'],
           "is_recurring" => $_REQUEST["is-recurring"],
         ]);
-
+  
         if ( ! $created ) {
           echo wp_json_encode([
             "status" => "error",
@@ -112,24 +147,13 @@
           ]);
           wp_die('', 409);
         }
-
+  
         echo json_encode([
           "status" => "success",
           "response" => "Begivenhed oprettet"
         ]);
         wp_die('', 201);
       }
-
-      /**
-       * Updating event action
-       *
-       * @return void
-       */
-      public function update() 
-      {
-        echo json_encode(["updating"]);
-      }
     }
   }
-
 ?>

@@ -145,7 +145,7 @@
         <h4 class="modal-title">Rediger <?php echo $profile["details"]["event"]["item"]->title; ?></h4>
       </div>
       <div class="modal-body">
-        <form action="#" method="post" class="manager-update-cooperation-event-form">
+        <form action="#" method="post" class="update-cooperation-event-form">
         	<input type="hidden" name="event" value="<?php echo $profile["details"]["event"]["item"]->id; ?>">
 
         	<div class="form-group">

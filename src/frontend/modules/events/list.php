@@ -92,7 +92,7 @@
       <div class="modal-body">
         <form action="#" method="POST" class="create-event-modal-form">
 			<div class="form-group">
-				<h4 class="label">Titel:</h4>
+				<p class="lead label">Titel:</p>
 				<input type="text" class="form-control" name="event_title" required>
 			</div>
 
@@ -113,11 +113,11 @@
 			</div>
 
 			<div class="form-group">
-				<h4 class="label">Beskrivelse:</h4>
+				<p class="lead label">Beskrivelse:</p>
 				<textarea name="event_description" id="event_description" cols="30" rows="3"></textarea>
 			</div>
 			<div class="form-group">
-				<h4 class="label">Vælg spil</h4>
+				<p class="lead label">Vælg spil</p>
 				<select name="game" id="games">
 					<?php 
 						foreach($profile["games"] as $game) {
@@ -131,37 +131,37 @@
 
 			<div class="cooperation-fields">
 				<div class="form-group">
-					<h4 class="label">Start Dato:</h4>
+					<p class="lead label">Start Dato:</p>
 					<input type="date" name="date" class="end form-control">
 				</div>
 
 				<div class="form-group">
-					<h4 class="label">Start Tidspunlt:</h4>
+					<p class="lead label">Start Tidspunlt:</p>
 					<input type="time" name="starttime" class="starttime form-control">
 				</div>
 			</div>
-			
+
 			<div class="training-fields d-none">
 				<div class="form-group">
-					<h4 class="label">Start Dato:</h4>
+					<p class="lead label">Start Dato:</p>
 					<input type="date" name="date" class="end form-control">
 				</div>
 				<div class="row time-fields">
 					<div class="col-6">
 						<div class="form-group">
-							<h4 class="label">Start Tidspunkt:</h4>
+							<p class="lead label">Start Tidspunkt:</p>
 							<input type="time" name="starttime" class="starttime form-control">
 						</div>
 					</div>
 					<div class="col-6">
 						<div class="form-group">
-							<h4 class="label">Slut Tidspunkt:</h4>
+							<p class="lead label">Slut Tidspunkt:</p>
 							<input type="time" name="endtime" class="endtime form-control">
 						</div>
 					</div>
 				</div>
 				<div class="form-group">
-					<h4 class="label">Vælg afholdelses dag</h4>
+					<p class="lead label">Vælg afholdelses dag</p>
 					<select name="event-day" id="event-day">
 						<option value="mandag">Mandag</option>
 						<option value="tirsdag">Tirsdag</option>
@@ -173,7 +173,7 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<h4 class="label">Er begivenheden gentagende?</h4>
+					<p class="lead label">Er begivenheden gentagende?</p>
 					<label for="">Ja</label>
 					<input type="checkbox" name="is-recurring" id="is-recurring" value="1">
 					<label for="">Nej</label>

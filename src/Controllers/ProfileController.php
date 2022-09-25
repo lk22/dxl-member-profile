@@ -45,7 +45,7 @@
             public function registerAdminActions(): void 
             {
                 add_action('wp_ajax_dxl_profile_create_event', [new ProfileEventController, 'create']);
-                // add_action('wp_ajax_dxl_event_update', $this, 'updateEvent');
+                add_action('wp_ajax_dxl_profile_edit_event', $this, 'update');
                 // add_action('wp_ajax_dxl_event_delete', $this, 'deleteEvent');
                 // add_action('wp_ajax_dxl_event_publish', $this, 'publisEvent');
                 // add_action('wp_ajax_dxl_event_draft', $this, 'draftEvent');

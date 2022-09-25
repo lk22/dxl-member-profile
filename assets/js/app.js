@@ -1,7 +1,5 @@
 import { getFormValues, ajaxRequest } from "./utilities";
 
-console.log(dxlMemberProfile.member);
-
 (($) => {
   const profile = {
     init: () => {
@@ -18,7 +16,7 @@ console.log(dxlMemberProfile.member);
 
       profile.buttons = {
         createEventButton: $(".create-event-btn"),
-        editEventButton: $(".edit-event-button"),
+        updateEventButton: $(".update-event-btn"),
         deleteEventButton: $(".delete-event-button"),
         publishEventButton: $(".publish-event-button"),
         unpublishEventButton: $(".unpublish-event-button"),
@@ -26,6 +24,7 @@ console.log(dxlMemberProfile.member);
 
       profile.forms = {
         createEventForm: $(".create-event-modal-form"),
+        updateCooperationEventForm: $(".update-cooperation-event-form"),
       };
 
       profile.actions = {
@@ -49,6 +48,7 @@ console.log(dxlMemberProfile.member);
      */
     bindEvents: () => {
       profile.bindCreateEvent();
+      profile.bindUpdateCooperationEvent();
       profile.bindRequestTrainerPermissions();
     },
     
@@ -119,6 +119,46 @@ console.log(dxlMemberProfile.member);
           }
         );
       });
+    },
+
+    /**
+     * Bind update cooperation event action
+     * 
+     * @return void
+     */
+    bindUpdateCooperationEvent: () => {
+      const type = "cooperation";
+      profile.buttons.updateEventButton.click((e) => {
+        e.preventDefault();
+        const values = getFormValues(profile.forms.updateCooperationEventForm);
+        values.action = profile.actions.editEvent;
+        values.nonce = profile.nonce;
+        console.log(values);
+        ajaxRequest(
+          profile.ajaxurl,
+          "POST",
+          values,
+          (response) => {
+            console.log(response);
+            const parsed = JSON.parse(response);
+
+            if (parsed.status == "success") {
+              window.location.reload();
+            }
+
+            if (parsed.status == "error") {
+              console.log(parsed);
+            }
+          },
+          () => {
+            profile.buttons.updateEventButton.html("Opdaterer...");
+          },
+          (error) => {
+            console.log(error);
+            profile.buttons.updateEventButton.html("Opdater");
+          }
+        )
+      })
     },
 
     /**
