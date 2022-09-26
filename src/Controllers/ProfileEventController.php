@@ -6,6 +6,7 @@
   use DxlEvents\Classes\Repositories\CooperationEventRepository;
   use DxlEvents\Classes\Repositories\TrainingRepository;
   use DxlEvents\Classes\Repositories\TournamentRepository;
+  use DxlEvents\Classes\Repositories\ParticipantRepository;
 
   use DxlProfile\ActionsCreateEvent;
 
@@ -22,6 +23,7 @@
         $this->cooperationEventRepository = new CooperationEventRepository();
         $this->trainingRepository = new TrainingRepository();
         $this->tournamentRepository = new TournamentRepository();
+        $this->participantRepository = new ParticipantRepository();
       }
 
       /**
@@ -142,6 +144,36 @@
           "response" => "Event published"
         ]);
         wp_die();
+      }
+
+      /**
+       * Delete event action 
+       * 
+       * @return void
+       */
+      public function delete() {
+        if ( ! isset($_REQUEST["event_type"]) || ! isset($_REQUEST["event_id"]) ) {
+          echo wp_json_encode([
+            "status" => "failed",
+            "response" => "Event type or id is not provided"
+          ]);
+          wp_die();
+        }
+
+        $participants = $this->participantRepository->select()->where('event_id', $_REQUEST["event_id"])->get();
+
+        if ( $participants ) {
+          $this->participantRepository->delete($_REQUEST["event_id"]);
+        }
+
+        switch($_REQUEST["event_type"]) {
+          case 'cooperation':
+            $deleted = $this->cooperationEventRepository->delete($_REQUEST["event_id"]);
+            break;
+          case 'training':
+            $deleted = $this->trainingRepository->delete($_REQUEST["event_id"]);
+            break;
+        }
       }
 
       /**

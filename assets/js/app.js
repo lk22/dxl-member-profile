@@ -47,6 +47,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
      */
     bindEvents: () => {
       profile.bindCreateEvent();
+      profile.bindDeleteEvent();
       profile.bindUpdateCooperationEvent();
       profile.bindPublishUnpublishEvent();
       profile.bindRequestTrainerPermissions();
@@ -119,6 +120,32 @@ import { getFormValues, ajaxRequest } from "./utilities";
           }
         );
       });
+    },
+
+    bindDeleteEvent() {
+      profile.buttons.deleteEventButton.click((e) => {
+        const eventId = e.currentTarget.dataset.event;
+        const type = e.currentTarget.dataset.type;
+
+        ajaxRequest(profile.ajaxurl, "POST", {
+          action: profile.actions.deleteEvent,
+          nonce: profile.nonce,
+          event_id: eventId,
+          event_type: type,
+        }, (response) => {
+          console.log(response)
+
+          const parsed = JSON.parse(response);
+
+          if (parsed.status == "success") {
+            window.location.back();
+          }   
+        }, () => {
+          console.log("Deleting event...");
+        }, (error) => {
+          console.log(error);
+        });
+      })
     },
 
     /**

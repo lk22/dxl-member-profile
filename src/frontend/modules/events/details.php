@@ -25,8 +25,9 @@
 						?>
 					</span>
 					<button 
-						class="delete-event-btn btn btn-danger" 
-						data-event="<?php echo $profile["details"]["item"]["event"]->id ?>"
+						class="delete-event-button btn btn-danger" 
+						data-event="<?php echo $profile["details"]["event"]["item"]->id ?>"
+						data-type="cooperation"
 					>
 						Slet <i class="fas fa-trash"></i>
 					</button>
