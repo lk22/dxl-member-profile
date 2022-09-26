@@ -6,7 +6,6 @@
     use DxlProfile\Interfaces\ActionHasRules;
     use DxlProfile\Interfaces\ActionNeedValidation;
 
-
     if ( ! defined('ABSPATH') ) exit;
 
     if ( ! class_exists('CreateTrainingEvent') ) 
@@ -34,7 +33,7 @@
                     wp_die();
                 }
 
-                echo json_encode(["data" => $_REQUEST]);
+                echo json_encode(["data" => $_REQUEST]); 
             }
         }
     }

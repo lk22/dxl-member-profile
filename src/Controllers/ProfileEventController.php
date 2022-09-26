@@ -48,33 +48,100 @@
        */
       public function update() 
       {
+        // echo json_encode($_REQUEST);
+        // wp_die();
         if ( ! isset( $_REQUEST["type"] ) ) {
           echo wp_json_encode([
             'status' => 'error',
             'message' => 'Event type is not set'
           ]);
+          wp_die();
         }
 
         $data = [];
 
         // implement all request values to data array
         foreach ( $_REQUEST as $key => $value ) {
-          if( $key == "event" ) {
+          if( $key == "event" || $key == "action" || $key == "nonce" || $key == "type" ) {
             continue;
           } else {
+
+            if ( $key == "game" ) {
+              $key = "game_id";
+            }
+
             $data[$key] = $value;
           }
         }
 
         switch ( $_REQUEST["type"] ) {
           case 'cooperation':
-            $this->createCooperationRepsository->update($data, $_REQUEST['event']);
+
+            $data["event_date"] = strtotime($data["event_date"]);
+            $data["start_time"] = strtotime($data["start_time"]);
+            $data["game_id"] = $_REQUEST["game"];
+
+            $updated = $this->cooperationEventRepository->update($data, $_REQUEST['event']);
+
+            if ( ! $updated ) {
+              echo wp_json_encode([
+                "status" => "failed",
+                "response" => "something went wrong"
+              ]);
+              wp_die();
+            }
+
+            echo wp_json_encode(["status" => "success", "response" => "Event updated"]);
+            wp_die();
             break;
 
           case 'training':
             $this->trainingRepository->update($data, $_REQUEST['event']);
             break;
         }
+      }
+
+      /**
+       * Publishing event action
+       *
+       * @return void
+       */
+      public function publishUnpublishEvent() {
+        if ( ! isset($_REQUEST["event_action"]) || ! isset($_REQUEST["event_type"]) ) {
+          echo wp_json_encode([
+            "status" => "failed",
+            "response" => "Event type or action is provided"
+          ]);
+          wp_die();
+        }
+
+        switch ($_REQUEST["event_type"]) {
+          case 'cooperation':
+            $updated = ($_REQUEST["event_action"] == "publish") 
+              ? $this->cooperationEventRepository->update(["is_draft" => 0], $_REQUEST["event_id"]) 
+              : $this->cooperationEventRepository->update(["is_draft" => 1], $_REQUEST["event_id"]);
+            break;
+
+            case 'training': 
+              $updated = ($_REQUEST["event_action"] == "publish") 
+                ? $this->trainingRepository->update(["is_draft" => 0], $_REQUEST["event_id"]) 
+                : $this->trainingRepository->update(["is_draft" => 1], $_REQUEST["event_id"]);
+              break;
+        }
+        
+        if ( ! $updated ) {
+          echo wp_json_encode([
+            "status" => "failed",
+            "response" => "something went wrong, could not perform your action"  // needs translation
+          ]);
+          wp_die();
+        }
+
+        echo wp_json_encode([
+          "status" => "success",
+          "response" => "Event published"
+        ]);
+        wp_die();
       }
 
       /**

@@ -18,7 +18,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
         createEventButton: $(".create-event-btn"),
         updateEventButton: $(".update-event-btn"),
         deleteEventButton: $(".delete-event-button"),
-        publishEventButton: $(".publish-event-button"),
+        publishUnpublishButton: $(".publish-unpublish-event-btn"),
         unpublishEventButton: $(".unpublish-event-button"),
       };
 
@@ -32,8 +32,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
         createEvent: "dxl_profile_create_event",
         editEvent: "dxl_profile_edit_event",
         deleteEvent: "dxl_profile_delete_event",
-        publishEvent: "dxl_profile_publish_event",
-        unpublishEvent: "dxl_profile_unpublish_event",
+        publisUnpublishEvent: "dxl_profile_publish_unpublish_event",
         updateProfileInformation: "dxl_profile_update_profile_information",
         createGame: "dxl_profile_create_game",
         editGame: "dxl_profile_edit_game",
@@ -49,6 +48,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
     bindEvents: () => {
       profile.bindCreateEvent();
       profile.bindUpdateCooperationEvent();
+      profile.bindPublishUnpublishEvent();
       profile.bindRequestTrainerPermissions();
     },
     
@@ -133,6 +133,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
         const values = getFormValues(profile.forms.updateCooperationEventForm);
         values.action = profile.actions.editEvent;
         values.nonce = profile.nonce;
+        values.type = type;
         console.log(values);
         ajaxRequest(
           profile.ajaxurl,
@@ -159,6 +160,55 @@ import { getFormValues, ajaxRequest } from "./utilities";
           }
         )
       })
+    },
+
+    /**
+     * Bind publishing event action
+     */
+    bindPublishUnpublishEvent: () => {
+      profile.buttons.publishUnpublishButton.click((e) => {
+        console.log(e)
+        const eventId = e.currentTarget.dataset.event;
+        const type = e.currentTarget.dataset.eventType;
+        const eventAction = e.currentTarget.dataset.action;
+
+        console.log(e);
+        console.log(eventAction);
+
+        ajaxRequest(profile.ajaxurl, "POST", {
+          action: profile.actions.publisUnpublishEvent,
+          nonce: profile.nonce,
+          event_id: eventId,
+          event_type: type,
+          event_action: eventAction
+        }, (response) => {
+          console.log(response);
+          const parsed = JSON.parse(response);
+        
+          if (parsed.status == "success") {
+            window.location.reload();
+          }
+  
+          if ( parsed.status == "failed" ) {
+            console.log(parsed);
+          }
+
+          if( eventAction == "publish" ) {
+            profile.buttons.publishUnpublishButton.html("Offentliggør");
+          } else {
+            profile.buttons.publishUnpublishButton.html("Skjul");
+          }
+
+        }, () => {
+          if( eventAction == "publish" ) {
+            profile.buttons.publishUnpublishButton.html("Offentliggører event...");
+          } else {
+            profile.buttons.publishUnpublishButton.html("Skjuler...");
+          }
+        }, (error) => {
+            console.log(error);
+        })
+      });      
     },
 
     /**

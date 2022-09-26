@@ -184,7 +184,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary create-event-btn">Gå videre</button>
       </div>
     </div><!-- /.modal-content -->

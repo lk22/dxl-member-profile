@@ -119,15 +119,24 @@
 				if( $profile["details"]["event"]["item"]->is_draft ) {
 					?>
 						<button 
-							class="btn btn-primary publish-event-btn" 
+							class="btn btn-primary publish-unpublish-event-btn" 
 							data-event="<?php echo $profile["details"]["event"]["item"]->id; ?> "
+							data-event-type="cooperation"
+							data-action="publish"
 						>
 							offentliggør
 						</button>
 					<?php
 				} else {
 					?>
-						<button class="btn btn-primary unpublish-event-btn" data-event="<?php echo $profile["details"]["event"]["item"]->id; ?> ">Sæt til udkast</button>
+						<button 
+							class="btn btn-primary publish-unpublish-event-btn"
+							data-event="<?php echo $profile["details"]["event"]["item"]->id; ?> "
+							data-event-type="cooperation"
+							data-action="unpublish"
+						>
+							Sæt til udkast
+						</button>
 						<a href="<?php echo get_home_url() ?>/events/?event_action=show&event_type=cooperation&slug=<?php echo $_GET["slug"] ?>" class="btn btn-primary">Se begivenhed</a>
 					<?php
 				}
@@ -150,17 +159,17 @@
 
         	<div class="form-group">
         		<h5 class="label">Title</h5>
-        		<input type="text" name="event_title" value="<?php echo $profile["details"]["event"]["item"]->title ?>">
+        		<input type="text" name="title" value="<?php echo $profile["details"]["event"]["item"]->title ?>">
         	</div>
 
         	<div class="form-group">
         		<h5 class="label">description</h5>
-        		<textarea name="event_description" cols="30" rows="5"><?php echo $profile["details"]["event"]["item"]->description ?></textarea>
+        		<textarea name="description" cols="30" rows="5"><?php echo $profile["details"]["event"]["item"]->description ?></textarea>
         	</div>
 
         	<div class="form-group">
         		<h5 class="label">Vælg spil</h5>
-        		<select name="event_game">
+        		<select name="game">
         			<option value="<?php echo $profile["details"]["event"]["game"]->id ?>">
         				<?php echo $profile["details"]["event"]["game"]->name ?>
         			</option>
@@ -179,18 +188,18 @@
         	<div class="form-group">
         		<div class="col-md-6">
         			<h5 class="label">Start dato</h5>
-        			<input type="date" name="startdate" class="form-control" value="<?php echo date('Y-m-d', $profile["details"]["event"]["item"]->event_date) ?>">
+        			<input type="date" name="event_date" class="form-control" value="<?php echo date('Y-m-d', $profile["details"]["event"]["item"]->event_date) ?>">
         		</div>
 
         		<div class="col-md-6">
         			<h5 class="label">Start tidspunkt</h5>
-        			<input type="time" name="starttime" class="starttime form-control" value="<?php echo date('H:m', $profile["details"]["event"]["item"]->start_time) ?>">
+        			<input type="time" name="start_time" class="starttime form-control" value="<?php echo date('H:m', $profile["details"]["event"]["item"]->start_time) ?>">
         		</div>
         	</div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default button-danger" data-bs-dismiss="modal">Luk</button>
+        <button type="button" class="btn btn-primary button-danger" data-bs-dismiss="modal">Luk</button>
         <button type="button" class="btn btn-primary update-event-btn button-success">Opdater</button>
       </div>
     </div><!-- /.modal-content -->
