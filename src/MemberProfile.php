@@ -78,7 +78,8 @@
                         'ajaxurl' => admin_url('admin-ajax.php'),
                         'nonce' => wp_create_nonce('dxl_member_profile_nonce'),
                         'profile' => $profile,
-                        'member' => $member
+                        'member' => $member,
+                        'prefix' => get_option('siteurl'),
                     ]);
                 }
             }

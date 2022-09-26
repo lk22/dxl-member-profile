@@ -1,9 +1,10 @@
 import { getFormValues, ajaxRequest } from "./utilities";
-
+console.log(window.location);
 (($) => {
   const profile = {
     init: () => {
       // profile.profileUtility = profileUtility;
+      profile.url = dxlMemberProfile.prefix + "/manager-profile";
       profile.nonce = dxlMemberProfile.nonce;
       profile.ajaxurl = dxlMemberProfile.ajaxurl;
       profile.modals = {
@@ -138,7 +139,8 @@ import { getFormValues, ajaxRequest } from "./utilities";
           const parsed = JSON.parse(response);
 
           if (parsed.status == "success") {
-            window.location.back();
+            // go back two step
+            window.location.href = profile.url + "?module=events";
           }   
         }, () => {
           console.log("Deleting event...");

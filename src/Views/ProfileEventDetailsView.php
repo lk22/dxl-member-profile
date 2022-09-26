@@ -110,8 +110,6 @@
                 $member = $this->memberRepository->select()->where('user_id', wp_get_current_user()->ID)->getRow();
                 $games = $this->profileGameRepository->select()->where('member_id', $member->id)->get();
 
-                var_dump($details["event"]["item"]);
-
                 return [
                     "view" => "modules/events/" . $this->view . "",
                     "module" => $this->module,

@@ -174,6 +174,19 @@
             $deleted = $this->trainingRepository->delete($_REQUEST["event_id"]);
             break;
         }
+
+        if ( ! $deleted ) {
+          echo wp_json_encode([
+            "status" => "failed",
+            "response" => "something went wrong, could not perform your action"  // needs translation
+          ]);
+        }
+
+        echo wp_json_encode([
+          "status" => "success",
+          "response" => "Event deleted successfully"
+        ]);
+        wp_die();
       }
 
       /**
@@ -203,7 +216,7 @@
             "response" => "Begivenhed ikke oprettet, prøv igen senere",
             "data" => $_REQUEST
           ]);
-          wp_die(409);
+          wp_die();
         }
   
         echo json_encode([
@@ -211,7 +224,7 @@
           "response" => "Begivenhed oprettet"
         ]);
   
-        wp_die(201);
+        wp_die();
       }
   
       /**
@@ -244,14 +257,14 @@
             "response" => "Begivenhed ikke oprettet, prøv igen senere",
             "data" => $_REQUEST
           ]);
-          wp_die('', 409);
+          wp_die();
         }
   
         echo json_encode([
           "status" => "success",
           "response" => "Begivenhed oprettet"
         ]);
-        wp_die('', 201);
+        wp_die();
       }
     }
   }
