@@ -32,6 +32,11 @@
 				<h5 class="time"><?php echo date('H:i', $profile["details"]["event"]->starttime) ?></h5>
 			</div>
 
+			<div class="col-md-6 event-end-time mb-4">
+				<h5>Slut tidspunkt</h5>
+				<h5 class="time"><?php echo date('H:i', $profile["details"]["event"]->endtime) ?></h5>
+			</div>
+
 		<?php 
 			if($profile["details"]["game"]->name){
 				?>
@@ -100,15 +105,29 @@
 			?>
 		</div>
  
-		 <button data-bs-toggle="modal" data-bs-target="#trainingEventUpdateModal" class="btn btn-primary update-training-event-btn">Rediger</button>
+		 <button data-bs-toggle="modal" data-bs-target="#trainingEventUpdateModal" class="btn btn-primary">Rediger</button>
 		 <?php 
 		 	if( $profile["details"]["event"]->is_draft ) {
 		 		?>
-					<button class="btn btn-primary publish-training-btn" data-event="<?php echo $profile["details"]["event"]->id ?> ">offentliggør</button>
+					<button 
+						class="btn btn-primary publish-unpublish-event-btn" 
+						data-event="<?php echo $profile["details"]["event"]->id ?> "
+						data-event-type="training"
+						data-action="publish"
+					>
+						offentliggør
+					</button>
 		 		<?php
 		 	} else {
 		 		?>
-					<button class="btn btn-primary unpublish-training-btn" data-event="<?php echo $profile["details"]["event"]->id; ?> ">Sæt til udkast</button>
+					<button 
+						class="btn btn-primary publish-unpublish-event-btn" 
+						data-event="<?php echo $profile["details"]["event"]->id; ?> "
+						data-event-type="training"
+						data-action="unpublish"
+					>
+						Sæt til udkast
+					</button>
 					<a href="<?php echo get_home_url() ?>/events/?event_action=show&event_type=training&slug=<?php echo $_GET["slug"] ?>" class="btn btn-primary">Se begivenhed</a>
 		 		<?php
 		 	}
@@ -120,27 +139,27 @@
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Opdater Begivenhed</h4>
       </div>
       <div class="modal-body">
-        <form action="#" method="POST" class="update-training-event-modal-form">
+        <form action="#" method="POST" class="update-training-event-form">
         	<input type="hidden" name="event" value="<?php echo $profile["details"]["event"]->id; ?>">
         	<div class="form-group">
         		<h4 class="label">Titel:</h4>
-        		<input type="text" class="form-control" value="<?php echo $profile["details"]["event"]->name ?>" name="event_title" required>
+        		<input type="text" class="form-control" value="<?php echo $profile["details"]["event"]->name ?>" name="name" required>
         	</div>
 
 	        <div class="form-group">
 	            <h4 class="label">Beskrivelse:</h4>
-	            <textarea name="event_description" id="event_description" cols="30" rows="3">
+	            <textarea name="description" id="event_description" cols="30" rows="3">
 	            	<?php echo str_replace('\n', "\n", $profile["details"]["event"]->description) ?>
 	            </textarea>
 	        </div>
 
         	<div class="form-group">
         		<h4 class="label">Start Dato:</h4>
-        		<input type="date" name="date" value="<?php echo date("Y-m-d", $profile["details"]["event"]->start_date) ?>" class="end form-control">
+        		<input type="date" name="start_date" value="<?php echo date("Y-m-d", $profile["details"]["event"]->start_date) ?>" class="end form-control">
         	</div>
 
         	<div class="row">
@@ -152,7 +171,7 @@
 
 				<div class="form-group col-md-6 training_day_field" style="<?php echo ($profile["details"]["event"]->is_recurring == 1) ? '' : 'display:none;'; ?>"> 
         			<h4 class="label">Vælg trænings dag</h4>
-        			<select name="training_day" id="training_days">
+        			<select name="event_day" id="training_days">
         				<option value="Mandag">Mandag</option>
         				<option value="Tirsdag">Tirsdag</option>
         				<option value="Onsdag">Onsdag</option>
@@ -166,9 +185,9 @@
 
         	<div class="form-group">
         		<h5 class="label">Vælg spil</h5>
-        		<select name="event_game">
+        		<select name="game">
         			<option value="<?php echo $profile["game"]->id ?>">
-        				<?php echo $profile["game"]->name ?>
+        				<?php echo $profile["details"]["game"]->name ?>
         			</option>
         			<?php 
         				foreach($profile["games"] as $game) {
@@ -185,12 +204,12 @@
 			<div class="row">
 				<div class="form-group col-md-6">
 	        		<h4 class="label">Start Tidspunkt:</h4>
-	        		<input type="time" name="starttime" value="<?php echo date("H:m", $profile["details"]["event"]->starttime) ?>" class="starttime form-control">
+	        		<input type="time" name="starttime" value="<?php echo date("H:i", $profile["details"]["event"]->starttime) ?>" class="starttime form-control">
 	        	</div>
 
 	        	<div class="form-group col-md-6">
 	        		<h4 class="label">Slut Tidspunkt:</h4>
-	        		<input type="time" name="endtime" value="<?php echo date("H:m", $profile["details"]["event"]->endtime) ?>" class="endtime form-control">
+	        		<input type="time" name="endtime" value="<?php echo date("H:i", $profile["details"]["event"]->endtime) ?>" class="endtime form-control">
 	        	</div>
 			</div>
 
@@ -199,8 +218,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default button-danger" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary button-success update-training-btn">Opdater</button>
+        <button type="button" class="btn btn-primary button-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary button-success update-training-event-btn">Opdater</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

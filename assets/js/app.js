@@ -1,5 +1,4 @@
 import { getFormValues, ajaxRequest } from "./utilities";
-console.log(window.location);
 (($) => {
   const profile = {
     init: () => {
@@ -10,6 +9,7 @@ console.log(window.location);
       profile.modals = {
         createEventModal: $("#createEventModal"),
         editEventModal: $("#edit-event-modal"),
+        editTrainingEventModal: $("#trainingEventUpdateModal"),
         deleteEventModal: $("#delete-event-modal"),
         publishEventModal: $("#publish-event-modal"),
         unpublishEventModal: $("#unpublish-event-modal"),
@@ -18,6 +18,7 @@ console.log(window.location);
       profile.buttons = {
         createEventButton: $(".create-event-btn"),
         updateEventButton: $(".update-event-btn"),
+        updateTrainingEventButton: $(".update-training-event-btn"),
         deleteEventButton: $(".delete-event-button"),
         publishUnpublishButton: $(".publish-unpublish-event-btn"),
         unpublishEventButton: $(".unpublish-event-button"),
@@ -26,6 +27,7 @@ console.log(window.location);
       profile.forms = {
         createEventForm: $(".create-event-modal-form"),
         updateCooperationEventForm: $(".update-cooperation-event-form"),
+        updateTrainingEventForm: $(".update-training-event-form"),
       };
 
       profile.actions = {
@@ -41,6 +43,7 @@ console.log(window.location);
       };
 
       profile.bindEvents();
+    
     },
 
     /**
@@ -50,6 +53,7 @@ console.log(window.location);
       profile.bindCreateEvent();
       profile.bindDeleteEvent();
       profile.bindUpdateCooperationEvent();
+      profile.bindUpdateTrainingEvent();
       profile.bindPublishUnpublishEvent();
       profile.bindRequestTrainerPermissions();
     },
@@ -123,6 +127,11 @@ console.log(window.location);
       });
     },
 
+    /**
+     * Bind delete event action
+     * 
+     * 26/09-22
+     */
     bindDeleteEvent() {
       profile.buttons.deleteEventButton.click((e) => {
         const eventId = e.currentTarget.dataset.event;
@@ -188,6 +197,43 @@ console.log(window.location);
             profile.buttons.updateEventButton.html("Opdater");
           }
         )
+      })
+    },
+
+    /**
+     * Bind update training event action
+     * 
+     * 27/09/2022
+     */
+    bindUpdateTrainingEvent() {
+      const type = "training";
+      profile.buttons.updateTrainingEventButton.click((e) => {
+        e.preventDefault();
+        const values = getFormValues(profile.forms.updateTrainingEventForm);
+        values.action = profile.actions.editEvent;
+        values.nonce = profile.nonce;
+        values.type = type;
+
+        ajaxRequest(profile.ajaxurl, 'POST', values, (response) => {
+          console.log(response);
+
+          const parsed = JSON.parse(response);
+
+          if (parsed.status == "success") {
+            window.location.reload();
+          }
+
+          if (parsed.status == "error") {
+            console.log(parsed);
+          }
+
+          profile.modals.editTrainingEventModal.modal('hide');
+        }, () => {
+          console.log("Updating event...");
+          profile.buttons.updateTrainingEventButton.html("Opdaterer...");
+        }, (error) => {
+          console.log(error);
+        })
       })
     },
 

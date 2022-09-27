@@ -3,6 +3,8 @@
 
     use Dxl\Interfaces\RegistersAdminActionsInterface;
 
+    use DxlMembership\Classes\Repositories\MemberRepository;
+
     use DxlProfile\Views\ProfileMainView;
     use DxlProfile\Views\ProfileEventListView;
     use DxlProfile\Views\ProfileEventDetailsView;
@@ -18,12 +20,15 @@
     {
         class ProfileController implements RegistersAdminActionsInterface
         {
+
+            public $memberRepository;
+
             /**
              * Profile view controller constructor
              */
             public function __construct()
             {
-                // $this->registerAdminActions();
+
             }
             
             /**
@@ -34,7 +39,6 @@
             public function manage()
             {
                 return $this->constructProfileView();
-                add_action('wp_ajax_dxl_profile_event_create', [new ProfileEventController, 'create']);
             }
 
             /**
@@ -57,10 +61,6 @@
              */
             public function constructProfileView()
             {
-                if ( ! is_user_logged_in() ) {
-                    // wp_redirect( home_url() );
-                    exit;
-                }
                 if ( isset( $_GET["module"] ) ) {
                     switch( $_GET["module"] ) {
                         case 'events': 

@@ -78,29 +78,34 @@
 
         switch ( $_REQUEST["type"] ) {
           case 'cooperation':
-
             $data["event_date"] = strtotime($data["event_date"]);
             $data["start_time"] = strtotime($data["start_time"]);
             $data["game_id"] = $_REQUEST["game"];
 
             $updated = $this->cooperationEventRepository->update($data, $_REQUEST['event']);
 
-            if ( ! $updated ) {
-              echo wp_json_encode([
-                "status" => "failed",
-                "response" => "something went wrong"
-              ]);
-              wp_die();
-            }
-
-            echo wp_json_encode(["status" => "success", "response" => "Event updated"]);
-            wp_die();
             break;
 
           case 'training':
+            $data["starttime"] = strtotime($data["starttime"]);
+            $data["endtime"] = strtotime($data["endtime"]);
+            $data["game_id"] = $_REQUEST["game"];
+            $data["start_date"] = strtotime($data["start_date"]);
+
             $this->trainingRepository->update($data, $_REQUEST['event']);
             break;
         }
+
+        if ( ! $updated ) {
+          echo wp_json_encode([
+            "status" => "failed",
+            "response" => "something went wrong"
+          ]);
+          wp_die();
+        }
+
+        echo wp_json_encode(["status" => "success", "response" => "Event updated"]);
+        wp_die();
       }
 
       /**
