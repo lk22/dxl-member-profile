@@ -16,7 +16,13 @@
 							}
 						 ?>
 					</p>
-					<button class="btn btn-danger delete-training-btn" data-event="<?php echo $profile["details"]["event"]->id ?>">Slet <i class="fas fa-trash"></i></button>
+					<button 
+						class="btn btn-danger delete-event-button" 
+						data-event="<?php echo $profile["details"]["event"]->id ?>"
+						data-type="training"
+					>
+						Slet <i class="fas fa-trash"></i>
+					</button>
 				</div>
 			</div>
 		</div>
