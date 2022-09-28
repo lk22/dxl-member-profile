@@ -22,12 +22,14 @@ import { getFormValues, ajaxRequest } from "./utilities";
         deleteEventButton: $(".delete-event-button"),
         publishUnpublishButton: $(".publish-unpublish-event-btn"),
         unpublishEventButton: $(".unpublish-event-button"),
+        updateMemberButton: $(".update-member-btn"),
       };
 
       profile.forms = {
         createEventForm: $(".create-event-modal-form"),
         updateCooperationEventForm: $(".update-cooperation-event-form"),
         updateTrainingEventForm: $(".update-training-event-form"),
+        updateProfileForm: $('.update_profile_settings_form')
       };
 
       profile.actions = {
@@ -56,6 +58,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
       profile.bindUpdateTrainingEvent();
       profile.bindPublishUnpublishEvent();
       profile.bindRequestTrainerPermissions();
+      profile.bindUpdateMember();
     },
     
     /**
@@ -311,6 +314,36 @@ import { getFormValues, ajaxRequest } from "./utilities";
         );
       });
     },
+
+    /**
+     * Bind request update member information
+     */
+    bindUpdateMember: () => {
+      profile.buttons.updateMemberButton.click((e) => {
+        e.preventDefault();
+        const values = getFormValues(profile.forms.updateMemberForm);
+        values.action = profile.actions.updateProfileInformation;
+        values.nonce = profile.nonce;
+
+        ajaxRequest(profile.ajaxurl, "POST", values, (response) => {
+          console.log(response);
+          const parsed = JSON.parse(response);
+
+          if (parsed.status == "success") {
+            window.location.reload();
+          }
+
+          if (parsed.status == "error") {
+            console.log(parsed);
+          }
+        }, () => {
+          console.log("Updating member...");
+          profile.buttons.updateMemberButton.html("Opdaterer...");
+        }, (error) => {
+          console.log(error);
+        })
+      })
+    }
   };
 
   profile.init();

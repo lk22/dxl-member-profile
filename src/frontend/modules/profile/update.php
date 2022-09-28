@@ -1,6 +1,6 @@
 <div class="inner">
 	<h3>Rediger profil</h3>
-	<form action="#" method="POST" id="update_profile_settings_form">
+	<form action="#" method="POST" class="update_profile_settings_form">
 		<input type="hidden" name="member" value="<?php echo $profile["member"]->id ?>">
 		<input type="hidden" name="action" value="<?php echo $profile["action"] ?>">
 		<div class="container-fluid">
@@ -101,7 +101,7 @@
 		</div>
 		</div>
 		<div class="form-group mb-2">
-			<input type="submit" value="Gem instillinger" class="btn submit-settings-form-btn">
+			<input type="submit" value="Gem instillinger" class="btn update-member-btn">
 		</div>
 	</form>
 </div>

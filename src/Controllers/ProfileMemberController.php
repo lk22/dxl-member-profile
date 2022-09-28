@@ -40,7 +40,7 @@
              */
             public function update() 
             {
-                echo json_encode($_REQUEST);
+                echo wp_json_eocode($_REQUEST);
                 wp_die();
             }
         }
