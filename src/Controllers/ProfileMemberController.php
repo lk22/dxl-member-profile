@@ -40,7 +40,39 @@
              */
             public function update() 
             {
-                echo wp_json_eocode($_REQUEST);
+                // echo json_encode($_REQUEST); wp_die();
+                $data = [
+                    "member" => [],
+                    "profile" => []
+                ];
+
+                foreach($_REQUEST as $key => $value) {
+                    if ( isset($_REQUEST[$key]) && !empty($_REQUEST[$key]) ) {
+                        if( $key == "redirect_to_manager" ) $data["profile"][$key] = $value;
+                        if( $key == 'action' || $key == "nonce" || $key == "redirect_to_manager" ){
+                            continue;
+                        }
+
+                        if( $key == "birthyear" ) {
+                            $data["member"]["birthyear"] = date('Y', strtotime($value));
+                        }
+
+                        $data["member"][$key] = $value;
+                    }
+                }
+
+                // validate if request input values has been changed from last request
+                $updated = (new MemberRepository())->update($data["member"], $_REQUEST["id"]);
+
+                $updated = (new MemberProfileRepository())->update([
+                    "redirect_to_manager" => $data["profile"]["redirect_to_manager"]
+                ], $_REQUEST["id"]);
+
+                // $this->memberRepository->update($data["member"]);
+                echo json_encode([
+                    "status" => "success",
+                    "message" => "Member profile updated successfully"
+                ]);
                 wp_die();
             }
         }

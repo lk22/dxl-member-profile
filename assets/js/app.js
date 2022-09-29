@@ -52,13 +52,12 @@ import { getFormValues, ajaxRequest } from "./utilities";
      * Bind all profile events
      */
     bindEvents: () => {
+      profile.bindUpdateMember();
       profile.bindCreateEvent();
       profile.bindDeleteEvent();
       profile.bindUpdateCooperationEvent();
       profile.bindUpdateTrainingEvent();
       profile.bindPublishUnpublishEvent();
-      profile.bindRequestTrainerPermissions();
-      profile.bindUpdateMember();
     },
     
     /**
@@ -290,48 +289,20 @@ import { getFormValues, ajaxRequest } from "./utilities";
     },
 
     /**
-     * Bind request trainer permissions action
-     */
-    bindRequestTrainerPermissions: () => {
-      $("#request-trainer-permissions").on("click", function (e) {
-        e.preventDefault();
-        ajaxRequest(
-          profile.ajaxUrl,
-          "POST",
-          {
-            action: profile.actions.requestTrainerPermissions,
-            nonce: profile.nonce,
-          },
-          (response) => {
-            console.log(response);
-          },
-          (error) => {
-            console.log(error);
-          },
-          () => {
-            console.log("before send");
-          }
-        );
-      });
-    },
-
-    /**
      * Bind request update member information
      */
     bindUpdateMember: () => {
       profile.buttons.updateMemberButton.click((e) => {
         e.preventDefault();
-        const values = getFormValues(profile.forms.updateMemberForm);
+
+        const values = getFormValues(profile.forms.updateProfileForm);
         values.action = profile.actions.updateProfileInformation;
         values.nonce = profile.nonce;
+        console.log(values);
 
         ajaxRequest(profile.ajaxurl, "POST", values, (response) => {
           console.log(response);
           const parsed = JSON.parse(response);
-
-          if (parsed.status == "success") {
-            window.location.reload();
-          }
 
           if (parsed.status == "error") {
             console.log(parsed);

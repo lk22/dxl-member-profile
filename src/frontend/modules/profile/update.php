@@ -1,22 +1,21 @@
 <div class="inner">
 	<h3>Rediger profil</h3>
 	<form action="#" method="POST" class="update_profile_settings_form">
-		<input type="hidden" name="member" value="<?php echo $profile["member"]->id ?>">
-		<input type="hidden" name="action" value="<?php echo $profile["action"] ?>">
+		<input type="hidden" name="id" value="<?php echo $profile["member"]->id ?>">
 		<div class="container-fluid">
 			<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 mb-2">
 			<div class="form-group name mb-2">
 				<label>Fulde navn: </label>
-				<input type="text" name="member-name" value="<?php echo $profile["member"]->name ?>">
+				<input type="text" name="name" value="<?php echo $profile["member"]->name ?>">
 			</div>
 			<div class="form-group gamertag mb-2">
 				<label>Gamertag: </label>
-				<input type="text" name="member-gamertag" value="<?php echo $profile["member"]->gamertag ?>">
+				<input type="text" name="gamertag" value="<?php echo $profile["member"]->gamertag ?>">
 			</div>
 			<div class="form-group gender mb-2">
 				<label>Køn:</label>
-				<select name="member-gender" style="width: 100%">
+				<select name="gender" style="width: 100%">
 					<option value="<?php echo $profile["member"]->gender ?>"><?php echo $profile["member"]->gender; ?></option>
 					<option value="mand">Mand</option>
 					<option value="kvinde">Kvinde</option>
@@ -24,15 +23,15 @@
 			</div>
 			<div class="form-group birthyear mb-2">
 				<label>Fødselsdato:</label>
-				<input type="date" name="member-birthyear" value="<?php echo $profile["member"]->birthyear ?>">
+				<input type="date" name="birthyear" value="<?php echo $profile["member"]->birthyear ?>">
 			</div>
 			<div class="form-group email mb-2">
 				<label>E-mail: </label>	
-				<input type="text" name="member-email" value="<?php echo $profile["member"]->email ?>">
+				<input type="text" name="email" value="<?php echo $profile["member"]->email ?>">
 			</div>
 			<div class="form-group phone mb-2">
 				<label>Telefon:</label>
-				<input type="text" name="member-phone" value="<?php echo $profile["member"]->phone ?>">
+				<input type="text" name="phone" value="<?php echo $profile["member"]->phone ?>">
 			</div>
 			
 		</div>
@@ -40,24 +39,24 @@
 			
 			<div class="form-group municipality mb-2">
 				<label>Komunne:</label>
-				<input type="text" name="member-municipality" value="<?php echo $profile["member"]->municipality ?>">
+				<input type="text" name="municipality" value="<?php echo $profile["member"]->municipality ?>">
 			</div>
 			<div class="form-group address mb-2">
 				<label>Adresse:</label>
-				<input type="text" name="member-address" value="<?php echo $profile["member"]->address ?>">
+				<input type="text" name="address" value="<?php echo $profile["member"]->address ?>">
 			</div>
 			<div class="form-group address mb-2">
 				<label>Bynavn:</label>
-				<input type="text" name="member-city" value="<?php echo $profile["member"]->city ?>">
+				<input type="text" name="city" value="<?php echo $profile["member"]->city ?>">
 			</div>
 			<div class="form-group address mb-2">
 				<label>Postnummer:</label>
-				<input type="text" name="member-zipcode" value="<?php echo $profile["member"]->zipcode ?>">
+				<input type="text" name="zipcode" value="<?php echo $profile["member"]->zipcode ?>">
 			</div>
 			
 			<div class="form-group memberships mb-2">
 				<label">Vælg Medlemsskab:</label>
-				<select name="member-memberships" style="width: 100%">
+				<select name="membership" style="width: 100%">
 					<?php 
 						echo "<option value='" . $profile["currentMembership"]->id . "'>" . $profile["currentMembership"]->name . "</option>";
 						foreach($profile["memberships"] as $membership) 
@@ -79,14 +78,14 @@
 				<label>Ja</label> 
 				<input   
 					type="radio"
-					name="member-membership-recurring"
+					name="auto_renew"
 					value="1"
 					<?php echo ($profile["member"]->auto_renew == 1) ? "checked='checked'" : ""?>"
 				>
 				<label>Nej</label>
 				<input 
 					type="radio"  
-					name="member-membership-recurring" 
+					name="auto_renew" 
 					value="0"
 					<?php echo ($profile["member"]->auto_renew == 0) ? "checked='checked'" : ""?>"
 				>
@@ -101,7 +100,7 @@
 		</div>
 		</div>
 		<div class="form-group mb-2">
-			<input type="submit" value="Gem instillinger" class="btn update-member-btn">
+			<input type="submit" value="Gem instillinger" class="btn btn-primary update-member-btn">
 		</div>
 	</form>
 </div>

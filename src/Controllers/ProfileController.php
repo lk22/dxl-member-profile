@@ -44,7 +44,7 @@
                 add_action('wp_ajax_dxl_profile_edit_event', [new ProfileEventController, 'update']);
                 add_action("wp_ajax_dxl_profile_delete_event", [new ProfileEventController, 'delete']);
                 add_action('wp_ajax_dxl_profile_publish_unpublish_event', [new ProfileEventController, 'publishUnpublishEvent']);
-                add_action('wp_ajax_dxl_profile_update_profile', [new ProfileMemberController, 'update']);
+                add_action('wp_ajax_dxl_profile_update_profile_information', [new ProfileMemberController, 'update']);
             }
 
             /**
