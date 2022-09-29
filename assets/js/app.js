@@ -294,11 +294,10 @@ import { getFormValues, ajaxRequest } from "./utilities";
     bindUpdateMember: () => {
       profile.buttons.updateMemberButton.click((e) => {
         e.preventDefault();
-
+        
         const values = getFormValues(profile.forms.updateProfileForm);
         values.action = profile.actions.updateProfileInformation;
         values.nonce = profile.nonce;
-        console.log(values);
 
         ajaxRequest(profile.ajaxurl, "POST", values, (response) => {
           console.log(response);
