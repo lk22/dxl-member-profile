@@ -14,10 +14,10 @@
 			</div>
 			<div class="col-12 membership-overview">
 				<div class="row membership-heading">
-					<div class="col-11">
+					<div class="col-12 col-md-10">
 						<h3>Medlemsskab</h3>
 					</div>
-					<div class="col-1">
+					<div class="col-12 col-md-2">
 						<p class="text-sm float-right">
 							<?php echo $profile["profileMembership"]->length; ?> måneder
 						</p>

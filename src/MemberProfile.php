@@ -70,7 +70,7 @@
             {
                 global $wpdb, $current_user;
                 if( is_page('manager-profile') ) {
-
+                    show_admin_bar(false);
                     $member = $wpdb->get_row("SELECT * FROM dxl_members WHERE user_id = " . $current_user->ID);
                     $profile = $wpdb->get_row("SELECT * FROM dxl_member_profile_settings WHERE member_id = " . $member->id);
                     wp_enqueue_script('dxl-member-profile', plugins_url('../dist/main.js', __FILE__), ['jquery'], '1.0.0', true);

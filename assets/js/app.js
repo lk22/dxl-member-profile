@@ -45,13 +45,23 @@ import { getFormValues, ajaxRequest } from "./utilities";
       };
 
       profile.bindEvents();
-    
     },
 
     /**
      * Bind all profile events
      */
     bindEvents: () => {
+
+      $('.nav-toggler').click((e) => {
+        console.log("clicked");
+        $('.nav-list').addClass('active');
+      });
+
+      $('.close-button').click((e) => {
+        $('.nav-list').removeClass('active');
+      })
+
+
       profile.bindUpdateMember();
       profile.bindCreateEvent();
       profile.bindDeleteEvent();
@@ -294,7 +304,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
     bindUpdateMember: () => {
       profile.buttons.updateMemberButton.click((e) => {
         e.preventDefault();
-        
+
         const values = getFormValues(profile.forms.updateProfileForm);
         values.action = profile.actions.updateProfileInformation;
         values.nonce = profile.nonce;
@@ -306,9 +316,11 @@ import { getFormValues, ajaxRequest } from "./utilities";
           if (parsed.status == "error") {
             console.log(parsed);
           }
+
+          profile.buttons.updateMemberButton.attr('value', "Gem");
         }, () => {
           console.log("Updating member...");
-          profile.buttons.updateMemberButton.html("Opdaterer...");
+          profile.buttons.updateMemberButton.attr('value', "Opdaterer...");
         }, (error) => {
           console.log(error);
         })
@@ -318,3 +330,19 @@ import { getFormValues, ajaxRequest } from "./utilities";
 
   profile.init();
 })(jQuery);
+
+// quadratic equation algorithm
+function bubbleSort(n) {
+  
+  // first loop makes it a O(n) algorithm
+  for (let outer = 0; outer < n.length; outer++) {
+    // this loop makes it a O(n^2) algorithm
+    for (let inner = outer + 1; inner < n.lnegth; inner++) {
+      if (n[outer] > n[inner]) {
+        let temp = n[outer];
+        n[outer] = n[inner];
+        n[inner] = temp;
+      }
+    }
+   }
+}

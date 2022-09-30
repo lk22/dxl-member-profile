@@ -100,7 +100,7 @@
 		</div>
 		</div>
 		<div class="form-group mb-2">
-			<input type="submit" value="Gem instillinger" class="btn btn-primary update-member-btn">
+			<input type="submit" value="Gem" class="btn btn-primary update-member-btn">
 		</div>
 	</form>
 </div>
