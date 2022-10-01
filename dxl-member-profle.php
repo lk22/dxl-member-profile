@@ -25,4 +25,3 @@
     define('DXL_PROFILE_MODULE_PATH', __DIR__ . '/src/frontend/modules');
 
     register_activation_hook(__FILE__, new MemberProfile());
-?>  
