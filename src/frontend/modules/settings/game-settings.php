@@ -33,8 +33,8 @@
 ?>
 <button data-bs-toggle="modal" data-bs-target="#dxlAddProfileGameModal" class="btn btn-success add-profile-game">Opret spil</button>
 
-<div class="modal fade manager-modal" id="dxlAddProfileGameModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<div class="modal modal-xl fade manager-modal" id="dxlAddProfileGameModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Tilføj spil</h4>

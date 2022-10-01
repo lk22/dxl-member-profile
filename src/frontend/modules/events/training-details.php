@@ -58,7 +58,18 @@
 						 if($profile["details"]["event"]->event_day){
 							 ?>
 								<div class="event-day col-md-6 mb-4">
-									<p><b>Fast dag: hver <?php echo $profile["details"]["event"]->event_day; ?></b></p>
+									<h5>Trænings dag:</h5>
+									<?php 
+										if ( $profile["details"]["event"]->is_recurring ) {
+											?>
+												<p><b>Fast dag: hver <?php echo $profile["details"]["event"]->event_day; ?></b></p>
+											<?php
+										} else {
+											?>
+												<p><b> <?php echo $profile["details"]["event"]->event_day; ?></b></p>
+											<?php
+										}
+									?>
 								</div>
 							 <?php
 						 }
@@ -67,6 +78,7 @@
 			if( $profile["details"]["event"]->description ){
 				?>
 					<div class="col-md-12 mb-4 event-information-description">
+						<h5>Beskrivelse:</h5>
 						<p class="heading"><b><?php echo str_replace(['\n', '/', '\\'], "\n", ucfirst($profile["details"]["event"]->description)); ?></b></p>
 					</div>
 				<?php
