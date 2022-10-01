@@ -4,20 +4,20 @@
 		<div class="info-row container-fluid">
 			<div class="col-12">
 				<div class="row d-flex align-items-center py-4">
-					<div class="col-10">
-						<h1>Hej <?php echo $profile["member"]->name ?></h1>
+					<div class="col-12 col-sm-8 col-md-8">
+						<h3 class="mb-0">Hej <?php echo $profile["member"]->name ?></h3>
 					</div>
-					<div class="col-2 d-flex justify-content-end">
+					<div class="col-12 col-sm-4 col-md-4 d-flex justify-content-sm-end justify-content-start">
 						<a href="<?php echo $manager_url . "/?module=update" ?>" class="btn btn-success">Rediger profil</a>
 					</div>
 				</div>
 			</div>
 			<div class="col-12 membership-overview">
 				<div class="row membership-heading">
-					<div class="col-12 col-md-10">
+					<div class="col-12 col-md-8">
 						<h3>Medlemsskab</h3>
 					</div>
-					<div class="col-12 col-md-2">
+					<div class="col-12 col-md-4 d-flex justify-content-end">
 						<p class="text-sm float-right">
 							<?php echo $profile["profileMembership"]->length; ?> måneder
 						</p>

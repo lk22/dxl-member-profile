@@ -1,9 +1,14 @@
 #profile-layout-main {
   font-family: $font;
+  padding-bottom: 2rem;
 
   .layout-content {
-    border: 1px solid #ccc;
-    padding: 1rem;
+    padding: 0rem 1rem;
     @extend .util-rounded;
+    z-index: unset;
+
+    @media (max-width: 991px) {
+      padding: 3rem 1rem;
+    }
   }
 }

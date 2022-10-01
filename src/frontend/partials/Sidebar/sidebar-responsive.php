@@ -6,24 +6,24 @@
      */
 ?>
 
-<div class="responsive-sidebar d-block d-md-none">
+<div class="responsive-sidebar d-block d-lg-none">
     <div class="row">
         <div class="col-3">
             <div class="nav-toggler">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
-        <div class="col-4">
-            <div class="row flex-nowrap">
-                <div class="logout">
-                    <a href="<?php echo wp_logout_url( home_url() ); ?>">
+        <div class="col-9">
+            <div class="row flex-nowrap justify-content-start">
+                <div class="dxl-home-logout d-flex justify-content-end">
+                    <a class="btn btn-success me-2" href="<?php echo wp_logout_url( home_url() ); ?>">
                         Logud <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                    <a class="btn btn-success" href="<?php echo get_home_url(); ?>">
+                        Gå til DXL <i class="fas fa-home"></i>
                     </a>
                 </div>
                 <div class="dxl">
-                    <a href="<?php echo get_home_url(); ?>">
-                        Gå til DXL <i class="fas fa-home"></i>
-                    </a>
                 </div>
             </div>
         </div>

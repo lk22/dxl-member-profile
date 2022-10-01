@@ -4,10 +4,10 @@
 	 */
  ?>
  <div class="events-heading row">
-	<div class="col-9">
+	<div class="col-7">
 		<h3>Events</h3>
 	</div>
-	<div class="col-3">
+	<div class="col-5 d-flex align-items-center justify-content-end">
 		Du har <?php echo $profile["count"] ?> begivenheder
 	</div>
  </div>
@@ -21,7 +21,7 @@
  		if( $profile["events"] ) {
 			foreach ( $profile["events"] as $event ) {
 				?>
-					<div class="event-card col-4 col-xl-5 position-relative">
+					<div class="event-card col-12 col-xl-5 position-relative">
 						<div class="card-heading row mx-0 align-items-center pt-3">
 							<div class="col-10">
 								<h4 class="fw-semibold mb-0"><?php echo $event->name ?? $event->title ?></h4>
