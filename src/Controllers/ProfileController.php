@@ -54,30 +54,32 @@
              */
             public function constructProfileView()
             {
-                if ( isset( $_GET["module"] ) ) {
-                    switch( $_GET["module"] ) {
-                        case 'events': 
-                            
-                            if ( isset( $_GET["action"] ) && $_GET["action"] == 'details' ) {
-                                $profile = (new ProfileEventDetailsView())->render();
-                            } else {
-                                $profile = (new ProfileEventListView())->render();
-                            }
-
-                            break;
-                        case 'settings': 
-                                $profile = (new ProfileSettingsView())->render();
-
-                            break;
-                            case 'update': 
-                                $profile = (new UpdateProfileView())->render();
+                if (is_page('profile') || is_page('manager-profile')) {
+                    if ( isset( $_GET["module"] ) ) {
+                        switch( $_GET["module"] ) {
+                            case 'events': 
+                                
+                                if ( isset( $_GET["action"] ) && $_GET["action"] == 'details' ) {
+                                    $profile = (new ProfileEventDetailsView())->render();
+                                } else {
+                                    $profile = (new ProfileEventListView())->render();
+                                }
+    
                                 break;
-                        }
-                } else {
-                    $profile = (new ProfileMainView())->render();
+                            case 'settings': 
+                                    $profile = (new ProfileSettingsView())->render();
+    
+                                break;
+                                case 'update': 
+                                    $profile = (new UpdateProfileView())->render();
+                                    break;
+                            }
+                    } else {
+                        $profile = (new ProfileMainView())->render();
+                    }
+                    
+                    require_once DXL_PROFILE_VIEW_PATH . '/layout.php';
                 }
-                
-                require_once DXL_PROFILE_VIEW_PATH . '/layout.php';
             }
         }
     }
