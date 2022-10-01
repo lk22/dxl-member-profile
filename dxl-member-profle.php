@@ -24,5 +24,5 @@
     define('DXL_PROFILE_PARTIALS_PATH', __DIR__ . '/src/frontend/partials');
     define('DXL_PROFILE_MODULE_PATH', __DIR__ . '/src/frontend/modules');
 
-    new MemberProfile();
+    register_activation_hook(__FILE__, new MemberProfile());
 ?>  
