@@ -56,7 +56,7 @@
              */
             public function enqueueProfileStyles()
             {
-                if( is_page('manager-profile') ) {
+                if( is_page('manager-profile') || is_page('profile')) {
                     wp_enqueue_style('dxl-member-profile', plugins_url('./../dist/assets/css/app.min.css', __FILE__));
                 }
             }
@@ -91,7 +91,7 @@
              */
             public function dxlMemberProfile()
             {
-                if (is_page('manager-profile')) {
+                if (is_page('manager-profile') || is_page('profile')) {
                     $this->profileController->manage();
                 }
             }
