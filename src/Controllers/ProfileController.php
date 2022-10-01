@@ -54,7 +54,7 @@
              */
             public function constructProfileView()
             {
-                if (is_page('profile') || is_page('manager-profile')) {
+                // if (is_page('profile') || is_page('manager-profile')) {
                     if ( isset( $_GET["module"] ) ) {
                         switch( $_GET["module"] ) {
                             case 'events': 
@@ -79,7 +79,7 @@
                     }
                     
                     require_once DXL_PROFILE_VIEW_PATH . '/layout.php';
-                }
+                // }
             }
         }
     }
