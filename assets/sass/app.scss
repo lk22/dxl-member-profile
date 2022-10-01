@@ -7,10 +7,10 @@
 
 html {
   margin-top: 0 !important;
-  
-  .site-main {
-    max-width: 1600px;
-  }
+}
+
+body .site-main {
+  max-width: 1600px;
 }
 
 @import "variables";
