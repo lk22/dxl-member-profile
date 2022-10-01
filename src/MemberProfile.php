@@ -24,8 +24,8 @@
                 $this->profileController = new ProfileController();
                 $this->profileController->registerAdminActions();
                 // add_action('wp_ajax_dxl_profile_create_event', [$this, 'createEvent']);
-                $this->constructProfileShortcode();
-                $this->enqueueProfileScripts();
+                // $this->constructProfileShortcode();
+                // $this->enqueueProfileScripts();
             }
 
             /**
