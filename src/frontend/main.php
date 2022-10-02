@@ -87,7 +87,7 @@
 				<?php 
 					if( $profile["lan"] ) {
 						?>
-							<div class="alert <?php echo ($profile["lan"]["participant"]) ? 'alert-success' : 'alert-info' ?> d-flex align-items-center">
+							<div class="alert <?php echo ($profile["lan"]["participant"]) ? 'alert-success' : 'alert-info' ?> d-flex justify-content-center flex-column align-items-start">
 								<?php 
 									if( $profile["lan"]["participant"] ) {
 										?>
@@ -95,7 +95,7 @@
 										<?php
 									} else {
 										?>
-											<p class="text-white">Du er ikke tilmeldt <?php echo $profile["lan"]["event"]->title ?></p>
+											<p class="text-warning">Du er ikke tilmeldt <?php echo $profile["lan"]["event"]->title ?></p>
 											<a href="/events/?action=details&type=lan&slug=<?php echo $profile["lan"]["event"]->slug ?>">Tilmeld dig <?php echo $profile["lan"]["event"]->title ?></a>
 										<?php
 									}
