@@ -95,7 +95,7 @@
 										<?php
 									} else {
 										?>
-											<p class="text-warning">Du er ikke tilmeldt <?php echo $profile["lan"]["event"]->title ?></p>
+											<p class="text-danger">Du er ikke tilmeldt <?php echo $profile["lan"]["event"]->title ?></p>
 											<a href="/events/?action=details&type=lan&slug=<?php echo $profile["lan"]["event"]->slug ?>">Tilmeld dig <?php echo $profile["lan"]["event"]->title ?></a>
 										<?php
 									}
