@@ -1,6 +1,6 @@
 <div class="row event-show-information-container">
 	<div class="inner">
-		<div class="col-md-12 event-detail-header p-3">
+		<div class="col-md-12 event-detail-header p-4">
 			<div class="row">
 				<div class="col-md-8">
 					<h3 class="heading"><?php echo $profile["details"]["event"]->name; ?></h3>
