@@ -203,7 +203,7 @@
         	<div class="form-group">
         		<h5 class="label">Vælg spil</h5>
         		<select name="game">
-        			<option value="<?php echo $profile["game"]->id ?>">
+        			<option value="<?php echo $profile["details"]["game"]->id ?>">
         				<?php echo $profile["details"]["game"]->name ?>
         			</option>
         			<?php 

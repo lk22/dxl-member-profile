@@ -62,6 +62,9 @@
 
         $data = [];
 
+        echo json_encode($_REQUEST["game"]);
+        wp_die();
+
         // implement all request values to data array
         foreach ( $_REQUEST as $key => $value ) {
           if( $key == "event" || $key == "action" || $key == "nonce" || $key == "type" ) {
