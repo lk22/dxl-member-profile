@@ -238,13 +238,14 @@ import { getFormValues, ajaxRequest } from "./utilities";
           if (parsed.status == "error") {
             console.log(parsed);
           }
-
+          profile.buttons.updateTrainingEventButton.html("Opdater");
           profile.modals.editTrainingEventModal.modal('hide');
         }, () => {
           console.log("Updating event...");
           profile.buttons.updateTrainingEventButton.html("Opdaterer...");
         }, (error) => {
           console.log(error);
+          profile.buttons.updateTrainingEventButton.html("Opdater");
         })
       })
     },

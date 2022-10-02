@@ -62,9 +62,6 @@
 
         $data = [];
 
-        echo json_encode($_REQUEST["game"]);
-        wp_die();
-
         // implement all request values to data array
         foreach ( $_REQUEST as $key => $value ) {
           if( $key == "event" || $key == "action" || $key == "nonce" || $key == "type" ) {
@@ -102,7 +99,7 @@
         if ( ! $updated ) {
           echo wp_json_encode([
             "status" => "failed",
-            "response" => "something went wrong"
+            "response" => "Noget gik galt, kunne ikke opdatere begiveneheden"
           ]);
           wp_die();
         }
