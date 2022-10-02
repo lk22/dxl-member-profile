@@ -206,7 +206,7 @@
           "slug" => str_replace(' ', '-', $_REQUEST['event_title']), // creating slug from title
           "description" => $_REQUEST['event_description'],
           "participants_count" => 0,
-          "event_date" => strtotime($_REQUEST['date']),
+          "event_date" => strtotime($_REQUEST['startdate']),
           "start_time" => strtotime($_REQUEST['starttime']),
           "created_at" => time(),
           "game_id" => $_REQUEST['game'],
@@ -249,9 +249,9 @@
           "created_at" => time(),
           "updated_at" => 0,
           "is_draft" => 1,
-          "start_date" => strtotime($_REQUEST['date']),
-          "starttime" => strtotime($_REQUEST['starttime']),
-          "endtime" => strtotime($_REQUEST['endtime']),
+          "start_date" => strtotime($_REQUEST['training-date']),
+          "starttime" => strtotime($_REQUEST['training-starttime']),
+          "endtime" => strtotime($_REQUEST['training-endtime']),
           "event_day" => $_REQUEST['event-day'],
           "is_recurring" => $_REQUEST["is-recurring"],
         ]);

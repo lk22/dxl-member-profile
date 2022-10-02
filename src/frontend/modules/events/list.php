@@ -131,7 +131,7 @@
 			<div class="cooperation-fields">
 				<div class="form-group">
 					<p class="lead label">Start Dato:</p>
-					<input type="date" name="date" class="end form-control">
+					<input type="date" name="startdate" class="end form-control">
 				</div>
 
 				<div class="form-group">
@@ -143,19 +143,19 @@
 			<div class="training-fields d-none">
 				<div class="form-group">
 					<p class="lead label">Start Dato:</p>
-					<input type="date" name="date" class="end form-control">
+					<input type="date" name="training-date" class="end form-control">
 				</div>
 				<div class="row time-fields">
 					<div class="col-6">
 						<div class="form-group">
 							<p class="lead label">Start Tidspunkt:</p>
-							<input type="time" name="starttime" class="starttime form-control">
+							<input type="time" name="training-starttime" class="starttime form-control">
 						</div>
 					</div>
 					<div class="col-6">
 						<div class="form-group">
 							<p class="lead label">Slut Tidspunkt:</p>
-							<input type="time" name="endtime" class="endtime form-control">
+							<input type="time" name="training-endtime" class="endtime form-control">
 						</div>
 					</div>
 				</div>
