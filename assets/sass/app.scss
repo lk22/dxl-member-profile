@@ -6,7 +6,7 @@
 }
 
 html {
-  margin-top: 0 !important;
+  margin: 0 !important;
 }
 
 body .site-main {
@@ -20,5 +20,6 @@ body .site-main {
 @import "layout";
 @import "utilities";
 @import "views/_all";
+
 
 @include applyHeadingSizes();

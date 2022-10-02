@@ -54,32 +54,30 @@
              */
             public function constructProfileView()
             {
-                // if (is_page('profile') || is_page('manager-profile')) {
-                    if ( isset( $_GET["module"] ) ) {
-                        switch( $_GET["module"] ) {
-                            case 'events': 
-                                
-                                if ( isset( $_GET["action"] ) && $_GET["action"] == 'details' ) {
-                                    $profile = (new ProfileEventDetailsView())->render();
-                                } else {
-                                    $profile = (new ProfileEventListView())->render();
-                                }
-    
-                                break;
-                            case 'settings': 
-                                    $profile = (new ProfileSettingsView())->render();
-    
-                                break;
-                                case 'update': 
-                                    $profile = (new UpdateProfileView())->render();
-                                    break;
+                if ( isset( $_GET["module"] ) ) {
+                    switch( $_GET["module"] ) {
+                        case 'events': 
+                            
+                            if ( isset( $_GET["action"] ) && $_GET["action"] == 'details' ) {
+                                $profile = (new ProfileEventDetailsView())->render();
+                            } else {
+                                $profile = (new ProfileEventListView())->render();
                             }
-                    } else {
-                        $profile = (new ProfileMainView())->render();
-                    }
-                    
-                    require_once DXL_PROFILE_VIEW_PATH . '/layout.php';
-                // }
+
+                            break;
+                        case 'settings': 
+                                $profile = (new ProfileSettingsView())->render();
+
+                            break;
+                            case 'update': 
+                                $profile = (new UpdateProfileView())->render();
+                                break;
+                        }
+                } else {
+                    $profile = (new ProfileMainView())->render();
+                }
+                
+                require_once DXL_PROFILE_VIEW_PATH . '/layout.php';
             }
         }
     }

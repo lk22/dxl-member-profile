@@ -42,10 +42,17 @@
              * @return void
              */
             public function render() {
-                global $current_user ,$wpdb;
-                
+                global $current_user, $wpdb;
+
                 $profile = $this->memberRepository->select()->where('user_id', $current_user->ID)->getRow();
                 
+                if ( empty($profile) || $profile->profile_activated == 0 ) {
+                    $this->view = "not-activated";
+                    return [
+                        "view" => $this->view
+                    ];
+                }
+
                 $profileMembership = $this->membershipRepository->select()->where('id', $profile->membership)->getRow();
 
                 $profileSettings = $this->memberProfileRepository->select()->where('member_id', $profile->id)->getRow();

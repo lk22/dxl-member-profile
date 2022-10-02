@@ -72,12 +72,14 @@
                 if( is_page('manager-profile') || is_page('profile') ) {
                     show_admin_bar(false);
                     $member = $wpdb->get_row("SELECT * FROM dxl_members WHERE user_id = " . $current_user->ID);
-                    $profile = $wpdb->get_row("SELECT * FROM dxl_member_profile_settings WHERE member_id = " . $member->id);
+                    if( $member ) {
+                        $profile = $wpdb->get_row("SELECT * FROM dxl_member_profile_settings WHERE member_id = " . $member->id);
+                    }
                     wp_enqueue_script('dxl-member-profile', plugins_url('../dist/main.js', __FILE__), ['jquery'], '1.0.0', true);
                     wp_localize_script('dxl-member-profile', 'dxlMemberProfile', [
                         'ajaxurl' => admin_url('admin-ajax.php'),
                         'nonce' => wp_create_nonce('dxl_member_profile_nonce'),
-                        'profile' => $profile,
+                        'profile' => (isset($profile) ) ? $profile : [],
                         'member' => $member,
                         'prefix' => get_option('siteurl'),
                     ]);
