@@ -45,8 +45,9 @@
                 global $current_user, $wpdb;
 
                 $profile = $this->memberRepository->select()->where('user_id', $current_user->ID)->getRow();
-                
-                if ( empty($profile) || $profile->profile_activated == 0 ) {
+
+                // not logged
+                if ( !isset($curret_user) || empty($profile) || $profile->profile_activated == 0 ) {
                     $this->view = "not-activated";
                     return [
                         "view" => $this->view
