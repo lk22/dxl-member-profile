@@ -2,8 +2,8 @@
     <div class="row">
 
         <?php
-
-            if( ! isset($profile) || ! isset($profile["member"]) ) {
+            if( $profile["view"] == "not-activated" ) {
+                var_dump($profile);
                 require DXL_PROFILE_VIEW_PATH . "/" . $profile["view"] . ".php";
             } else {
                 ?>
