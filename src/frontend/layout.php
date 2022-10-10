@@ -1,7 +1,8 @@
 <div id="profile-layout-main" class="container-fluid">
     <div class="row">
 
-        <?php 
+        <?php
+
             if( ! isset($profile) || ! isset($profile["member"]) ) {
                 require DXL_PROFILE_VIEW_PATH . "/" . $profile["view"] . ".php";
             } else {
@@ -16,7 +17,6 @@
                             } else if ( ! isset($profile["member"]) )  {
                                 require DXL_PROFILE_VIEW_PATH . "/" . $profile["view"] . ".php";
                             } else {
-                                var_dump($profile);
                                 require DXL_PROFILE_VIEW_PATH . "/" . "main.php";
                             }
                         ?>

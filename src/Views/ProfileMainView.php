@@ -47,7 +47,7 @@
                 $profile = $this->memberRepository->select()->where('user_id', $current_user->ID)->getRow();
 
                 // not logged
-                if ( !isset($curret_user) || empty($profile) || $profile->profile_activated == 0 ) {
+                if ( $current_user->ID == 0 || !isset($profile) || isset($profile) && $profile->profile_activated == 0 ) {
                     $this->view = "not-activated";
                     return [
                         "view" => $this->view

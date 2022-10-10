@@ -148,7 +148,7 @@
                 $event = $this->trainingRepository->select()->where('slug', "'$_GET[slug]'")->getRow();
                 $participants = $this->getParticipants("is_training", $event->id);
                 $game = $this->profileGameRepository->find($event->game_id);
-                
+
                 return [
                     "event" => $event,
                     "participants" => $participants,
