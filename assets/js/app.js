@@ -24,6 +24,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
         unpublishEventButton: $(".unpublish-event-button"),
         updateMemberButton: $(".update-member-btn"),
         createGameButton: $(".submit-add-profile-game"),
+        deleteGameButton: $('.delete-profile-game')
       };
 
       profile.forms = {
@@ -31,7 +32,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
         updateCooperationEventForm: $(".update-cooperation-event-form"),
         updateTrainingEventForm: $(".update-training-event-form"),
         updateProfileForm: $('.update_profile_settings_form'),
-        createGameForm: $('.dxl-profile-add-game-form')
+        createGameForm: $('.dxl-profile-add-game-form'),
       };
 
       profile.actions = {
@@ -360,7 +361,33 @@ import { getFormValues, ajaxRequest } from "./utilities";
             console.log(error);
           })
       });
-    }
+
+      // deleting game event
+      profile.buttons.deleteGameButton.click((e) => {
+          e.preventDefault()
+
+          const gameId = e.currentTarget.dataset.game;
+          const action = profile.actions.deleteGame;
+
+          ajaxRequest(profile.ajaxurl, "POST", {
+            gameId: gameId,
+            action: action,
+            nonce: profile.nonce
+          }, (response) => {
+            console.log(response);
+            if ( response.success ) {
+              window.location.reload();
+            } else {
+              console.log(response.data.message);
+            }
+          }, () => {
+            console.log("Deleting game...");
+          }, (error) => {
+            console.log(error);
+          }
+        )
+      })
+    } 
   };
 
   profile.init();

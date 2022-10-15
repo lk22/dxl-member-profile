@@ -51,6 +51,28 @@ if ( ! class_exists('ProfileGameController') )
 
             wp_die();
         }
+
+        /**
+         * delete profile game
+         *
+         * @return void
+         */
+        public function delete(): void 
+        {
+            $deleted = $this->profileGameController->delete($_REQUEST["gameId"]);
+
+            if ( ! $deleted ) {
+                echo wp_send_json_error([
+                    'message' => 'something went wrong Game not deleted, please try again'
+                ]);
+            } 
+            
+            echo wp_send_json_success([
+                'message' => 'Game deleted successfully'
+            ]);
+
+            wp_die();
+        }
     }
 }
 

@@ -47,6 +47,7 @@
                 add_action('wp_ajax_dxl_profile_publish_unpublish_event', [new ProfileEventController, 'publishUnpublishEvent']);
                 add_action('wp_ajax_dxl_profile_update_profile_information', [new ProfileMemberController, 'update']);
                 add_action('wp_ajax_dxl_profile_create_game', [new ProfileGameController, 'create']);
+                add_action('wp_ajax_dxl_profile_delete_game', [new ProfileGameController, 'delete']);
             }
 
             /**
