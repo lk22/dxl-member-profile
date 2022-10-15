@@ -27,7 +27,7 @@
             "url" => $manager_url . "?module=settings&type=games",
             "icon" => '<i class="fas fa-user-cog"></i>'
         ),
-        "Indstillinger" => [
+        /*"Indstillinger" => [
             "icon" =>'<i class="fas fa-user-cog"></i>',
             "sub" => [
                 "Spil indstillinger" => [
@@ -35,7 +35,7 @@
                     "icon" => '<i class="fas fa-gamepad"></i>'
                 ]
             ]
-        ],
+        ],*/
         // "invitationer" => array(
         // 	"url" => $manager_url . "?module=invitations",
         // 	"icon" => '<i class="fas fa-user-friends"></i>'

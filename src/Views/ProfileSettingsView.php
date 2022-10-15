@@ -72,6 +72,7 @@
 
 
                 return [
+                    "member" => $member,
                     "view" => $this->module . "/" . $this->view,
                     "settings" => $settings
                 ];

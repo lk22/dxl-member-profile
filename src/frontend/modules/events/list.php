@@ -3,7 +3,7 @@
 	 * Profile manager list partial
 	 */
  ?>
- <div class="events-heading row">
+ <div class="events-heading row bg-success rounded text-white p-4">
 	<div class="col-7">
 		<h3>Events</h3>
 	</div>
@@ -15,7 +15,6 @@
  <div class="event-list-container">
  	<div class="col-md-12 events-container">
 		<div class="row events-list gap-4 mx-0 my-4">
-
 		
  	<?php 
  		if( $profile["events"] ) {
@@ -75,7 +74,11 @@
 					</div>
 				<?php
 			}
- 		}
+ 		} else {
+			?>
+				<div class="alert alert-info">Du har ingen begivenheder oprettet</div>
+			<?php
+		}
  	 ?>
 	 </div>
  	</div>

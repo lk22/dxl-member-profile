@@ -3,6 +3,7 @@
         ?>
             <h3>Se dine nuværende mest aktive spil</h3>
             <p>Disse spil vil du kunne bruge til at vise andre hvad du spiller og til dine begivenheder</p>
+            
             <table class="widelist">
                 <thead>
                     <th>Spil</th>
@@ -15,7 +16,7 @@
                                 <tr>
                                     <td><b><?php echo $game->name; ?></b></td>
                                     <td>
-                                        <span class="label label-success"><?php echo unserialize($game->gamemodes); ?></span>
+                                        <span class="label label-success"><?php echo $game->gamemodes ?></span>
                                     </td>
                                     <td><button class="btn btn-danger button-danger delete-profile-game" data-game="<?php echo $game->id; ?>">Slet</button></td>
                                 </tr>
@@ -41,7 +42,7 @@
       </div>
       <div class="modal-body">
         <form action="#" method="post" class="dxl-profile-add-game-form">
-            <input type="hidden" name="member_id" value="<?php echo $profile->id; ?>">
+            <input type="hidden" name="member_id" value="<?php echo $profile["member"]->id; ?>">
 			<div class="form-group">
                 <label for="game_name">
                     Indtast spil navn <span style="color: red">*</span>

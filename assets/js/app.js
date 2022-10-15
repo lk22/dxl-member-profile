@@ -23,13 +23,15 @@ import { getFormValues, ajaxRequest } from "./utilities";
         publishUnpublishButton: $(".publish-unpublish-event-btn"),
         unpublishEventButton: $(".unpublish-event-button"),
         updateMemberButton: $(".update-member-btn"),
+        createGameButton: $(".submit-add-profile-game"),
       };
 
       profile.forms = {
         createEventForm: $(".create-event-modal-form"),
         updateCooperationEventForm: $(".update-cooperation-event-form"),
         updateTrainingEventForm: $(".update-training-event-form"),
-        updateProfileForm: $('.update_profile_settings_form')
+        updateProfileForm: $('.update_profile_settings_form'),
+        createGameForm: $('.dxl-profile-add-game-form')
       };
 
       profile.actions = {
@@ -68,6 +70,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
       profile.bindUpdateCooperationEvent();
       profile.bindUpdateTrainingEvent();
       profile.bindPublishUnpublishEvent();
+      profile.bindGameEvents();
     },
     
     /**
@@ -326,24 +329,39 @@ import { getFormValues, ajaxRequest } from "./utilities";
           console.log(error);
         })
       })
+
+    },
+    
+    /**
+     * Bind all game related events
+     */
+    bindGameEvents: () => {
+      profile.buttons.createGameButton.click((e) => {
+        e.preventDefault()
+
+          const values = getFormValues(profile.forms.createGameForm);
+          values.action = profile.actions.createGame;
+          values.nonce = profile.nonce;
+
+          ajaxRequest(profile.ajaxurl, "POST", values, (response) => {
+            console.log(response);
+
+            if ( response.success ) {
+              window.location.reload();
+            }
+
+            if ( response.success == false ) {
+              console.log(response.data.message);
+            }
+
+          }, () => {
+            console.log("Creating game...");
+          }, (error) => {
+            console.log(error);
+          })
+      });
     }
   };
 
   profile.init();
 })(jQuery);
-
-// quadratic equation algorithm
-function bubbleSort(n) {
-  
-  // first loop makes it a O(n) algorithm
-  for (let outer = 0; outer < n.length; outer++) {
-    // this loop makes it a O(n^2) algorithm
-    for (let inner = outer + 1; inner < n.lnegth; inner++) {
-      if (n[outer] > n[inner]) {
-        let temp = n[outer];
-        n[outer] = n[inner];
-        n[inner] = temp;
-      }
-    }
-   }
-}
