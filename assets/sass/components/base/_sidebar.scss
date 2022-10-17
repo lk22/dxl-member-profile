@@ -1,18 +1,30 @@
 .sidebar {
-  @media (max-width: 1023px) {
+  padding-right: 0 !important;
+  border-radius: 20px 0px 0px 20px !important;
+  -webkit-border-radius: 20px 0px 0px 20px !important;
+  -moz-border-radius: 20px 0px 0px 20px !important;
+  -ms-border-radius: 20px 0px 0px 20px !important;
+  -o-border-radius: 20px 0px 0px 20px !important;
+  height: 800px;
+
+  @media(max-width: 1023px) {
     height: auto;
   }
 
   .menu-bar{
     background-color: $secondary-color;
-    height: 100vh;
+    height: inherit;
     list-style: none;
     padding: 0;
     margin: 0;
     border:none;
     padding: 2rem;
     width: 100%;
-    @extend .util-rounded; // apply 15 px border radius to sidebar
+    border-radius: 15px 0px 0px 15px !important;
+    -webkit-border-radius: 15px 0px 0px 15px !important;
+    -moz-border-radius: 15px 0px 0px 15px !important;
+    -ms-border-radius: 15px 0px 0px 15px !important;
+    -o-border-radius: 15px 0px 0px 15px !important;
   }
 
   ul.navigation {
