@@ -1,4 +1,5 @@
-import { getFormValues, ajaxRequest } from "./utilities";
+import { getFormValues, useAjaxRequest } from "./utilities";
+import { useDialog, usePrompt, useConfirm, useAlert } from "./utilities/dialog";
 (($) => {
   const profile = {
     init: () => {
@@ -113,7 +114,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
         values.nonce = profile.nonce;
         values.profile = dxlMemberProfile.member.user_id;
         console.log(values);
-        ajaxRequest(
+        useAjaxRequest(
           profile.ajaxurl,
           "POST",
           values,
@@ -150,27 +151,16 @@ import { getFormValues, ajaxRequest } from "./utilities";
      */
     bindDeleteEvent() {
       profile.buttons.deleteEventButton.click((e) => {
-        const eventId = e.currentTarget.dataset.event;
-        const type = e.currentTarget.dataset.type;
 
-        ajaxRequest(profile.ajaxurl, "POST", {
-          action: profile.actions.deleteEvent,
-          nonce: profile.nonce,
-          event_id: eventId,
-          event_type: type,
-        }, (response) => {
-          console.log(response)
+        useConfirm("Er du sikker på at du vil slette dette event?", (result) => {
+          console.log(result);
 
-          const parsed = JSON.parse(response);
+          if ( result ) {
+            const eventId = e.currentTarget.dataset.event;
+            const type = e.currentTarget.dataset.type;
 
-          if (parsed.status == "success") {
-            // go back two step
-            window.location.href = profile.url + "?module=events";
-          }   
-        }, () => {
-          console.log("Deleting event...");
-        }, (error) => {
-          console.log(error);
+            profile.deleteEventAjax(eventId, type);
+          }
         });
       })
     },
@@ -189,7 +179,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
         values.nonce = profile.nonce;
         values.type = type;
         console.log(values);
-        ajaxRequest(
+        useAjaxRequest(
           profile.ajaxurl,
           "POST",
           values,
@@ -230,7 +220,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
         values.nonce = profile.nonce;
         values.type = type;
 
-        ajaxRequest(profile.ajaxurl, 'POST', values, (response) => {
+        useAjaxRequest(profile.ajaxurl, 'POST', values, (response) => {
           console.log(response);
 
           const parsed = JSON.parse(response);
@@ -267,7 +257,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
         console.log(e);
         console.log(eventAction);
 
-        ajaxRequest(profile.ajaxurl, "POST", {
+        useAjaxRequest(profile.ajaxurl, "POST", {
           action: profile.actions.publisUnpublishEvent,
           nonce: profile.nonce,
           event_id: eventId,
@@ -314,16 +304,25 @@ import { getFormValues, ajaxRequest } from "./utilities";
         values.action = profile.actions.updateProfileInformation;
         values.nonce = profile.nonce;
 
-        ajaxRequest(profile.ajaxurl, "POST", values, (response) => {
+        useAjaxRequest(profile.ajaxurl, "POST", values, (response) => {
           console.log(response);
           const parsed = JSON.parse(response);
 
           if (parsed.status == "error") {
-            console.log(parsed);
+            useAlert("Der skete en fejl, prøv igen senere", () => {
+              console.log(parsed);
+            });
+          } else {
+            useAlert("Dine oplysninger blev opdateret", () => {});
           }
 
           profile.buttons.updateMemberButton.attr('value', "Gem");
         }, () => {
+
+          useAlert("Opdaterer Dine oplysninger", () => {
+            console.log("Updating member...");
+          })
+
           console.log("Updating member...");
           profile.buttons.updateMemberButton.attr('value', "Opdaterer...");
         }, (error) => {
@@ -344,7 +343,7 @@ import { getFormValues, ajaxRequest } from "./utilities";
           values.action = profile.actions.createGame;
           values.nonce = profile.nonce;
 
-          ajaxRequest(profile.ajaxurl, "POST", values, (response) => {
+          useAjaxRequest(profile.ajaxurl, "POST", values, (response) => {
             console.log(response);
 
             if ( response.success ) {
@@ -365,29 +364,77 @@ import { getFormValues, ajaxRequest } from "./utilities";
       // deleting game event
       profile.buttons.deleteGameButton.click((e) => {
           e.preventDefault()
-
           const gameId = e.currentTarget.dataset.game;
-          const action = profile.actions.deleteGame;
 
-          ajaxRequest(profile.ajaxurl, "POST", {
-            gameId: gameId,
-            action: action,
-            nonce: profile.nonce
-          }, (response) => {
-            console.log(response);
-            if ( response.success ) {
-              window.location.reload();
-            } else {
-              console.log(response.data.message);
+          useConfirm("Er du sikker på at du vil slette dette spil?", (result) => {
+            if ( result ) {
+              const action = profile.actions.deleteGame;
+    
+              profile.deleteGameAjax(gameId, {
+                gameId: gameId,
+                action: action,
+                nonce: profile.nonce
+              });
             }
-          }, () => {
-            console.log("Deleting game...");
-          }, (error) => {
-            console.log(error);
-          }
-        )
+          });
       })
-    } 
+    },
+
+    /**
+     * request to delete game
+     * @param {*} game 
+     * @param {*} action 
+     */
+    deleteGameAjax: (game, data) => {
+      useAjaxRequest(profile.ajaxurl, "POST", data, (response) => {
+          console.log(response);
+          if ( response.success ) {
+            useAlert("Spillet er blevet slettet", () => {
+              window.location.reload();
+            });
+          } else {
+            console.log(response.data.message);
+          }
+        }, () => {
+          useDialog({
+            title: "Sletter spil",
+            message: "Sletter spil vent venligst..."
+          })
+        }, (error) => {
+          console.log(error);
+        }
+      )
+    },
+
+    /**
+     * send request to server to delete event 
+     * @param {*} event 
+     * @param {*} type 
+     */
+    deleteEventAjax: (event, type) => {
+      useAjaxRequest(profile.ajaxurl, "POST", {
+          action: profile.actions.deleteEvent,
+          nonce: profile.nonce,
+          event_id: event,
+          event_type: type,
+        }, (response) => {
+          console.log(response);
+
+          const parsed = JSON.parse(response);
+
+          if (parsed.status == "success") {
+            // go back two step
+            window.location.href = profile.url + "?module=events";
+          }   
+        }, () => {
+          useDialog({
+            title: "Sletter begivenhed...",
+            message: "Vent venligst mens begivenheden bliver slettet..."
+          })
+        }, (error) => {
+          console.log(error);
+        });
+    }
   };
 
   profile.init();

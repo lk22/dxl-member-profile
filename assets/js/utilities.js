@@ -23,7 +23,7 @@ export const getFormValues = (form) => {
  * @param Function beforeSend 
  * @returns 
  */
-export const ajaxRequest = (url, method, data, success, beforeSend, error) => {
+export const useAjaxRequest = (url, method, data, success, beforeSend, error) => {
   jQuery.ajax({
     url,
     method,
