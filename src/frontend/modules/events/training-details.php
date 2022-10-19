@@ -147,9 +147,11 @@
 						Sæt til udkast
 					</button>
 					<a href="<?php echo get_home_url() ?>/events/?event_action=show&event_type=training&slug=<?php echo $_GET["slug"] ?>" class="btn btn-primary">Se begivenhed</a>
-		 		<?php
+		 		
+				<?php
 		 	}
 		  ?>
+		  <a href="<?php echo get_home_url() ?>/manager-profile/?module=events" class="btn">Gå tilbage</a>
 	</div>
 </div>
 
@@ -162,31 +164,31 @@
       <div class="modal-body">
         <form action="#" method="POST" class="update-training-event-form">
         	<input type="hidden" name="event" value="<?php echo $profile["details"]["event"]->id; ?>">
-        	<div class="form-group">
+        	<div class="form-group mb-4">
         		<h4 class="label">Titel:</h4>
         		<input type="text" class="form-control" value="<?php echo $profile["details"]["event"]->name ?>" name="name" required>
         	</div>
 
-	        <div class="form-group">
+	        <div class="form-group mb-4">
 	            <h4 class="label">Beskrivelse:</h4>
 	            <textarea name="description" id="event_description" cols="30" rows="3">
 	            	<?php echo str_replace('\n', "\n", $profile["details"]["event"]->description) ?>
 	            </textarea>
 	        </div>
 
-        	<div class="form-group">
+        	<div class="form-group mb-4">
         		<h4 class="label">Start Dato:</h4>
         		<input type="date" name="start_date" value="<?php echo date("Y-m-d", $profile["details"]["event"]->start_date) ?>" class="end form-control">
         	</div>
 
         	<div class="row">
-        		<div class="form-group col-md-6">
+        		<div class="form-group mb-4 col-md-6">
         			<h4 class="label">Fast trænings dag?</h4>
         			<label>Ja</label><input type="radio" name="is_recurring" <?php echo ($profile["details"]["event"]->is_recurring == 1) ? 'checked="checked"' : '' ?> value="1">
         			<label>Nej</label><input type="radio" name="is_recurring" <?php echo ($profile["details"]["event"]->is_recurring == 0) ? 'checked="checked"' : '' ?> value="0">
         		</div>
 
-				<div class="form-group col-md-6 training_day_field" style="<?php echo ($profile["details"]["event"]->is_recurring == 1) ? '' : 'display:none;'; ?>"> 
+				<div class="form-group col-md-6 training_day_field mb-4" style="<?php echo ($profile["details"]["event"]->is_recurring == 1) ? '' : 'display:none;'; ?>"> 
         			<h4 class="label">Vælg trænings dag</h4>
         			<select name="event_day" id="training_days">
         				<option value="Mandag">Mandag</option>
@@ -200,7 +202,7 @@
         		</div>
         	</div>
 
-        	<div class="form-group">
+        	<div class="form-group mb-4">
         		<h5 class="label">Vælg spil</h5>
         		<select name="game">
         			<option value="<?php echo $profile["details"]["game"]->id ?>">
@@ -219,12 +221,12 @@
         	</div>
 
 			<div class="row">
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-6 mb-4">
 	        		<h4 class="label">Start Tidspunkt:</h4>
 	        		<input type="time" name="starttime" value="<?php echo date("H:i", $profile["details"]["event"]->starttime) ?>" class="starttime form-control">
 	        	</div>
 
-	        	<div class="form-group col-md-6">
+	        	<div class="form-group col-md-6 mb-4">
 	        		<h4 class="label">Slut Tidspunkt:</h4>
 	        		<input type="time" name="endtime" value="<?php echo date("H:i", $profile["details"]["event"]->endtime) ?>" class="endtime form-control">
 	        	</div>

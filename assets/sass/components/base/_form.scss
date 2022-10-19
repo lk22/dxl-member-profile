@@ -1,0 +1,32 @@
+form {
+    select, textarea {
+        border: 3px solid $secondary-color !important;
+        border-radius: 10px !important;
+        -webkit-border-radius: 10px !important;
+        -moz-border-radius: 10px !important;
+        -ms-border-radius: 10px !important;
+        -o-border-radius: 10px !important;
+    }
+    
+    input {
+        &[type="text"], &[type="email"], &[type="password"], &[type="number"], &[type="tel"], &[type="url"], &[type="search"], &[type="date"], &[type="month"], &[type="week"], &[type="time"], &[type="datetime"], &[type="datetime-local"], &[type="color"], &[type="file"] {
+            background: $secondary-color;
+            border: 3px solid $secondary-color !important;
+            border-radius: 10px !important;
+            -webkit-border-radius: 10px !important;
+            -moz-border-radius: 10px !important;
+            -ms-border-radius: 10px !important;
+            -o-border-radius: 10px !important;
+            color: #fff;
+        }
+
+        &[type="radio"] {
+            border: 3px solid $secondary-color !important;
+            border-radius: 10px !important;
+            -webkit-border-radius: 10px !important;
+            -moz-border-radius: 10px !important;
+            -ms-border-radius: 10px !important;
+            -o-border-radius: 10px !important;
+        }
+    }
+}

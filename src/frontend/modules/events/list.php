@@ -76,13 +76,25 @@
 			}
  		} else {
 			?>
-				<div class="alert alert-info">Du har ingen begivenheder oprettet</div>
+				<div class="not-found-events p-5">
+					<div class="row">
+						<div class="col-5">
+							<img src="<?php echo DXL_PROFILE_ASSETS_PATH ."/images/dunno.png" ?>" alt="">
+						</div>
+						<div class="col-7">
+							<p class="lead fw-bold">
+								Du har ingen begivenheder registreret,
+								Klik på “Opret begivenhed” knappen nedenfor
+							</p>
+						</div>
+					</div>
+				</div>
 			<?php
 		}
  	 ?>
 	 </div>
  	</div>
- 	<button data-bs-toggle="modal" data-bs-target="#createEventModal" class="btn btn-primary create-cooperation-event-btn">Ny begivenhed</button>
+ 	<button data-bs-toggle="modal" data-bs-target="#createEventModal" class="btn btn-primary create-cooperation-event-btn">Opret begivenhed</button>
  </div>
 
 <div class="modal modal-xl fade manager-modal" id="createEventModal" tabindex="-1" role="dialog">

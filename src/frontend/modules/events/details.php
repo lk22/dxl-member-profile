@@ -142,7 +142,7 @@
 					<?php
 				}
 			?>
-			<a href="/manager-profile/?view=events" class="btn">Gå tilbage</a>
+			<a href="<?php echo get_home_url() ?>/manager-profile/?module=events" class="btn">Gå tilbage</a>
 		</div>
 	</div>
 </div>
@@ -157,17 +157,17 @@
         <form action="#" method="post" class="update-cooperation-event-form">
         	<input type="hidden" name="event" value="<?php echo $profile["details"]["event"]["item"]->id; ?>">
 
-        	<div class="form-group">
+        	<div class="form-group mb-4">
         		<h5 class="label">Title</h5>
         		<input type="text" name="title" value="<?php echo $profile["details"]["event"]["item"]->title ?>">
         	</div>
 
-        	<div class="form-group">
+        	<div class="form-group mb-4">
         		<h5 class="label">description</h5>
         		<textarea name="description" cols="30" rows="5"><?php echo $profile["details"]["event"]["item"]->description ?></textarea>
         	</div>
 
-        	<div class="form-group">
+        	<div class="form-group mb-4">
         		<h5 class="label">Vælg spil</h5>
         		<select name="game">
         			<option value="<?php echo $profile["details"]["event"]["game"]->id ?>">
@@ -185,13 +185,13 @@
         		</select>
         	</div>
 
-        	<div class="form-group">
+        	<div class="form-group mb-4">
         		<div class="col-md-6">
         			<h5 class="label">Start dato</h5>
         			<input type="date" name="event_date" class="form-control" value="<?php echo date('Y-m-d', $profile["details"]["event"]["item"]->event_date) ?>">
         		</div>
 
-        		<div class="col-md-6">
+        		<div class="col-md-6 mb-4">
         			<h5 class="label">Start tidspunkt</h5>
         			<input type="time" name="start_time" class="starttime form-control" value="<?php echo date('H:m', $profile["details"]["event"]["item"]->start_time) ?>">
         		</div>

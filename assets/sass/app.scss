@@ -9,9 +9,16 @@ html {
   margin: 0 !important;
 }
 
+body.page-id-608 {
+  background: #dfdfdf !important;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+}
+
 body .site-main {
   max-width: 100% !important;
-
+  background: #dfdfdf;
 }
 
 @import "variables";

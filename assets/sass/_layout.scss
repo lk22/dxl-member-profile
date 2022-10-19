@@ -2,7 +2,7 @@
   font-family: $font;
   padding-bottom: 2rem;
   max-width: 1800px;
-  height: 800px;
+  height: 1000px;
 
   @media (max-width: 1799px) {
     margin: 0rem 2rem;
@@ -10,16 +10,16 @@
 
   .layout-content {
     padding: 3rem;
-    @extend.util-rounded;
     z-index: unset;
     background: #eee !important;
-    border-radius: 0px !important;
-    -webkit-border-radius: 0px !important;
-    -moz-border-radius: 0px !important;
-    -ms-border-radius: 0px !important;
-    -o-border-radius: 0px !important;
-    @media(max-width: 991px)    
-{
+    border-radius: 0px 15px 15px 0px !important;
+    -webkit-border-radius: 0px 15px 15px 0px !important;
+    -moz-border-radius: 0px 15px 15px 0px !important;
+    -ms-border-radius: 0px 15px 15px 0px !important;
+    -o-border-radius: 0px 15px 15px 0px !important;
+    height: 1000px;
+    overflow-y: scroll !important;
+    @media(max-width: 991px){
       padding: 3rem 1rem;
     }
   }
