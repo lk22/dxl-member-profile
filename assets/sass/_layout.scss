@@ -6,6 +6,7 @@
 
   @media (max-width: 1799px) {
     margin: 0rem 2rem;
+    height: 100%;
   }
 
   .layout-content {
@@ -21,6 +22,10 @@
     overflow-y: scroll !important;
     @media(max-width: 991px){
       padding: 3rem 1rem;
+    }
+
+    @media (max-width: 1799px) {
+      height: 800px;
     }
   }
 

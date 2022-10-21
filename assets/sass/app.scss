@@ -3,10 +3,11 @@
 */
 :root {
   --container-max-width: 1920px !important;
+  --bg-success: #007d00 !important;
 }
 
 html {
-  margin: 0 !important;
+  margin-top: 0px !important;
 }
 
 body.page-id-608 {
@@ -14,6 +15,7 @@ body.page-id-608 {
   height: 90vh;
   display: flex;
   align-items: center;
+  padding-top: 50px !important;
 }
 
 body .site-main {

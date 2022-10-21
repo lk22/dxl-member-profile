@@ -6,7 +6,7 @@
                 require DXL_PROFILE_VIEW_PATH . "/" . $profile["view"] . ".php";
             } else {
                 ?>
-                    <div class="col-12 col-lg-4 col-lg-3 col-xl-2 col-xxl-2 sidebar">
+                    <div class="col-12 col-lg-3 col-xl-2 col-xxl-2 sidebar">
                         <?php require DXL_PROFILE_PARTIALS_PATH . '/sidebar.php'; ?>
                     </div>
                     <div class="col-12 col-lg-9 col-xl-10 col-xxl-10 shadow-sm layout-content">
