@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col-md-8">
 					<h3 class="heading"><?php echo $profile["details"]["event"]->name; ?></h3>
-					<p class="mb-0">Trænings begivenhed</p>
+					<p class="mb-0">Turnering</p>
 				</div>
 				<div class="col-md-4 d-flex align-items-center justify-content-start justify-content-md-end gap-4">
 					<p class="text-sm mb-0">
