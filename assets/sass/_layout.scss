@@ -2,6 +2,10 @@
   font-family: $font;
   padding-bottom: 2rem;
   height: 1000px;
+  
+  &.not-activated {
+    max-width: 100%;
+  }
 
   &:not(.not-activated) {
     max-width: 1800px;
