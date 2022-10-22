@@ -1,4 +1,4 @@
-<div id="profile-layout-main" class="container-fluid">
+<div id="profile-layout-main <?php if ( $profile["view"] == "not-activated" ) { echo "not-activated"} ?>" class="container-fluid">
     <div class="row">
 
         <?php
