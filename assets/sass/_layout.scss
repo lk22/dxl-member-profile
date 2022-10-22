@@ -1,16 +1,17 @@
 #profile-layout-main {
   font-family: $font;
   padding-bottom: 2rem;
+  // max-width: 1800px;
   height: 1000px;
-  
-  &#not-activated { 
+
+  &:not(.not-activated) {
+    max-width: 1800px;
+  }
+
+  &.not-activated {
     max-width: 100%;
   }
 
-  &:not(#not-activated) {
-    max-width: 1800px;
-  }
- 
   @media (max-width: 1799px) {
     margin: 0rem 2rem;
     height: 100%;
@@ -27,7 +28,7 @@
     -o-border-radius: 0px 15px 15px 0px !important;
     height: 1000px;
     overflow-y: scroll !important;
-    @media(max-width: 991px){
+    @media(max-width: 991px){ 
       padding: 3rem 1rem;
     }
 
