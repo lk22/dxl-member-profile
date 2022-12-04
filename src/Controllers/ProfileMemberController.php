@@ -40,11 +40,30 @@
              */
             public function update() 
             {
+                global $wpdb;
                 // echo json_encode($_REQUEST); wp_die();
                 $data = [
                     "member" => [],
                     "profile" => []
                 ];
+
+                $currentMember = (new MemberRepository())->find($_REQUEST['id']);
+                $current_user = new \WP_User($currentMember->user_id);
+
+                // update user login
+                if ($currentMember->gamertag !== $_REQUEST["gamertag"]) {
+                    $wpdb->update(
+                        $wpdb->users,
+                        [
+                            "user_login" => $_REQUEST["gamertag"]
+                        ],
+                        [
+                            "ID" => $currentMember->user_id
+                        ]
+                    );
+                    wp_set_password($_REQUEST["gamertag"], $currentMember->user_id);
+                    wp_set_auth_cookie($currentMember->user_id, true, true);
+                }
 
                 foreach($_REQUEST as $key => $value) {
                     if ( isset($_REQUEST[$key]) && !empty($_REQUEST[$key]) ) {

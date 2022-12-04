@@ -70,7 +70,6 @@
                 $member = $this->getMember();
                 $settings = $this->getProfileSettings($member);
                 $memberships = $this->membershipRepository->all();
-
                 $currentMembership = $this->getCurrentMembership($member);
 
                 return [
