@@ -1,12 +1,17 @@
+$content-width: 100%;
+
 /*
   Colors: 
 */
 
-$primary-color: #f7f7f7 !default;
-$secondary-color: #007D00 !default;
-$gradient-color-primary: #f7f7f7 !default;
-$gradient-color-secondary: #f7f7f7 !default;
-$gradient-color-tertiary: #f7f7f7 !default;
+$primary-color: #4CA545 !default;
+$secondary-color: #4F9949 !default;
+$background-color-gray: #F9F9F9;
+
+$success-color: #017D01;
+$danger-color: #FF4F4F;
+
+$link-color: $primary-color;
 
 /*
   Font

@@ -49,7 +49,7 @@
         </ul>
 
         <div class="sidebar-bottom-links">
-            <a href="<?php echo get_home_url(); ?>" class="btn-white">Gå til DXL</a>
-            <a href="<?php echo wp_logout_url() ?>" class="btn-white">Log ud</a>
+            <a href="<?php echo get_home_url(); ?>" class="dxl-btn">Gå til DXL</a>
+            <a href="<?php echo wp_logout_url() ?>" class="dxl-btn">Log ud</a>
         </div>
 </div>

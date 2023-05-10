@@ -1,0 +1,28 @@
+.sidebar {
+    // center the sidebar
+    border-right: 1px solid #e5e5e5;
+    height: calc(100vh - 100px);
+    width: 12% !important;
+
+    .menu-bar {
+        height: inherit;
+        .navigation {
+            li {
+                list-style: none;
+                margin-bottom: 0.75rem;
+                a {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .sidebar-bottom-links {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}

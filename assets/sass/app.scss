@@ -1,33 +1,13 @@
 /*
   Main style file for the plugin
 */
-:root {
-  --container-max-width: 1920px !important;
-  --bg-success: #007d00 !important;
-}
-
-html {
-  margin-top: 0px !important;
-}
-
-body.page-id-608 {
-  background: #dfdfdf !important;
-  height: 90vh;
-  display: flex;
-  align-items: center;
-  padding-top: 50px !important;
-}
-
-body .site-main {
-  max-width: 100% !important;
-  background: #dfdfdf;
-}
 
 @import "variables";
+@import "keyframes";
+@import "layout";
 @import "mixins/all";
 @import "components/all";
-// @import "containers";
-@import "layout";
+@import "containers";
 @import "utilities";
 @import "views/_all";
 

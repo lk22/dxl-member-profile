@@ -1,0 +1,13 @@
+.overview-container {
+    padding: 1rem;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    width: calc(100% / 2 - 8px) !important;
+
+    &.full-width {
+        width: 100% !important;
+    }
+}

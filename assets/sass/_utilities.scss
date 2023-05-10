@@ -1,7 +1,8 @@
-.util-rounded {
- border-radius: 15px;
- -webkit-border-radius: 15px;
- -moz-border-radius: 15px;
- -ms-border-radius: 15px;
- -o-border-radius: 15px;
+
+@mixin rounded($border-radius) {
+    border-radius: $border-radius;
+    -webkit-border-radius: $border-radius;
+    -moz-border-radius: $border-radius;
+    -ms-border-radius: $border-radius;
+    -o-border-radius: $border-radius;
 }

@@ -57,7 +57,7 @@
             public function enqueueProfileStyles()
             {
                 if( is_page('manager-profile') || is_page('profile')) {
-                    wp_enqueue_style('dxl-member-profile', plugins_url('./../dist/assets/css/app.min.css', __FILE__));
+                    wp_enqueue_style('dxl-member-profile', plugins_url('./../assets/css/app.css', __FILE__));
                 }
             }
 
