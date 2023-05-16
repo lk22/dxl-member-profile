@@ -1,8 +1,8 @@
 .dxl-btn {
-    background-color: $success-color;
+    background-color: $button-color;
     color: #ffffff !important;
     text-align: center;
-    border-color: $success-color;
+    border-color: $button-color;
     padding: 0.5rem 1rem;
     margin-top: 0.5rem;
     border-radius: 5px;
@@ -10,6 +10,15 @@
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    font-size: 12px;
+
+    &.theme-yellow {
+        background-color: #FFB800;
+    }
+}
+
+button[type="button"] {
+    @extend .dxl-btn;
 }
 
 input[type="submit"] {

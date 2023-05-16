@@ -1,0 +1,20 @@
+.dxl-btn, button, input[type="submit"] {
+    &.theme-dark-green {
+        background-color: #007D00;
+        color: #fff;
+    }
+}
+
+a {
+    &.theme-dark-green {
+        color: #007D00;
+    }
+}
+
+a.theme-dark-green {
+    color: #007D00;
+}
+
+form label.theme-dark-green {
+    color: #007D00;
+}

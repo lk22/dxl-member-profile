@@ -1,0 +1,14 @@
+.theme-color-switcher {
+    background-color: attr('data-theme-color');
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+
+    &.col-lg-2 {
+        height: 130px;
+        width: 180px !important;
+    }
+}

@@ -75,7 +75,7 @@
                     if( $member ) {
                         $profile = $wpdb->get_row("SELECT * FROM dxl_member_profile_settings WHERE member_id = " . $member->id);
                     }
-                    wp_enqueue_script('dxl-member-profile', plugins_url('../dist/main.js', __FILE__), ['jquery'], '1.0.0', true);
+                    wp_enqueue_script('dxl-member-profile', plugins_url('../dist/assets/js/app.min.js', __FILE__), ['jquery'], '1.0.0', true);
                     wp_localize_script('dxl-member-profile', 'dxlMemberProfile', [
                         'ajaxurl' => admin_url('admin-ajax.php'),
                         'nonce' => wp_create_nonce('dxl_member_profile_nonce'),

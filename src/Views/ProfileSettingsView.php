@@ -73,9 +73,22 @@
 
                 return [
                     "member" => $member,
+                    "memberships" => $this->getMemberships(),
+                    "currentMembership" => $this->getCurrentMembership($member),
                     "view" => $this->module . "/" . $this->view,
-                    "settings" => $settings
+                    "settings" => $settings,
                 ];
+            }
+
+            private function getCurrentMembership($member) {
+                return $this->membershipRepository
+                    ->select()
+                    ->where('id', $member->membership)
+                    ->getRow();
+            }
+
+            private function getMemberships(): Iterable {
+                return $this->membershipRepository->all();
             }
 
             /**

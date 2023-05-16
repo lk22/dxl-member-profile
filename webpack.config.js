@@ -1,5 +1,9 @@
 module.exports = {
-  entry: [__dirname + "/assets/sass/app.scss", __dirname + "/assets/js/app.js"],
+  entry: "./assets/js/app.js",
+  output: {
+    path: __dirname + "/dist/assets/js/",
+    filename: "app.min.js",
+  },
   mode: "production",
   module: {
     rules: [
@@ -20,6 +24,12 @@ module.exports = {
           loader: "babel-loader",
           options: {
             presets: ["@babel/preset-env"],
+            targets: [
+              'last 2 versions',
+              'not dead',
+              '> 0.2%',
+              'not ie 11'
+            ],
           },
         },
       }
