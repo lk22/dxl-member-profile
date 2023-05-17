@@ -1,5 +1,4 @@
 <form action="#" class="update-membership-form">
-    <input type="hidden" name="member_id" value="<?php echo $profile["member"]->id ?>">
     <div class="form-group membership-selector mb-3">
         <label>Vælg Medlemsskab:</label>
         <select name="membership" style="width: 100%">
@@ -14,6 +13,13 @@
     </div>
     <div class="form-group auto-renewal-field">
         <h6>Ønsker du auto fornyelse af medlemsskab?</h6> 
+        <?php 
+            if ( $profile["member"]->auto_renew == 0) {
+                ?>
+                    <small>Du har i æjeblikket ikke auto fornyelse slået til, du vil ikke få en faktura ved enden af dit medlemsskab</small>
+                <?php
+            }
+        ?>
         <label>Ja</label> 
         <input   
             type="radio"
@@ -28,5 +34,8 @@
             value="0"
             <?php echo ($profile["member"]->auto_renew == 0) ? "checked='checked'" : ""?>"
         >
+    </div>
+    <div class="form-group submit">
+        <button type="button" class="dxl-btn update-membership-btn">Gem medlemsskab</button>
     </div>
 </form>

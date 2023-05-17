@@ -4,6 +4,7 @@ const ProfileUser = {
 
         ProfileUser.actions = {
             updateProfileInformation: "dxl_profile_update_profile_information",
+            updateProfileMembership: "dxl_profile_update_profile_membership",
             requestTrainerPermissions: "dxl_request_trainer_permissions"        
         }
 
@@ -14,6 +15,7 @@ const ProfileUser = {
         ProfileUser.forms = {
             updateappForm: jQuery('.update_app_settings_form'),
             memberForm: jQuery('.update_profile_settings_form'),
+            updateMembershipForm: jQuery('.update-membership-form'),
             values: {}
         }
         ProfileUser.bind()
@@ -21,6 +23,55 @@ const ProfileUser = {
 
     bind: function() {
         ProfileUser.bindUpdateMember()
+        ProfileUser.bindUpdateMembership()
+    },
+
+    bindUpdateMembership: function() {
+        jQuery('.update-membership-btn').on('click', function() {
+            ProfileUser.forms.updateMembershipForm.serializeArray().forEach((field) => {
+                ProfileUser.forms.values[field.name] = field.value;
+            })
+
+            jQuery.ajax({
+                method: "POST",
+                url: MemberProfileUser.ajaxurl,
+                data: {
+                    action: ProfileUser.actions.updateProfileMembership,
+                    nonce: MemberProfileUser.nonce,
+                    values: ProfileUser.forms.values,
+                    member_id: MemberProfileUser.profile.member_id
+                },
+                success: function(response) {
+                    console.log(response)
+
+                    if ( response.success ) {
+                        new Swal({
+                            title: "Success!",
+                            text: "Dit medlemsskab er nu opdateret",
+                            icon: "success",
+                            button: "Luk"
+                        })
+                    }
+                }, 
+                beforeSend: function() {
+                    new Swal({
+                        title: "Opdaterer medlemsskab",
+                        text: "Vent venligst mens dit medlemsskab bliver opdateret",
+                        icon: "info",
+                        button: "Luk"
+                    })
+                },
+                error: function(error) {
+                    console.log(error);
+                    new Swal({
+                        title: "Fejl!",
+                        text: "Der skete en fejl, prøv igen senere",
+                        icon: "error",
+                        button: "Luk"
+                    })
+                }
+            })
+        })
     },
 
     bindUpdateMember() {

@@ -33,6 +33,27 @@
                 // $this->memberProfileRepository = new MemberProfileRepository();
             }
 
+            public function updateMembership() {
+                $currentMember = new MemberRepository();
+                $updated = $currentMember->update([
+                    "membership" => $_REQUEST["values"]["membership"],
+                    "auto_renew" => $_REQUEST["values"]["auto_renew"]
+                ], $_REQUEST["member_id"]);
+
+                if ( ! $updated ) {
+                    echo wp_send_json_error([
+                        "message" => "Something went wrong, please try again"
+                    ]);
+                    wp_die();
+                } else {
+                    echo wp_send_json_success([
+                        "message" => "Membership updated successfully"
+                    ]);
+                }
+
+                wp_die();
+            }
+
             /**
              * Update member profile action
              *
