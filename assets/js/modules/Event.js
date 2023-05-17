@@ -1,6 +1,3 @@
-import { getFormValues, useAjaxRequest } from "../utilities"
-import { actions } from '../contants'
-import { useConfirm, useDialog } from "../utilities/dialog"
 
 const ProfileEvent = {
     init: () => {
@@ -233,4 +230,4 @@ const ProfileEvent = {
     },
 }
 
-export default ProfileEvent
+ProfileEvent.init();

@@ -2,6 +2,7 @@
     <div class="row">
 
         <?php
+        
             if( $profile["view"] == "not-activated" ) {
                 require DXL_PROFILE_VIEW_PATH . "/" . $profile["view"] . ".php";
             } else {

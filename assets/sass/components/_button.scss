@@ -1,5 +1,5 @@
 .dxl-btn {
-    background-color: $button-color;
+    background-color: $button-color !important;
     color: #ffffff !important;
     text-align: center;
     border-color: $button-color;
@@ -15,6 +15,10 @@
     &.theme-yellow {
         background-color: #FFB800;
     }
+}
+
+button:not([class*="theme-"]) {
+    background-color: $button-color !important;
 }
 
 button[type="button"] {

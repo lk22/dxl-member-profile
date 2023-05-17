@@ -1,19 +1,20 @@
-import Swal from 'sweetalert2'
-import { actions } from './../contants'
-import {
-    getFormValues,
-    useAjaxRequest
-} from './../utilities'
-import { useAlert } from '../utilities/dialog'
-
 const ProfileUser = {
     init: function() {
+        ProfileUser.api = "/wp-json/api/v1/profile/user/";
+
+        ProfileUser.actions = {
+            updateProfileInformation: "dxl_profile_update_profile_information",
+            requestTrainerPermissions: "dxl_request_trainer_permissions"        
+        }
+
         ProfileUser.buttons = {
             updateMemberButton: jQuery(".update-member-btn"),
         }
     
         ProfileUser.forms = {
             updateappForm: jQuery('.update_app_settings_form'),
+            memberForm: jQuery('.update_profile_settings_form'),
+            values: {}
         }
         ProfileUser.bind()
     },
@@ -32,6 +33,8 @@ const ProfileUser = {
                 body.find('a').css({
                     "color": color
                 })
+
+                body.find('label').css({"color": color})
     
                 body.find('.dxl-btn').css({
                     "background-color": color
@@ -61,32 +64,57 @@ const ProfileUser = {
         ProfileUser.buttons.updateMemberButton.on('click', function(e) {
             e.preventDefault()
 
-            const values = getFormValues(ProfileUser.forms.updateappForm)
-            values.action = actions.updateProfileInformation;
-            values.nonce = DxlMemberProfile.nonce;
+            const fields = ProfileUser.forms.memberForm.serializeArray();
 
-            useAjaxRequest(DxlMemberProfile.ajaxurl, "POST", values, (response) => {
-                console.log(response)
-                const parsed = JSON.parse(response)
+            fields.forEach((field) => {
+                ProfileUser.forms.values[field.name] = field.value;
+            });
 
-                if (parsed.status == "error") {
-                    useAlert("Der skete en fejl, prøv igen senere", () => {
-                        console.log(parsed)
+            ProfileUser.forms.values.action = ProfileUser.actions.updateProfileInformation;
+            ProfileUser.forms.values.nonce = MemberProfileUser.nonce;
+
+            jQuery.ajax({
+                url: MemberProfileUser.ajaxurl,
+                method: "POST",
+                data: ProfileUser.forms.values,
+                beforeSend: function() {
+                    new Swal({
+                        title: "Opdaterer Oplysninger",
+                        text: "Vi opdaterer dine oplysninger",
+                        icon: "info",
+                        confirmButtonText: "Luk"
                     })
-                } else {
-                    useAlert("Dine oplysninger blev opdateret", () => {})
-                }
+                },
+                success: function(response) {
+                    console.log(response)
 
-                ProfileUser.buttons.updateMemberButton.attr('value', 'Gem')
-            }, () => {
-                useAlert("Opdatere dine Oplysninger", () => {
-                    console.log("updating member resource");
-                });
-            }, (error) => {
-                console.log(error)
+                    const parsed = JSON.parse(response)
+                    if ( parsed.status == "erorr" ) {
+                        new Swal({
+                            title: "Der skete en fejl",
+                            text: "Der skete en fejl, prøv igen senere",
+                            icon: "error",
+                            confirmButtonText: "Luk"
+                        })
+                    }
+
+                    if ( parsed.status == "success" ) {
+                        new Swal({
+                            title: "Oplysninger Opdateret",
+                            text: "Dine oplysninger blev opdateret",
+                            icon: "success",
+                            confirmButtonText: "Luk"
+                        })
+                    }
+
+                    ProfileUser.buttons.updateMemberButton.attr('value', 'Gem')
+                },
+                error: function(error) {
+                    console.log(error)
+                }
             })
         })
     }
 }
 
-export default ProfileUser
+ProfileUser.init();

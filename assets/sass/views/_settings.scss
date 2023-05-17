@@ -1,0 +1,23 @@
+.member-settings {
+    // game settings section
+    .update-member-games {
+        .game-row {
+            margin-bottom: 0.75rem;
+            .game {
+                border: 2px solid $button-color;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                border-radius: 20px;
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                -ms-border-radius: 20px;
+                -o-border-radius: 20px;
+
+                .game-actions .delete{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

@@ -6,6 +6,8 @@
     use DxlMembership\Classes\Repositories\MemberRepository;
     use DxlMembership\Classes\Repositories\MemberProfileRepository;
     use DxlMembership\Classes\Repositories\MembershipRepository;
+    use DxlProfile\Repositories\ProfileMemberGamesRepository;
+
 
     if( ! defined('ABSPATH') ) exit;
 
@@ -35,6 +37,13 @@
             public $membershipRepository;
 
             /**
+             * Games attached to profile
+             *
+             * @var DxlProfile\Repositories\ProfileMemberGamesRepository;
+             */
+            public $profileMemberGamesRepository;
+
+            /**
              * Module view
              *
              * @var string
@@ -58,6 +67,7 @@
                 $this->memberRepository = new MemberRepository();
                 $this->memberProfileRepository = new MemberProfileRepository();
                 $this->membershipRepository = new MembershipRepository();
+                $this->profileMemberGamesRepository = new ProfileMemberGamesRepository();
             }
 
             /**
@@ -71,14 +81,31 @@
                 $settings = $this->getProfileSettings($member);
                 $memberships = $this->membershipRepository->all();
                 $currentMembership = $this->getCurrentMembership($member);
+                $games = $this->getGamesSettings($member);
 
                 return [
                     'member' => $member,
                     'settings' => $settings,
                     'memberships' => $memberships,
                     "currentMembership" => $currentMembership,
+                    "games" => $games,
                     "view" => $this->module . "/" .$this->view,
                 ];
+            }
+
+            /**
+             * Get profile games settings
+             *
+             * @return void
+             */
+            private function getGamesSettings($member): Iterable 
+            {
+                $games = $this->profileMemberGamesRepository
+                    ->select()
+                    ->where('member_id', $member->id)
+                    ->get();
+
+                    return $games;
             }
             
             /**

@@ -24,6 +24,6 @@
         </div>
     </div>
     <div class="form-group">
-        <input type="submit" value="Vælg tema">
+        <input type="submit" value="Vælg tema" class="dxl-btn">
     </div>
 </form>

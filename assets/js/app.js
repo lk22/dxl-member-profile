@@ -1,12 +1,7 @@
-import "bootstrap";
-
-import ProfileEvent from './modules/Event'
-import ProfileUser from './modules/User'
-import ProfileGame from "./modules/Game"
-
 (($) => {
 
   $(document).on('ready', function() {
+    
     $('.nav-toggler').on('click', (e) => {
       console.log("clicked");
       $('.nav-list').addClass('active');
@@ -21,8 +16,5 @@ import ProfileGame from "./modules/Game"
         const appThemeColor = localStorage.getItem('theme_color');
         $('.dxl-btn, a, button, input, select, label').addClass('theme-' + appTheme);
       }
-      ProfileEvent.init()
-      ProfileUser.init()
-      ProfileGame.init();
     })
 })(jQuery);

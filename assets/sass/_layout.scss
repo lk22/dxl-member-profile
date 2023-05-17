@@ -1,6 +1,11 @@
 html {
   margin-top: 0px !important
 }
+.elementor-kit-5 button, .elementor-kit-5 input[type="button"], .elementor-kit-5 input[type="submit"], .elementor-kit-5 .elementor-button {
+  background-image: none !important;
+  background-color: none !important;
+  border: none !important;
+}
 body:not([class*=elementor-page-]) {
   font-family: "Poppins", sans-serif;
   .site-main{
@@ -28,7 +33,10 @@ body:not([class*=elementor-page-]) {
     }
 
     a {
-      color: $link-color;
+      
+      &:not([class*="theme-"]) {
+        color: $link-color;
+      }
       font-size: 14px;
     }
   }

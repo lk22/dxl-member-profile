@@ -4,9 +4,6 @@
 
     use DxlProfile\Controllers\ProfileController;
 
-    // use DxlMembership\Classes\Repositories\MemberRepository;
-    // use DxlProfile\Repositories\ProfileMemberRepository;
-
     if ( ! defined('ABSPATH') ) exit;
 
     if ( ! class_exists('MemberProfile') ) 
@@ -23,7 +20,6 @@
             {
                 $this->profileController = new ProfileController();
                 $this->profileController->registerAdminActions();
-                // add_action('wp_ajax_dxl_profile_create_event', [$this, 'createEvent']);
                 $this->constructProfileShortcode();
                 $this->enqueueProfileScripts();
             }
@@ -75,14 +71,27 @@
                     if( $member ) {
                         $profile = $wpdb->get_row("SELECT * FROM dxl_member_profile_settings WHERE member_id = " . $member->id);
                     }
-                    wp_enqueue_script('dxl-member-profile', plugins_url('../dist/assets/js/app.min.js', __FILE__), ['jquery'], '1.0.0', true);
-                    wp_localize_script('dxl-member-profile', 'dxlMemberProfile', [
-                        'ajaxurl' => admin_url('admin-ajax.php'),
+
+                    $localizedData = [
+                        "ajaxurl" => admin_url('admin-ajax.php'),
                         'nonce' => wp_create_nonce('dxl_member_profile_nonce'),
-                        'profile' => (isset($profile) ) ? $profile : [],
+                        'profile' => (isset($profile)) ? $profile : [],
                         'member' => $member,
                         'prefix' => get_option('siteurl'),
-                    ]);
+                    ];
+
+                    // enqueueing dependency scripts
+                    wp_enqueue_script('dxl-member-profile-sweetalert', plugins_url('../assets/js/dependencies/sweetalert.js', __FILE__), ['jquery'], '1.0.0', true);
+
+                    wp_enqueue_script('dxl-member-profile', plugins_url('../assets/js/app.js', __FILE__), ['jquery'], '1.0.0', true);
+                    wp_enqueue_script('dxl-member-profile-user', plugins_url('../assets/js/modules/user.js', __FILE__), ['jquery'], '1.0.0', true);
+                    wp_enqueue_script('dxl-member-profile-event', plugins_url('../assets/js/modules/event.js', __FILE__), ['jquery'], '1.0.0', true);
+                    wp_enqueue_script('dxl-member-profile-game', plugins_url('../assets/js/modules/game.js', __FILE__), ['jquery'], '1.0.0', true);
+                    
+                    wp_localize_script('dxl-member-profile', 'MemberProfileApp', $localizedData);
+                    wp_localize_script('dxl-member-profile-user', 'MemberProfileUser', $localizedData);
+                    wp_localize_script('dxl-member-profile-event', 'MemberProfileEvent', $localizedData);
+                    wp_localize_script('dxl-member-profile-game', 'MemberProfileGame', $localizedData);
                 }
             }
 

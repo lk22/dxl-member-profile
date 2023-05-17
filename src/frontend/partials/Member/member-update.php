@@ -23,10 +23,6 @@
                                 <option value="kvinde">Kvinde</option>
                             </select>
                         </div>
-                        <div class="form-group birthyear mb-2">
-                            <label>Fødselsdato:</label>
-                            <input type="date" name="birthyear" value="<?php echo $profile["member"]->birthyear ?>">
-                        </div>
                         <div class="form-group email mb-2">
                             <label>E-mail: </label>	
                             <input type="text" name="email" value="<?php echo $profile["member"]->email ?>">
@@ -35,7 +31,10 @@
                             <label>Telefon:</label>
                             <input type="text" name="phone" value="<?php echo $profile["member"]->phone ?>">
                         </div>
-                        
+                        <div class="form-group birthyear mb-2">
+                            <label>Fødselsdato:</label>
+                            <input type="date" name="birthyear" value="<?php echo $profile["member"]->birthyear ?>">
+                        </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-lg-offset-1">
                         <div class="form-group municipality mb-2">
@@ -58,8 +57,7 @@
                 </div>
             </div>
         </form>
-        <button type="button" class="dxl-btn" data-bs-dismiss="modal">Luk</button>
-        <button type="button" class="dxl-btn">Gem oplysninger</button>
+        <button type="button" class="dxl-btn update-member-btn">Gem oplysninger</button>
       </div>
     </div>
   </div>

@@ -1,8 +1,13 @@
 module.exports = {
-  entry: "./assets/js/app.js",
+  entry: {
+    app: './assets/js/app.js',
+    user: './assets/js/modules/user.js',
+    event: './assets/js/modules/event.js',
+    game: './assets/js/modules/game.js'
+  },
   output: {
     path: __dirname + "/dist/assets/js/",
-    filename: "app.min.js",
+    filename: "[name].min.js",
   },
   mode: "production",
   module: {
