@@ -50,7 +50,7 @@
 						<h5>Valgt spil</h5>
 						<h5><?php echo $profile["details"]["game"]->name ?></h5>
 					</div>
-					<?php
+				<?php
 			}
 			?>
 			

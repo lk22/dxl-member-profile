@@ -31,7 +31,7 @@
        */
       public function create()
       {
-        switch ( $_REQUEST['event-type'] ) {
+        switch ( $_REQUEST['event_type'] ) {
           case 'cooperation':
             // TODO: refactor to use CreateCooperationEvent class
             $this->createCooperationEvent();
@@ -48,7 +48,7 @@
        *
        * @return void
        */
-      public function update() 
+      public function update()
       {
         // echo json_encode($_REQUEST);
         // wp_die();
@@ -202,15 +202,15 @@
       private function createCooperationEvent() 
       {
         $created = $this->cooperationEventRepository->create([
-          "title" => $_REQUEST['event_title'],
-          "slug" => str_replace(' ', '-', $_REQUEST['event_title']), // creating slug from title
-          "description" => $_REQUEST['event_description'],
+          "title" => $_REQUEST["values"]['event_title'],
+          "slug" => str_replace(' ', '-', $_REQUEST["values"]['event_title']), // creating slug from title
+          "description" => $_REQUEST["values"]['event-description'],
           "participants_count" => 0,
-          "event_date" => strtotime($_REQUEST['startdate']),
-          "start_time" => strtotime($_REQUEST['starttime']),
+          "event_date" => strtotime($_REQUEST["values"]['startdate']),
+          "start_time" => strtotime($_REQUEST["values"]['starttime']),
           "created_at" => time(),
-          "game_id" => $_REQUEST['game'],
-          "author" => $_REQUEST['profile'],
+          "game_id" => $_REQUEST["values"]['event-game'],
+          "author" => $_REQUEST['member_id'],
           "created_at" => time(),
           "is_draft" => 1
         ]);
@@ -240,20 +240,20 @@
       private function createTrainingEvent() 
       {
         $created = $this->trainingRepository->create([
-          "name" => $_REQUEST['event_title'],
-          "slug" => str_replace(' ', '-', $_REQUEST['event_title']), // creating slug from title
-          "description" => $_REQUEST['event_description'],
+          "name" => $_REQUEST["values"]['event_title'],
+          "slug" => str_replace(' ', '-', $_REQUEST["values"]['event_title']), // creating slug from title
+          "description" => $_REQUEST["values"]['event-description'],
           "participants_count" => 0,
-          "game_id" => $_REQUEST['game'],
-          "author" => $_REQUEST['profile'],
+          "game_id" => $_REQUEST["values"]['event-game'],
+          "author" => $_REQUEST['member_id'],
           "created_at" => time(),
           "updated_at" => 0,
           "is_draft" => 1,
-          "start_date" => strtotime($_REQUEST['training-date']),
-          "starttime" => strtotime($_REQUEST['training-starttime']),
-          "endtime" => strtotime($_REQUEST['training-endtime']),
-          "event_day" => $_REQUEST['event-day'],
-          "is_recurring" => $_REQUEST["is-recurring"],
+          "start_date" => strtotime($_REQUEST["values"]['training-date']),
+          "starttime" => strtotime($_REQUEST["values"]['starttime']),
+          "endtime" => strtotime($_REQUEST["values"]['endtime']),
+          "event_day" => $_REQUEST["values"]['holding-day'],
+          "is_recurring" => $_REQUEST["values"]["is-recurring"],
         ]);
   
         if ( ! $created ) {

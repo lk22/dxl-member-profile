@@ -72,9 +72,9 @@ const ProfileGame = {
                         )
 
                         jQuery('#addNewGameModal').find('.create-game-form, button').show();
-                        jQuery('#addNewGameModal').find('form').trigger('reset')
-                        jQuery('#addNewGameModal').find('.loading').hide();
-                        jQuery('#addNewGameModal').modal('hide');
+                        jQuery('#addNewGameModal').find('form').trigger('reset') // reset form
+                        jQuery('#addNewGameModal').find('.loading').hide(); // hide loader
+                        jQuery('#addNewGameModal').modal('hide'); // closing modal
 
                         new Swal({
                             title: "Spil Oprettet",

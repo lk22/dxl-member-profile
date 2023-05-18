@@ -23,8 +23,16 @@ const ProfileEvent = {
             createEventForm: jQuery('.create-event-modal-form'),
             updatingCooperationEventForm: jQuery('update-cooperation-event-form'),
             updateTrainingEventForm: jQuery('.update-training-event-form'),
+            values: {}
         }
 
+        ProfileEvent.actions = {
+            createEvent: "dxl_profile_create_event",
+            editEvent: "dxl_profile_edit_event",
+            deleteEvent: "dxl_profile_delete_event",
+            publishUnpublishEvent: "dxl_profile_publish_unpublish_event",
+        }
+        console.log(MemberProfileEvent)
         ProfileEvent.bind();
     },
 
@@ -49,52 +57,72 @@ const ProfileEvent = {
          */
         console.log(jQuery("select[name='event-type']").val());
 
-        const eventType = jQuery("select[name='event-type']");
+        const eventType = jQuery(".event-type-selector").find('.type-selector');
+        const trainingEventForm = jQuery(".create-training-event-form");
+        const cooperationEventForm = jQuery(".create-cooperation-event-form");
 
-        eventType.on('change', (e) => {
+        eventType.each(function(index, selector) {
+            jQuery(selector).on('click', function(e) {
+                jQuery(this).addClass('active').siblings().removeClass('active');
+                
+                if (e.currentTarget.dataset.type == "training") {
+                    cooperationEventForm.slideUp()
+                    trainingEventForm.slideDown()
+                }
 
-            if ( e.target.value === "training" ) {
-                jQuery('.training-fields').removeClass('d-none');
-                jQuery('.tournament-fields').addClass('d-none');
-                jQuery('.cooperation-fields').addClass('d-none');
-            } else if (e.target.value == "tournament") {
-                jQuery('.tournament-fields').removeClass('d-none')
-                jQuery('.training-fields').addClass('d-none');
-            } else {
-                jQuery('.training-fields').addClass('d-none');
-                jQuery('.tournament-fields').addClass('d-none');
-                jQuery('.cooperation-fields').removeClass('d-none');
-            }
+                if (e.currentTarget.dataset.type == "cooperation") {
+                    trainingEventForm.slideUp()
+                    cooperationEventForm.slideDown()
+                }
+
+                jQuery('.create-event-btn').attr('data-type', e.currentTarget.dataset.type)
+                jQuery('#createEventModal').find('.modal-footer').show();
+            })
         })
 
-        ProfileEvent.buttons.createEventButton.on('click', (e) => {
-            e.preventDefault()
-            const values = getFormValues(ProfileEvent.forms.createEventForm);
-            values.action = actions.createEvent
-            values.nonce = DxlMemberProfile.nonce;
-            values.ajaxurl = DxlMemberProfile.ajaxurl;
+        jQuery('.create-event-btn').on('click', function(e) {
+            let serializedEventValues;
+            if ( e.currentTarget.dataset.type == "training" ) {
+                serializedEventValues = trainingEventForm.serializeArray()
+            } else if ( e.currentTarget.dataset.type == "cooperation" ) {
+                serializedEventValues = cooperationEventForm.serializeArray();
+            }
 
-            useAjaxRequest(
-                ProfileEvent.ajaxurl,
-                "POST",
-                values,
-                (response) => {
-                    console.log(response)
+            serializedEventValues.forEach(function(field) {
+                ProfileEvent.forms.values[field.name] = field.value
+            })
+
+            jQuery.ajax({
+                method: "POST",
+                url: MemberProfileEvent.ajaxurl,
+                data: {
+                    action: ProfileEvent.actions.createEvent,
+                    nonce: MemberProfileEvent.nonce,
+                    values: ProfileEvent.forms.values,
+                    member_id: MemberProfileEvent.member.user_id,
+                    event_type: e.currentTarget.dataset.type
+                },
+                success: function(response) {
+                    console.log(response);
 
                     const parsed = JSON.parse(response)
                     if (parsed.status == "success") window.location.reload()
-                    if ( parsed.status == "error" ) console.log(parsed)
+                    if (parsed.status == "error") console.log(parsed)
+                },
+                beforeSend: function() {
+                    console.log("Sending request")
+                },
+                error: function(error) {
+                    console.log(error);
 
-                    ProfileEvent.buttons.createEventButton.html("Gå videre")
-                },
-                () => {
-                    ProfileEvent.buttons.createEventButton.html("Opretter...")
-                },
-                (error) => {
-                    console.log(error)
-                    ProfileEvent.buttons.createEventButton.html("Gå videre")
+                    new Swal({
+                        title: "Ooops..",
+                        text: "Der skete en uventet fejl, prøv igen senere",
+                        icon: "error",
+                        confirmButtonText: "Luk",
+                    })
                 }
-            )
+            })
         })
     }, 
 

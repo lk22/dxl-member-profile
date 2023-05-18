@@ -51,6 +51,13 @@ const ProfileUser = {
                             icon: "success",
                             button: "Luk"
                         })
+                    } else {
+                        new Swal({
+                            title: "Fejl!",
+                            text: "Der blev ikke foretaget nogen ændring, kunne ikke opdatere dit medlemsskab",
+                            icon: "error",
+                            button: "Luk"
+                        })
                     }
                 }, 
                 beforeSend: function() {

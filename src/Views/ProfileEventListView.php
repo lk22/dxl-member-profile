@@ -94,7 +94,7 @@
                     "profile" => $profile,
                     "games" => $games,
                     "count" => $count,
-                    "events" => array_merge($cooperationEvents, $trainingEvents, $tournaments),
+                    "events" => $allEvents,
                     "view" => "modules/events/" . $this->view . ""
                 ];
             }

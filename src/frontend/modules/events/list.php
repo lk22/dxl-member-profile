@@ -15,192 +15,93 @@
  <div class="event-list-container">
  	<div class="col-md-12 events-container">
 		<div class="row events-list gap-4 mx-0 my-4">
-		
- 	<?php 
- 		if( $profile["events"] ) {
-			foreach ( $profile["events"] as $event ) {
-				?>
-					<div class="event-card col-12 col-xl-5 position-relative">
-						<div class="card-heading row mx-0 align-items-center pt-3">
-							<div class="col-10">
-								<h4 class="fw-semibold mb-0"><?php echo $event->name ?? $event->title ?></h4>
-							</div>
-							<div class="col-2 event-type mt-2 d-flex align-items-center justify-content-end">
-								<?php 
-									if ( isset( $event->is_recurring ) ) $type = "træning";
-									elseif ( isset( $event->type)  ) $type = "turnering";
-
-									if( isset( $type ) ) {
+			<?php 
+				if( $profile["events"] ) {
+					foreach ( $profile["events"] as $event ) {
+						?>
+							<div class="col-12 event border-bottom pb-2 <?php if ( $event->is_draft ) { echo "border-danger"; } else {
+								echo "border-success";
+							} ?>">
+								<div class="row w-100">
+									<div class="event-title col-2">
+										<span><strong><?php echo $event->title ?? $event->name ?></strong></span>
+									</div>
+									<div class="event-startdate col-2">
+										<?php echo date('d-m-Y', $event->start_date ?? $event->event_date) ?> <?php echo date("H:i", $event->start_time ?? $event->starttime) ?>
+									</div>
+									<div class="event-participants col-2">
+										<?php echo $event->participants_count ?> deltagere
+									</div>
+									<div class="event-type col-2">
+										<?php 
+											if ( isset( $event->is_recurring ) ) $type = "træning";
+											elseif ( isset( $event->type)  ) $type = "turnering";
+	
+											if( isset( $type ) ) {
+												?>
+													<small class="p-2 rounded-full rounded bg-white text-black"><?php echo $type; ?></small>
+												<?php
+											} else {
+												?>
+													<small class="p-2 rounded-full rounded bg-white text-black">Hygge</small>
+												<?php
+											}
 										?>
-											<small class="p-2 rounded-full rounded bg-white text-black"><?php echo $type; ?></small>
-										<?php
-									} else {
+									</div>
+									<div class="event-status col-2">
+										<?php 
+											if ( $event->is_draft ) {
+												?>
+													<small class="p-2 rounded-full rounded bg-white text-danger fw-bold">Ikke offentliggjort</small>
+												<?php
+											} else {
+												?>
+													<small class="p-2 rounded-full rounded bg-white text-success fw-bold">Offentligjort</small>
+												<?php
+											}
 										?>
-											<small class="p-2 rounded-full rounded bg-white text-black">Hygge</small>
-										<?php
-									}
-								?>
-							</div>
-						</div>
-						<div class="card-body mt-4">
-							<section class="date-time">
-								<div class="row mx-0">
-									<div class="col-4">
-										<p class="fw-semibold"><i class="far fa-calendar-alt"></i> Start dato: </p>
-										</div>
-										<div class="col-8">
-											<p class="mb-0"><?php echo date('d-m-Y', $event->start_date ?? $event->event_date) ?></p>
 									</div>
 								</div>
-								<div class="row mx-0">
-									<div class="col-4">
-										<p class="fw-semibold"><i class="far fa-clock"></i> Start tidspunkt: </p>
+								<div class="event-actions">
+									<div class="dropwdown">
+										<button class="dxl-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" arai-expanded="false">
+											<i class="fa-light fa-ellipsis-vertical"></i>
+										</button>
+										<ul class="dropdown-menu">
+											<li><span class="dropdown-item">
+												<?php 
+													$link = $_SERVER["REQUEST_URI"] . "&action=details&slug={$event->slug}";
+													if ( isset( $type ) ) $link .= "&type={$type}";
+													echo "<a href='{$link}'>Vis begivenhed</a>";
+												?>
+											</span></li>
+										</ul>
 									</div>
-									<div class="col-8">
-										<p class="mb-0"> <?php echo date('H:i', $event->starttime ?? $event->start_time) ?></p>
 								</div>
-							</section>
-							<section class="event-footer">
-								<!-- font awesome controller -->
-								<?php 
-									$link = $_SERVER["REQUEST_URI"] . "&action=details&slug={$event->slug}";
-									if ( isset( $type ) ) $link .= "&type={$type}";
-								?>
-								<a class="text-decoration-none" href="<?php echo $link?>">
-									<p class="text-xs text-white">Se begivenhed <i class="fas fa-gamepad"></i></p>
-								</a>
-							</section>
+							</div>
+						<?php
+					}
+				} else {
+					?>
+						<div class="not-found-events p-5">
+							<div class="row">
+								<div class="col-5">
+									<img src="<?php echo DXL_PROFILE_ASSETS_PATH ."/images/dunno.png" ?>" alt="">
+								</div>
+								<div class="col-7">
+									<p class="lead fw-bold">
+										Du har ingen begivenheder registreret,
+										Klik på “Opret begivenhed” knappen nedenfor
+									</p>
+								</div>
+							</div>
 						</div>
-					</div>
-				<?php
-			}
- 		} else {
+					<?php
+				}
 			?>
-				<div class="not-found-events p-5">
-					<div class="row">
-						<div class="col-5">
-							<img src="<?php echo DXL_PROFILE_ASSETS_PATH ."/images/dunno.png" ?>" alt="">
-						</div>
-						<div class="col-7">
-							<p class="lead fw-bold">
-								Du har ingen begivenheder registreret,
-								Klik på “Opret begivenhed” knappen nedenfor
-							</p>
-						</div>
-					</div>
-				</div>
-			<?php
-		}
- 	 ?>
 	 </div>
  	</div>
  	<button data-bs-toggle="modal" data-bs-target="#createEventModal" class="btn btn-primary create-cooperation-event-btn">Opret begivenhed</button>
  </div>
 
-<div class="modal modal-xl fade manager-modal" id="createEventModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Opret Begivenhed</h4>
-      </div>
-      <div class="modal-body">
-        <form action="#" method="POST" class="create-event-modal-form">
-			<div class="form-group">
-				<p class="lead label">Titel:</p>
-				<input type="text" class="form-control" name="event_title" required>
-			</div>
-
-			<div class="form-group">
-				<label for="event-type">Begivenhedstype</label>
-				<select name="event-type" id="#event-type-field">
-					<option value="cooperation">Hygge</option>
-					<?php 
-						if ( $profile["profile"]->is_trainer ) {
-							echo "<option value='training'>Træning</option>";
-						}
-
-						if ( $profile["profile"]->is_tournament_author ) {
-							echo "<option value='tournament'>Turnering</option>";
-						}
-					?>
-				</select>
-			</div>
-
-			<div class="form-group">
-				<p class="lead label">Beskrivelse:</p>
-				<textarea name="event_description" id="event_description" cols="30" rows="3"></textarea>
-			</div>
-			<div class="form-group">
-				<p class="lead label">Vælg spil</p>
-				<select name="game" id="games">
-					<?php 
-						foreach($profile["games"] as $game) {
-							?>
-								<option value="<?php echo $game->id ?>"><?php echo $game->name ?></option>
-							<?php
-						}
-					?>
-				</select>
-			</div>
-
-			<div class="cooperation-fields">
-				<div class="form-group">
-					<p class="lead label">Start Dato:</p>
-					<input type="date" name="startdate" class="end form-control">
-				</div>
-
-				<div class="form-group">
-					<p class="lead label">Start Tidspunlt:</p>
-					<input type="time" name="starttime" class="starttime form-control">
-				</div>
-			</div>
-
-			<div class="training-fields d-none">
-				<div class="form-group">
-					<p class="lead label">Start Dato:</p>
-					<input type="date" name="training-date" class="end form-control">
-				</div>
-				<div class="row time-fields">
-					<div class="col-6">
-						<div class="form-group">
-							<p class="lead label">Start Tidspunkt:</p>
-							<input type="time" name="training-starttime" class="starttime form-control">
-						</div>
-					</div>
-					<div class="col-6">
-						<div class="form-group">
-							<p class="lead label">Slut Tidspunkt:</p>
-							<input type="time" name="training-endtime" class="endtime form-control">
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<p class="lead label">Vælg afholdelses dag</p>
-					<select name="event-day" id="event-day">
-						<option value="mandag">Mandag</option>
-						<option value="tirsdag">Tirsdag</option>
-						<option value="onsdag">Onsdag</option>
-						<option value="torsdag">Torsdag</option>
-						<option value="fredag">Fredag</option>
-						<option value="lørdag">Lørdag</option>
-						<option value="søndag">Søndag</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<p class="lead label">Er begivenheden gentagende?</p>
-					<label for="">Ja</label>
-					<input type="checkbox" name="is-recurring" id="is-recurring" value="1">
-					<label for="">Nej</label>
-					<input type="checkbox" name="is-recurring" id="is-recurring" value="0">
-				</div>
-			</div>
-        	
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary create-event-btn">Gå videre</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<?php require_once DXL_PROFILE_MODULE_PATH . "/events/partials/create-event-modal.php"; ?>
