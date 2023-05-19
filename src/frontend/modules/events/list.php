@@ -3,12 +3,18 @@
 	 * Profile manager list partial
 	 */
  ?>
- <div class="events-heading row bg-success rounded text-white p-4">
+ <div class="events-heading row bg-white rounded p-4">
 	<div class="col-7">
-		<h3>Events</h3>
+		<h3>Dine begivenhder <span><button data-bs-toggle="modal" data-bs-target="#createEventModal" class="btn btn-primary create-cooperation-event-btn">Opret begivenhed</button></span></h3>
 	</div>
 	<div class="col-5 d-flex align-items-center justify-content-end">
-		Du har <?php echo $profile["count"] ?> begivenheder
+		<?php 
+			if ( $profile["count"] == 1 ) {
+				echo "Du har " . $profile["count"] . " begivenehed";
+			} else {
+				echo "Du har " . $profile["count"] . " begivenheder";
+			}
+		?>
 	</div>
  </div>
 
@@ -19,10 +25,10 @@
 				if( $profile["events"] ) {
 					foreach ( $profile["events"] as $event ) {
 						?>
-							<div class="col-12 event border-bottom pb-2 <?php if ( $event->is_draft ) { echo "border-danger"; } else {
+							<div class="col-12 mb-3 event border-bottom pb-2 <?php if ( $event->is_draft ) { echo "border-danger"; } else {
 								echo "border-success";
 							} ?>">
-								<div class="row w-100">
+								<div class="row w-100 align-items-center">
 									<div class="event-title col-2">
 										<span><strong><?php echo $event->title ?? $event->name ?></strong></span>
 									</div>
@@ -61,21 +67,21 @@
 											}
 										?>
 									</div>
-								</div>
-								<div class="event-actions">
-									<div class="dropwdown">
-										<button class="dxl-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" arai-expanded="false">
-											<i class="fa-light fa-ellipsis-vertical"></i>
-										</button>
-										<ul class="dropdown-menu">
-											<li><span class="dropdown-item">
-												<?php 
-													$link = $_SERVER["REQUEST_URI"] . "&action=details&slug={$event->slug}";
-													if ( isset( $type ) ) $link .= "&type={$type}";
-													echo "<a href='{$link}'>Vis begivenhed</a>";
-												?>
-											</span></li>
-										</ul>
+									<div class="event-actions col-2 text-end">
+										<div class="dropwdown">
+											<button class="dxl-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" arai-expanded="false">
+												<i class="fa-light fa-ellipsis-vertical"></i>
+											</button>
+											<ul class="dropdown-menu">
+												<li><span class="dropdown-item">
+													<?php 
+														$link = $_SERVER["REQUEST_URI"] . "&action=details&slug={$event->slug}";
+														if ( isset( $type ) ) $link .= "&type={$type}";
+														echo "<a href='{$link}'>Vis begivenhed</a>";
+													?>
+												</span></li>
+											</ul>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -101,7 +107,7 @@
 			?>
 	 </div>
  	</div>
- 	<button data-bs-toggle="modal" data-bs-target="#createEventModal" class="btn btn-primary create-cooperation-event-btn">Opret begivenhed</button>
+ 	
  </div>
 
 <?php require_once DXL_PROFILE_MODULE_PATH . "/events/partials/create-event-modal.php"; ?>

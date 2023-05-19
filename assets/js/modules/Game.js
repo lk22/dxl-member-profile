@@ -39,68 +39,75 @@ const ProfileGame = {
 
         jQuery('.add-game-btn').on('click', function(e) {
             e.preventDefault();
+            let validated = true;
             ProfileGame.forms.createGameForm.serializeArray().forEach((input) => {
                 ProfileGame.forms.values[input.name] = input.value
-            })
-
-            jQuery.ajax({
-                method: "POST",
-                url: MemberProfileGame.ajaxurl,
-                data: {
-                    action: ProfileGame.actions.createGame,
-                    nonce: MemberProfileGame.nonce,
-                    values: ProfileGame.forms.values,
-                    member_id: MemberProfileGame.profile.member_id
-                },
-                success: function(response) {
-                    console.log(response);
-                    if ( response.success) {
-
-                        if ( gameCount == 0 ) {
-                            jQuery('.member-games-list').html('');
-                        }
-
-                        jQuery('.member-games-list').append(
-                            '<div class="row game-row" data-game="' + response.data.game.id + '">' +
-                                '<div class="col-12 col-lg-4 game">' +
-                                    '<div class="game-title">' + response.data.game.name +'</div>' +
-                                    '<div class="game-actions">' +
-                                        '<div class="delete"><i class="fas fa-trash"></i></div>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>'
-                        )
-
-                        jQuery('#addNewGameModal').find('.create-game-form, button').show();
-                        jQuery('#addNewGameModal').find('form').trigger('reset') // reset form
-                        jQuery('#addNewGameModal').find('.loading').hide(); // hide loader
-                        jQuery('#addNewGameModal').modal('hide'); // closing modal
-
-                        new Swal({
-                            title: "Spil Oprettet",
-                            text: "Dit spil er oprettet",
-                            icon: "success",
-                            confirmButtonText: "Luk"
-                        });
-                    }
-                },
-                beforeSend: function() {
-                    jQuery('#addNewGameModal').find('.create-game-form, button').hide();
-                    jQuery('#addNewGameModal').find('.loading').show();
-                },
-
-                error: function(error) {
-                    console.log(error);
-                    jQuery('#addNewGameModal').find('.create-game-form, button').show();
-                    jQuery('#addNewGameModal').find('.loading').hide();
-                    new Swal({
-                        title: "Fejl",
-                        text: "Der skete en fejl prøv igen senere",
-                        icon: "error",
-                        confirmButtonText: "Luk"
-                    })
+                if ( input.value == "" ) {
+                    jQuery('.game-title-field').find('input[name="' +  input.name + '"]').addClass('is-invalid');
                 }
+                validated = false;
             })
+
+            if ( validated ) {
+                jQuery.ajax({
+                    method: "POST",
+                    url: MemberProfileGame.ajaxurl,
+                    data: {
+                        action: ProfileGame.actions.createGame,
+                        nonce: MemberProfileGame.nonce,
+                        values: ProfileGame.forms.values,
+                        member_id: MemberProfileGame.profile.member_id
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if ( response.success) {
+    
+                            if ( gameCount == 0 ) {
+                                jQuery('.member-games-list').html('');
+                            }
+    
+                            jQuery('.member-games-list').append(
+                                '<div class="row game-row" data-game="' + response.data.game.id + '">' +
+                                    '<div class="col-12 col-lg-4 game">' +
+                                        '<div class="game-title">' + response.data.game.name +'</div>' +
+                                        '<div class="game-actions">' +
+                                            '<div class="delete"><i class="fas fa-trash"></i></div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>'
+                            )
+    
+                            jQuery('#addNewGameModal').find('.create-game-form, button').show();
+                            jQuery('#addNewGameModal').find('form').trigger('reset') // reset form
+                            jQuery('#addNewGameModal').find('.loading').hide(); // hide loader
+                            jQuery('#addNewGameModal').modal('hide'); // closing modal
+    
+                            new Swal({
+                                title: "Spil Oprettet",
+                                text: "Dit spil er oprettet",
+                                icon: "success",
+                                confirmButtonText: "Luk"
+                            });
+                        }
+                    },
+                    beforeSend: function() {
+                        jQuery('#addNewGameModal').find('.create-game-form, button').hide();
+                        jQuery('#addNewGameModal').find('.loading').show();
+                    },
+    
+                    error: function(error) {
+                        console.log(error);
+                        jQuery('#addNewGameModal').find('.create-game-form, button').show();
+                        jQuery('#addNewGameModal').find('.loading').hide();
+                        new Swal({
+                            title: "Fejl",
+                            text: "Der skete en fejl prøv igen senere",
+                            icon: "error",
+                            confirmButtonText: "Luk"
+                        })
+                    }
+                })
+            }
         })
 
         // performing delete action on a game

@@ -1,7 +1,7 @@
 (($) => {
 
   $(document).on('ready', function() {
-    
+    console.log({document, window, MemberProfileApp})
     $('.nav-toggler').on('click', (e) => {
       console.log("clicked");
       $('.nav-list').addClass('active');

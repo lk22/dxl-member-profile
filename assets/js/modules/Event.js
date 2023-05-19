@@ -23,7 +23,8 @@ const ProfileEvent = {
             createEventForm: jQuery('.create-event-modal-form'),
             updatingCooperationEventForm: jQuery('update-cooperation-event-form'),
             updateTrainingEventForm: jQuery('.update-training-event-form'),
-            values: {}
+            values: {},
+            validated: false
         }
 
         ProfileEvent.actions = {
@@ -32,7 +33,6 @@ const ProfileEvent = {
             deleteEvent: "dxl_profile_delete_event",
             publishUnpublishEvent: "dxl_profile_publish_unpublish_event",
         }
-        console.log(MemberProfileEvent)
         ProfileEvent.bind();
     },
 
@@ -52,22 +52,25 @@ const ProfileEvent = {
      * @return void
      */
     bindCreateEvent: function() {
-        /**
-         * @TODO: check for event type, and append correct form fields to modal
-         */
-        console.log(jQuery("select[name='event-type']").val());
-
         const eventType = jQuery(".event-type-selector").find('.type-selector');
-        const trainingEventForm = jQuery(".create-training-event-form");
+        const trainingEventForm = jQuery(".create-training-event-content");
         const cooperationEventForm = jQuery(".create-cooperation-event-form");
 
         eventType.each(function(index, selector) {
             jQuery(selector).on('click', function(e) {
                 jQuery(this).addClass('active').siblings().removeClass('active');
+
+                console.log(MemberProfileEvent.profile)
                 
                 if (e.currentTarget.dataset.type == "training") {
                     cooperationEventForm.slideUp()
                     trainingEventForm.slideDown()
+                }
+
+                if ( e.currentTarget.dataset.type == "tournament" ) {
+                    if ( MemberProfileEvent.profile.is_tournament_author ) {
+                        // TODO: only show tournament event form here and hide other evet type forms
+                    }
                 }
 
                 if (e.currentTarget.dataset.type == "cooperation") {
@@ -90,50 +93,64 @@ const ProfileEvent = {
 
             serializedEventValues.forEach(function(field) {
                 ProfileEvent.forms.values[field.name] = field.value
-            })
-
-            jQuery.ajax({
-                method: "POST",
-                url: MemberProfileEvent.ajaxurl,
-                data: {
-                    action: ProfileEvent.actions.createEvent,
-                    nonce: MemberProfileEvent.nonce,
-                    values: ProfileEvent.forms.values,
-                    member_id: MemberProfileEvent.member.user_id,
-                    event_type: e.currentTarget.dataset.type
-                },
-                success: function(response) {
-                    console.log(response);
-
-                    const parsed = JSON.parse(response)
-                    if (parsed.status == "success") window.location.reload()
-                    if (parsed.status == "error") console.log(parsed)
-                },
-                beforeSend: function() {
-                    console.log("Sending request")
-                },
-                error: function(error) {
-                    console.log(error);
-
-                    new Swal({
-                        title: "Ooops..",
-                        text: "Der skete en uventet fejl, prøv igen senere",
-                        icon: "error",
-                        confirmButtonText: "Luk",
-                    })
+                if ( field.value == "" ) {
+                    ProfileEvent.forms.validated = false;
+                    jQuery('input[name="' + field.name + '"]').addClass('is-invalid');
+                    return false;
                 }
+
+                ProfileEvent.forms.validated = true;
             })
+            if (ProfileEvent.forms.validated) {
+                jQuery.ajax({
+                    method: "POST",
+                    url: MemberProfileEvent.ajaxurl,
+                    data: {
+                        action: ProfileEvent.actions.createEvent,
+                        nonce: MemberProfileEvent.nonce,
+                        values: ProfileEvent.forms.values,
+                        member_id: MemberProfileEvent.member.user_id,
+                        event_type: e.currentTarget.dataset.type
+                    },
+                    success: function(response) {
+                        console.log(response);
+    
+                        const parsed = JSON.parse(response)
+                        if (parsed.status == "success") window.location.reload()
+                        if (parsed.status == "error") console.log(parsed)
+                    },
+                    beforeSend: function() {
+                        console.log("Sending request")
+                    },
+                    error: function(error) {
+                        console.log(error);
+    
+                        new Swal({
+                            title: "Ooops..",
+                            text: "Der skete en uventet fejl, prøv igen senere",
+                            icon: "error",
+                            confirmButtonText: "Luk",
+                        })
+                    }
+                })
+            }
         })
     }, 
 
     bindDeleteEvent: () => {
         ProfileEvent.buttons.deleteEventButton.on('click', (e) => {
-            useConfirm("Er du sikker på at du vil slette denne begivenhed?", (result) => {
-                if ( result.value ) {
-                    const eventId = e.currentTarget.dataset.eventId
-                    const type = e.currentTarget.dataset.type
 
-                    ProfileEvent.deleteEventAjax(eventId, type)
+            new Swal({
+                title: "Sletter begivenhed...",
+                text: "Vent venligst mens begivenheden bliver slettet...",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Ja, slet begivenhed",
+                cancelButtonText: "Nej, behold begivenhed",
+                showLoaderOnConfirm: true,
+            }).then((result) => {
+                if(result.value) {
+                    ProfileEvent.deleteEventAjax(e.currentTarget.dataset.event, e.currentTarget.dataset.type)
                 }
             })
         })
@@ -231,30 +248,61 @@ const ProfileEvent = {
      * Event ajax helper
      */
     deleteEventAjax: function(event, type) {
-        useAjaxRequest(
-            ProfileEvent.ajaxurl,
-            "POST",
-            {
-                action: actions.deleteEvent,
-                nonce: ProfileEvent.nonce,
+        jQuery.ajax({
+            method: "POST",
+            url: MemberProfileEvent.ajaxurl,
+            data: {
+                action: ProfileEvent.actions.deleteEvent,
+                nonce: MemberProfileEvent.nonce,
                 event_id: event,
                 event_type: type
             },
-            (response) => {
-                console.log(response)
+            beforeSend: function() {
+                new Swal({
+                    title: "Sletter begivenhed...",
+                    text: "Vent venligst mens begivenheden bliver slettet...",
+                    icon: "warning",
+                    showCancelButton: false,
+                })
+            },
+            success: function(response) {
+                console.log(response) 
                 const parsed = JSON.parse(response)
 
-                if (parsed.status == "status") window.location.href = ProfileEvent.url + "?module=events"
+                if ( parsed.status == "success" ) {
+                    new Swal({
+                        title: "Begivenhed slettet!",
+                        text: "Din begivenhed er nu slettet du vil blive dirigeret tilbage til din event liste",
+                        icon: "success",
+                        showConfirmButton: true,
+                        confirmButtonText: "forstået"
+                    }).then((result) => {
+                        if ( result.value ) {
+                            window.location.href = window.location.pathname + "/?module=events"
+                        }
+                    })
+                }
+
+                if ( parsed.stauts == "error" ) {
+                    console.log(parsed);
+                    new Swal({
+                        title: "Ooops..",
+                        text: "Noget gik galt, kunne ikke slette din begivenehd, prøv igen senere",
+                        icon: "error",
+                        confirmButtonText: "Luk"
+                    })
+                }
             },
-            () => {
-                useDialog({
-                    title: "Sletter begivenhed...",
-                    message: "Vent venligst mens begivenheden bliver slettet..."
-                })
-            }, (error) => {
+            error: function(error) {
                 console.log(error)
+                new Swal({
+                    title: "Ooops..",
+                    text: "Der skete en uventet fejl, prøv igen senere",
+                    icon: "error",
+                    confirmButtonText: "Luk",
+                })
             }
-        )
+        })
     },
 }
 

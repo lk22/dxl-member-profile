@@ -1,0 +1,12 @@
+.dropdown-item {
+    a {
+        text-decoration: none;
+    }
+
+    &:hover {
+        --bs-dropdown-link-hover-bg: green;
+        a {
+            color: #ffffff;
+        }
+    }
+}

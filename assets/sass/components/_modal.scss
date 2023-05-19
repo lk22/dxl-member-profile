@@ -8,6 +8,11 @@
                 .row.event-type-selector {
                     margin-bottom: 0.5rem;
                     .type-selector {
+                        margin-bottom: 1rem;
+
+                        // &:last-child {
+                        //     width: 100%;
+                        // }
                         .type-inner {
                             padding: 1rem;
                             border-radius:10px;
@@ -20,9 +25,7 @@
                             justify-content: center;
                             align-items: center;
                             cursor: pointer;
-
                             
-
                             &:hover {
                                 background: #2d6f1990;
                                 transition: ease-in-out 0.3s all;
@@ -43,6 +46,11 @@
                             .type-selector-label {
                                 color: #ffffff;
                                 font-weight: 600;
+
+                                &.disabled {
+                                    background-color: #2d6f1950;
+                                    pointer-events: none;
+                                }
                             }
                         }
 

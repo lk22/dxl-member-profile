@@ -1,6 +1,6 @@
 <form action="#" method="POST" class="create-cooperation-event-form" style="display:none">
     <div class="form-group">
-        <label for="event_title" class="label">Title</label>
+        <label for="event_title" class="label">Titel</label>
         <input 
             type="text" 
             class="form-control" 
@@ -29,7 +29,7 @@
 
     <div class="form-group event-description-field">
         <label for="event-description" class="label">
-            Beskrivelse:
+            Beskrivelse
         </label>
         <textarea 
             name="event-description" 
@@ -41,7 +41,7 @@
     </div>
 
     <div class="form-group event-start-date-field">
-        <label for="event-start-date" class="label">Start dato:</label>
+        <label for="event-start-date" class="label">Start dato</label>
         <input 
             type="date" 
             name="event-start-date" 
@@ -52,7 +52,7 @@
 
     <!-- start time field -->
     <div class="form-group event-start-time-field">
-        <label for="event-start-time" class="label">Start tidspunkt:</label>
+        <label for="event-start-time" class="label">Start tidspunkt</label>
         <input 
             type="time" 
             name="event-start-time" 
