@@ -19,7 +19,7 @@
 					<div class="dropdown"> 
 						<button class="dxl-btn" data-bs-toggle="dropdown" aria-expanded="false">
 							<span>Vælg handling</span>
-							<i class="fa-list fa-ellipsis-vertical"></i>
+							<i class="fa-solid fa-ellipsis-vertical"></i>
 						</button>
 						<ul class="dropdown-menu">
 							<li>

@@ -70,7 +70,7 @@
 									<div class="event-actions col-12 col-sm-6 col-md-2 text-end">
 										<div class="dropwdown">
 											<button class="dxl-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-												<i class="fa-light fa-ellipsis-vertical"></i>
+
 											</button>
 											<ul class="dropdown-menu">
 												<li><span class="dropdown-item">
