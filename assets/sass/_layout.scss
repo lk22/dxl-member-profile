@@ -9,6 +9,20 @@ html {
 body:not([class*=elementor-page-]) {
   font-family: "Poppins", sans-serif;
   .site-main{
+    @media (max-width: 991px) {
+      --bs-gutter-x: 4.5rem !important;
+    }
+
+    @media (min-width: 576px) {
+      max-width: 100% !important;
+    }
+    @media (min-width: 768px) {
+      max-width: 100% !important;
+    }
+    @media (min-width: 992px) {
+      max-width: 100% !important;
+    }
+
     @media (min-width: 1200px) {
       max-width: $content-width !important;
     }
@@ -33,11 +47,41 @@ body:not([class*=elementor-page-]) {
     }
 
     a {
-      
-      &:not([class*="theme-"]) {
-        color: $link-color;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .sidebar a:not([class*="theme-"]) {
+      color: $button-color;
+    }
+
+    .responsive-sidebar {
+
+      .nav-toggler .fas {
+        color: green;
       }
-      font-size: 14px;
+
+      .close-button .fas {
+        color: #ffffff;
+      }
+
+      .close-button .fas, .nav-toggler .fas {
+        font-size: 28px;
+        cursor: pointer;
+      }
+      li {
+        margin-bottom: 0.5rem;
+        list-style-type: none;
+      }
+
+      a.dxl-btn {
+        font-size: 12px !important;
+      }
+      
+      a:not([class*="theme-"]) {
+        color: #ffffff;
+        font-size: 1.5em;
+      }
     }
   }
 

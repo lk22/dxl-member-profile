@@ -5,7 +5,7 @@
  ?>
  <div class="events-heading row bg-white rounded p-4">
 	<div class="col-7">
-		<h3>Dine begivenhder <span><button data-bs-toggle="modal" data-bs-target="#createEventModal" class="btn btn-primary create-cooperation-event-btn">Opret begivenhed</button></span></h3>
+		<h3>Dine begivenhder <span><button data-bs-toggle="modal" data-bs-target="#createEventModal" class="dxl-btn create-cooperation-event-btn">Opret begivenhed</button></span></h3>
 	</div>
 	<div class="col-5 d-flex align-items-center justify-content-end">
 		<?php 
@@ -28,17 +28,17 @@
 							<div class="col-12 mb-3 event border-bottom pb-2 <?php if ( $event->is_draft ) { echo "border-danger"; } else {
 								echo "border-success";
 							} ?>">
-								<div class="row w-100 align-items-center">
-									<div class="event-title col-2">
+								<div class="row w-100 align-items-center relative">
+									<div class="event-title col-12 col-sm-6 col-md-2">
 										<span><strong><?php echo $event->title ?? $event->name ?></strong></span>
 									</div>
-									<div class="event-startdate col-2">
+									<div class="event-startdate col-12 col-sm-6 col-md-2">
 										<?php echo date('d-m-Y', $event->start_date ?? $event->event_date) ?> <?php echo date("H:i", $event->start_time ?? $event->starttime) ?>
 									</div>
-									<div class="event-participants col-2">
+									<div class="event-participants col-12 col-sm-6 col-md-2">
 										<?php echo $event->participants_count ?> deltagere
 									</div>
-									<div class="event-type col-2">
+									<div class="event-type col-12 col-sm-6 col-md-2">
 										<?php 
 											if ( isset( $event->is_recurring ) ) $type = "træning";
 											elseif ( isset( $event->type)  ) $type = "turnering";
@@ -54,7 +54,7 @@
 											}
 										?>
 									</div>
-									<div class="event-status col-2">
+									<div class="event-status col-12 col-sm-6 col-md-2">
 										<?php 
 											if ( $event->is_draft ) {
 												?>
@@ -67,9 +67,9 @@
 											}
 										?>
 									</div>
-									<div class="event-actions col-2 text-end">
+									<div class="event-actions col-12 col-sm-6 col-md-12 text-end">
 										<div class="dropwdown">
-											<button class="dxl-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" arai-expanded="false">
+											<button class="dxl-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 												<i class="fa-light fa-ellipsis-vertical"></i>
 											</button>
 											<ul class="dropdown-menu">

@@ -109,7 +109,7 @@
 					</div>
 				</div>
 
-				<div class="full-width overview-container isLanParticipant bg-gray">
+				<div class="isLanParticipant">
 				<?php 
 						if( $profile["lan"] ) {
 							?>

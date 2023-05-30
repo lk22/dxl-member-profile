@@ -21,7 +21,8 @@ const ProfileEvent = {
 
         ProfileEvent.forms = {
             createEventForm: jQuery('.create-event-modal-form'),
-            updatingCooperationEventForm: jQuery('update-cooperation-event-form'),
+            createTrainingEventForm: jQuery('.create-training-event-form'),
+            updatingCooperationEventForm: jQuery('.update-cooperation-event-form'),
             updateTrainingEventForm: jQuery('.update-training-event-form'),
             values: {},
             validated: false
@@ -33,6 +34,7 @@ const ProfileEvent = {
             deleteEvent: "dxl_profile_delete_event",
             publishUnpublishEvent: "dxl_profile_publish_unpublish_event",
         }
+
         ProfileEvent.bind();
     },
 
@@ -59,18 +61,10 @@ const ProfileEvent = {
         eventType.each(function(index, selector) {
             jQuery(selector).on('click', function(e) {
                 jQuery(this).addClass('active').siblings().removeClass('active');
-
-                console.log(MemberProfileEvent.profile)
                 
                 if (e.currentTarget.dataset.type == "training") {
-                    cooperationEventForm.slideUp()
-                    trainingEventForm.slideDown()
-                }
-
-                if ( e.currentTarget.dataset.type == "tournament" ) {
-                    if ( MemberProfileEvent.profile.is_tournament_author ) {
-                        // TODO: only show tournament event form here and hide other evet type forms
-                    }
+                        cooperationEventForm.slideUp()
+                        trainingEventForm.slideDown()
                 }
 
                 if (e.currentTarget.dataset.type == "cooperation") {
@@ -85,11 +79,14 @@ const ProfileEvent = {
 
         jQuery('.create-event-btn').on('click', function(e) {
             let serializedEventValues;
+            
             if ( e.currentTarget.dataset.type == "training" ) {
-                serializedEventValues = trainingEventForm.serializeArray()
+                serializedEventValues = ProfileEvent.forms.createTrainingEventForm.serializeArray()
             } else if ( e.currentTarget.dataset.type == "cooperation" ) {
                 serializedEventValues = cooperationEventForm.serializeArray();
             }
+
+            console.log(e.currentTarget.dataset.type)
 
             serializedEventValues.forEach(function(field) {
                 ProfileEvent.forms.values[field.name] = field.value
@@ -101,7 +98,11 @@ const ProfileEvent = {
 
                 ProfileEvent.forms.validated = true;
             })
+
+            console.log(ProfileEvent.forms.values);
+
             if (ProfileEvent.forms.validated) {
+                console.log("test")
                 jQuery.ajax({
                     method: "POST",
                     url: MemberProfileEvent.ajaxurl,
@@ -118,9 +119,11 @@ const ProfileEvent = {
                         const parsed = JSON.parse(response)
                         if (parsed.status == "success") window.location.reload()
                         if (parsed.status == "error") console.log(parsed)
+                        jQuery('.create-event-btn').html('<i class="fa-solid fa-spinner"></i>');
                     },
                     beforeSend: function() {
                         console.log("Sending request")
+                        jQuery('.create-event-btn').html('<i class="fa-solid fa-spinner"></i>');
                     },
                     error: function(error) {
                         console.log(error);
@@ -131,12 +134,16 @@ const ProfileEvent = {
                             icon: "error",
                             confirmButtonText: "Luk",
                         })
+                        jQuery('.create-event-btn').html('<i class="fa-solid fa-spinner"></i>');
                     }
                 })
             }
         })
     }, 
 
+    /**
+     * Binding delete event handler
+     */
     bindDeleteEvent: () => {
         ProfileEvent.buttons.deleteEventButton.on('click', (e) => {
 
@@ -150,7 +157,12 @@ const ProfileEvent = {
                 showLoaderOnConfirm: true,
             }).then((result) => {
                 if(result.value) {
-                    ProfileEvent.deleteEventAjax(e.currentTarget.dataset.event, e.currentTarget.dataset.type)
+                    ProfileEvent.deleteEventAjax(
+                        ProfileEvent.actions.deleteEvent,
+                        MemberProfileEvent.nonce,
+                        e.currentTarget.dataset.event,
+                        e.currentTarget.dataset.type
+                    )
                 }
             })
         })
@@ -163,25 +175,19 @@ const ProfileEvent = {
         const type = "cooperation"
         ProfileEvent.buttons.updateEventButton.on('click', (e) => {
             e.preventDefault();
-            const values = getFormValues(ProfileEvent.forms.updatingCooperationEventForm)
-            values.action = actions.editEvent;
-            values.nonce = DxlMemberProfile.nonce
-            values.ajaxurl = DxlMemberProfile.ajaxurl
-            values.type = type
-            console.log(values)
-            useAjaxRequest(
-                DxlMemberProfile.ajaxurl,
-                "POST",
-                values,
-                ProfileEvent.EventSuccessCallback(),
-                () => {
-                    ProfileEvent.buttons.updateEventButton.html("Opdaterer...")
-                },
-                (error) => {
-                    console.log(error)
-                    ProfileEvent.buttons.updateEventButton.html("Opdater")
-                }
-            )
+
+            ProfileEvent.forms.updatingCooperationEventForm.serializeArray().forEach(function(field) {
+                ProfileEvent.forms.values[field.name] = field.value;
+            })
+            console.log(ProfileEvent.forms.values);
+            
+            ProfileEvent.forms.values["action"] = ProfileEvent.actions.editEvent
+            ProfileEvent.forms.values["nonce"] = MemberProfileEvent.nonce
+            ProfileEvent.forms.values["type"] = type
+            
+            console.log(ProfileEvent.forms.values);
+
+            ProfileEvent.ajaxUpdateEvent(ProfileEvent.forms.values);
         })
     },
 
@@ -192,70 +198,55 @@ const ProfileEvent = {
         const type = "training"
         ProfileEvent.buttons.updateTrainingEventButton.on('click', function(e) {
             e.preventDefault();
-            const values = getFormValues(ProfileEvent.forms.updateTrainingEventForm)
-            values.action = actions.editEvent
-            values.nonce = DxlMemberProfile.nonce
-            values.type = type
 
-            useAjaxRequest(DxlMemberProfile, 'POST', values, (response) => {
-                const parsed = JSON.parse(response)
-                if (parsed.status == "success") window.location.reload()
-                if (parsed.status == "error") console.log(parsed)
-                ProfileEvent.buttons.updateTrainingEventButton.html("Opdater")
-                ProfileEvent.buttons.editTrainingEventModal.modal('hide')
-            }, () => {
-                console.log("Updating event...")
-                ProfileEvent.buttons.updateTrainingEventButton.html("Opdaterer...")
-            }, (error) => {
-                console.log(error)
-                ProfileEvent.buttons.updateTrainingEventButton.html("Opdater")
+            ProfileEvent.forms.updateTrainingEventForm.serializeArray().forEach(function(field) {
+                ProfileEvent.forms.values[field.name] = field.value;
             })
+
+            ProfileEvent.forms.values["action"] = ProfileEvent.actions.editEvent;
+            ProfileEvent.forms.values["nonce"] = MemberProfileEvent.nonce;
+            ProfileEvent.forms.values["type"] = type;
+
+            console.log(ProfileEvent.forms.values)
+
+            ProfileEvent.ajaxUpdateEvent(ProfileEvent.forms.values);
         })
     },
 
+    /**
+     * Bind publish and unpublishing event handler
+     * @return void
+     */
     bindPublishUnpublishEvent: () => {
         ProfileEvent.buttons.publishUnpublishButton.on('click', (e) => {
             const eventId = e.currentTarget.dataset.event
             const type = e.currentTarget.dataset.eventType
             const eventAction = e.currentTarget.dataset.action
 
-            useAjaxRequest(DxlMemberProfile.ajaxurl, "POST", {
-                action: actions.publishUnpublishEvent,
-                nonce: DxlMemberProfile.nonce,
-                event_id: eventId,
-                event_type: type,
-                event_action: eventAction
-            }, (response) => {
-                const parsed = JSON.parse(response)
-
-                if (parsed.status == "success") window.location.reload()
-                if (parsed.status == "error") console.log(parsed)
-
-                eventAction == "publish" 
-                    ? ProfileEvent.buttons.publishUnpublishButton.html("Offentliggør")
-                    : ProfileEvent.buttons.publishUnpublishButton.html("Skjul")
-            }, () => {
-                eventAction == "publish" 
-                    ? ProfileEvent.buttons.publishUnpublishButton.html("Offentliggør")
-                    : ProfileEvent.buttons.publishUnpublishButton.html("Skjul")
-            }, (error) => {
-                console.log(error)
+            const data = Object.assign({}, {
+                event_id: eventId, 
+                event_type: type, 
+                event_action: eventAction, 
+                action: ProfileEvent.actions.publishUnpublishEvent, 
+                nonce: MemberProfileEvent.nonce 
             })
+
+            ProfileEvent.ajaxPublishUnpublishEvent(data);
         })
     },
 
     /**
      * Event ajax helper
      */
-    deleteEventAjax: function(event, type) {
+    deleteEventAjax: function(action, nonce, event_id, event_type) {
         jQuery.ajax({
             method: "POST",
             url: MemberProfileEvent.ajaxurl,
             data: {
-                action: ProfileEvent.actions.deleteEvent,
-                nonce: MemberProfileEvent.nonce,
-                event_id: event,
-                event_type: type
+                action,
+                nonce,
+                event_id,
+                event_type
             },
             beforeSend: function() {
                 new Swal({
@@ -304,6 +295,150 @@ const ProfileEvent = {
             }
         })
     },
+
+    /**
+     * Update existing event
+     * @param {*} event 
+     */
+    ajaxUpdateEvent: function( event ) {
+        jQuery.ajax({ method: "POST", url: MemberProfileEvent.ajaxurl, data: event, success: function(response) {
+            console.log(response);
+        
+            const json = JSON.parse(response)
+        
+            if (json.status == "success") {
+                window.location.reload();
+            }
+
+            if ( json.status == "error" ) {
+                console.log(json)
+            }
+        
+            ProfileEvent.buttons.updateTrainingEventButton.html("Opdater")
+            ProfileEvent.buttons.editTrainingEventModal.modal('hide');
+        }, error: function(error) {
+            console.log(error)
+            
+            new Swal({
+                title: "Ooops..",
+                text: "Noget gik galt, kunne ikke opdatere event",
+                icon: "error",
+                confirmButtonText: "Luk"
+            })
+
+            ProfileEvent.buttons.updateTrainingEventButton.html('Opdater')
+        }, beforeSend() {
+            new Swal({
+                title: "Updating event...",
+                text: "Opdatere event, vent venligst",
+                icon: "info"
+            });
+        }})
+    },
+
+    /**
+     * requesting publish or unpublish event 
+     * @param int event_id 
+     * @param string event_type 
+     * @param string event_action 
+     */
+    ajaxPublishUnpublishEvent: function(data) {
+        console.log(data)
+        
+        jQuery.ajax({ method: "POST", url: MemberProfileEvent.ajaxurl, data: data, beforeSend: function() {
+            new Swal({
+                title: (data.event_action == "publish") ? "Offentliggøre event" : "Sætter event i udkast tilstand",
+                text: "Vent venligst",
+                icon: "info",
+                showConfirmButton: false,
+                showCancelButton: false
+            })
+            }, success: function(response) {
+                console.log(response);
+
+                const parsed = JSON.parse(response)
+                if ( parsed.status == "success" ) {
+                    new Swal({
+                        title: "Success",
+                        text: "Begivenheden er opdateret.",
+                        icon: "success",
+                        showConfirmButton: true,
+                        confirmButtonText: "luk",
+                    }).then((result) => {
+                        if ( result.value ) {
+                            window.location.reload();
+                        }
+                    })
+                } 
+
+                if ( parsed.status == "failed" ) {
+                    new Swal({ title: "Oops..", text: "Noget gik galt, kunne ikke opdatere eventet", icon: "error", confirmButtonText: "Luk" })
+                }
+
+            }, error: function(error) {
+                console.log(error);
+                new Swal({
+                    title: "Oops..",
+                    text: "Noget gik galt, kunne ikke opdatere eventet",
+                    icon: "error"
+                })
+            }
+        })
+    }
+}
+
+/**
+ * Serializing form fields
+ * @param {*} form 
+ * @returns 
+ */
+function serializeFormFields(form) {
+    let formFields = {}
+    form.serializeArray().forEach(function(field) {
+        formFields[field.name] = field.value;
+    })
+
+    return formFields;
+}
+
+/**
+ * custom debounce function
+ * @param {*} callback 
+ * @param {*} duration 
+ * @returns 
+ */
+function _debounce(callback, duration) {
+    let timer
+    return (...args) => {
+        clearTimeout(timer);
+        time = setTimeout(() => {
+            callback(...args)
+        }, duration)
+    }
+}
+
+/**
+ * Throttle function
+ * Throttle is another technique to minimize unnecessary function invocations when using event listeners.
+ * However, throttle works a bit differently from debouncing. Instead of delaying, 
+ * it invokes the callback function at regular intervals as long as the event trigger is active.
+ * @param {*} callback 
+ * @param {*} delay 
+ * @returns 
+ */
+function _throttle(
+    callback,
+    delay = 1000
+) {
+    let shouldWait = false
+    return (...args) => {
+        if ( shouldWait ) return
+        callback(...args);
+        shouldWait = true
+        setTimeout(() => {
+            shouldWait = false;
+        }, delay)
+    }
 }
 
 ProfileEvent.init();

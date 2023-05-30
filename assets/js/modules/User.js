@@ -64,8 +64,7 @@ const ProfileUser = {
                     new Swal({
                         title: "Opdaterer medlemsskab",
                         text: "Vent venligst mens dit medlemsskab bliver opdateret",
-                        icon: "info",
-                        button: "Luk"
+                        showConfirmButton: false
                     })
                 },
                 error: function(error) {

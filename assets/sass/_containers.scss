@@ -7,6 +7,10 @@
     -o-border-radius: 5px;
     width: calc(100% / 2 - 8px) !important;
 
+    @media (max-width: 1199px) {
+        width: 100% !important;
+    }
+
     &.full-width {
         width: 100% !important;
     }

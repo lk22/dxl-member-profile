@@ -50,8 +50,6 @@
        */
       public function update()
       {
-        // echo json_encode($_REQUEST);
-        // wp_die();
         if ( ! isset( $_REQUEST["type"] ) ) {
           echo wp_json_encode([
             'status' => 'error',
@@ -92,7 +90,7 @@
             $data["game_id"] = $_REQUEST["game"];
             $data["start_date"] = strtotime($data["start_date"]);
 
-            $this->trainingRepository->update($data, $_REQUEST['event']);
+            $updated = $this->trainingRepository->update($data, $_REQUEST['event']);
             break;
         }
 
@@ -206,8 +204,8 @@
           "slug" => str_replace(' ', '-', $_REQUEST["values"]['event_title']), // creating slug from title
           "description" => $_REQUEST["values"]['event-description'],
           "participants_count" => 0,
-          "event_date" => strtotime($_REQUEST["values"]['startdate']),
-          "start_time" => strtotime($_REQUEST["values"]['starttime']),
+          "event_date" => strtotime($_REQUEST["values"]['event-start-date']),
+          "start_time" => strtotime($_REQUEST["values"]['event-start-time']),
           "created_at" => time(),
           "game_id" => $_REQUEST["values"]['event-game'],
           "author" => $_REQUEST['member_id'],

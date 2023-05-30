@@ -23,10 +23,10 @@
             "url" => $manager_url . "?module=update",
             "icon" => '<i class="fas fa-user-cog"></i>'
         ),
-        "Spil" => array(
-            "url" => $manager_url . "?module=settings&type=games",
-            "icon" => '<i class="fas fa-user-cog"></i>'
-        ),
+        // "Spil" => array(
+        //     "url" => $manager_url . "?module=settings&type=games",
+        //     "icon" => '<i class="fas fa-user-cog"></i>'
+        // ),
         /*"Indstillinger" => [
             "icon" =>'<i class="fas fa-user-cog"></i>',
             "sub" => [

@@ -10,7 +10,7 @@
                     <div class="col-12 col-lg-2 col-xl-1 col-xxl-1 sidebar">
                         <?php require DXL_PROFILE_PARTIALS_PATH . '/sidebar.php'; ?>
                     </div>
-                    <div class="col-12 col-lg-9 col-xl-10 col-xxl-10 shadow-sm layout-content">
+                    <div class="col-12 col-lg-10 shadow-sm layout-content">
                         <?php 
                             if ( isset($_GET["module"]) ) {
                                 require DXL_PROFILE_VIEW_PATH . "/" . $profile["view"] . ".php";

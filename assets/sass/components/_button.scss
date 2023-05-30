@@ -17,6 +17,10 @@
     }
 }
 
+a.dxl-btn {
+    font-size: 12px;
+}
+
 button:not([class*="theme-"]) {
     background-color: $button-color !important;
 }

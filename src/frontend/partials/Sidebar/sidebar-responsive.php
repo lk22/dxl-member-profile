@@ -16,10 +16,10 @@
         <div class="col-9">
             <div class="row flex-nowrap justify-content-start">
                 <div class="dxl-home-logout d-flex justify-content-end">
-                    <a class="btn btn-success me-2" href="<?php echo wp_logout_url( home_url() ); ?>">
+                    <a class="dxl-btn me-2" href="<?php echo wp_logout_url( home_url() ); ?>">
                         Logud <i class="fas fa-sign-out-alt"></i>
                     </a>
-                    <a class="btn btn-success" href="<?php echo get_home_url(); ?>">
+                    <a class="dxl-btn" href="<?php echo get_home_url(); ?>">
                         Gå til DXL <i class="fas fa-home"></i>
                     </a>
                 </div>
@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <div id="responsive-navigaiton">
+    <div id="responsive-navigation">
         <nav class="nav-list">
             <div class="close-button">
                 <i class="fas fa-times"></i>
@@ -80,11 +80,10 @@
                 }
             ?>
             <li class="d-none">
-                <a href="<?php echo get_home_url(); ?>">Gå til DXL</a>
-                
+                <a class="dxl-btn" href="<?php echo get_home_url(); ?>">Gå til DXL</a>
             </li>
             <li class="d-none">
-                <a href="<?php echo wp_logout_url(); ?>">Logud</a>
+                <a class="dxl-btn" href="<?php echo wp_logout_url(); ?>">Logud</a>
             </li>
         </nav>
     </div>

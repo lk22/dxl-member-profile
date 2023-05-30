@@ -1,9 +1,16 @@
 .event-list-container .events-container {
     .events-list {
         .event {
+            position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            .event-actions {
+                position: absolute;
+                top: 0px;
+                right: 20px;
+            }
         }
     }
 }

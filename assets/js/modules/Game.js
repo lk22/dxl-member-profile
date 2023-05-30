@@ -147,7 +147,7 @@ const ProfileGame = {
                                                     '</div>' +
                                                 '</div>' +
                                             '</div>'
-                                        )
+                                        )  
                                     })
 
                                     new Swal({

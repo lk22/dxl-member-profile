@@ -9,13 +9,13 @@
 
 <div class="container-fluid animate fadeUp member-settings">
 	<div class="row update-membership-form mb-4 border-bottom py-4">
-		<div class="col-4">
+		<div class="col-12 col-lg-4">
 			<h3>Kontingent indstillinger</h3>
 			<?php require_once DXL_PROFILE_PARTIALS_PATH . "/Member/membership-update.php"; ?>
 		</div>
 	</div>
 	<div class="row update-member-info border-bottom pb-4">
-		<div class="col-4">
+		<div class="col-12 col-lg-4">
 			<h3>Medlems information</h3>
 			<p>Tryk for at redigere dine medlems oplysninger</p>
 			<button class="dxl-btn" data-bs-toggle="modal" data-bs-target="#updateMemberInformationModal">Rediger</button>
