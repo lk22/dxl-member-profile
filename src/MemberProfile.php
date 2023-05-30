@@ -83,10 +83,10 @@
                     // enqueueing dependency scripts
                     wp_enqueue_script('dxl-member-profile-sweetalert', plugins_url('../assets/js/dependencies/sweetalert.js', __FILE__), ['jquery'], '1.0.0', true);
 
-                    wp_enqueue_script('dxl-member-profile', '/wp-content/plugins/dxl-member-profile/assets/js/app.js', ['jquery'], '1.0.0', true);
-                    wp_enqueue_script('dxl-member-profile-user', '/wp-content/plugins/dxl-member-profile/assets/js/modules/user.js', ['jquery'], '1.0.0', true);
-                    wp_enqueue_script('dxl-member-profile-event', '/wp-content/plugins/dxl-member-profile/assets/js/modules/event.js', ['jquery'], '1.0.0', true);
-                    wp_enqueue_script('dxl-member-profile-game', '/wp-content/plugins/dxl-member-profile/assets/js/modules/game.js', ['jquery'], '1.0.0', true);
+                    wp_enqueue_script('dxl-member-profile', plugins_url('../assets/js/app.js', __FILE__), ['jquery'], '1.0.0', true);
+                    wp_enqueue_script('dxl-member-profile-user', plugins_url('../assets/js/modules/User.js', __FILE__), ['jquery'], '1.0.0', true);
+                    wp_enqueue_script('dxl-member-profile-event', plugins_url('../assets/js/modules/Event.js', __FILE__), ['jquery'], '1.0.0', true);
+                    wp_enqueue_script('dxl-member-profile-game', plugins_url('../assets/js/modules/Game.js', __FILE__), ['jquery'], '1.0.0', true);
                     
                     wp_localize_script('dxl-member-profile', 'MemberProfileApp', $localizedData);
                     wp_localize_script('dxl-member-profile-user', 'MemberProfileUser', $localizedData);
