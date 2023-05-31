@@ -97,7 +97,7 @@
 								<div class="col-7">
 									<p class="lead fw-bold">
 										Du har ingen begivenheder registreret,
-										Klik på “Opret begivenhed” knappen nedenfor
+										Klik på “Opret begivenhed” knappen for at oprette en begivenhed.
 									</p>
 								</div>
 							</div>
