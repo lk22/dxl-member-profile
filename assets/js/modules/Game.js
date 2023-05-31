@@ -5,7 +5,7 @@ const ProfileGame = {
      */
     init: function() {
         ProfileGame.buttons = {
-            createGameButton: jQuery('.submit-add-app-game'),
+            createGameButton: jQuery('.add-game-btn'),
             deleteGameButton: jQuery('.delete-app-game, .game-row > .delete')
         }
 
@@ -37,18 +37,19 @@ const ProfileGame = {
     bindGameEvents: function() {
         const gameCount = jQuery('.member-games-list').find('.game-row').length;
 
-        jQuery('.add-game-btn').on('click', function(e) {
+        jQuery('.add-game-btn').click(function(e) {
             e.preventDefault();
             let validated = true;
             ProfileGame.forms.createGameForm.serializeArray().forEach((input) => {
                 ProfileGame.forms.values[input.name] = input.value
                 if ( input.value == "" ) {
                     jQuery('.game-title-field').find('input[name="' +  input.name + '"]').addClass('is-invalid');
+                    validated = false;
                 }
-                validated = false;
             })
 
             if ( validated ) {
+                console.log("validated")
                 jQuery.ajax({
                     method: "POST",
                     url: MemberProfileGame.ajaxurl,
@@ -112,7 +113,7 @@ const ProfileGame = {
 
         // performing delete action on a game
         jQuery('.game-row').each(function(index, row) {
-            jQuery(row).find('.delete').off().on('click', function(e) {
+            jQuery(row).find('.delete').bind('click', function(e) {
                 const gameId = jQuery(row).data('game');
                 console.log({gameId})
                 new Swal({
