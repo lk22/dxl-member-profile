@@ -21,13 +21,6 @@
 			<button class="dxl-btn" data-bs-toggle="modal" data-bs-target="#updateMemberInformationModal">Rediger</button>
 		</div>
 	</div>
-	<div class="row update-member-theme border-bottom py-4">
-		<div class="col-12">
-			<h3>Tema indstillinger</h3>
-			<p>Personliggør dit dashboard med en valgfri farve</p>
-			<?php require DXL_PROFILE_PARTIALS_PATH . "/Member/update-theme.php"; ?>
-		</div>
-	</div>
 	<div class="row update-member-games border-bottom py-4">
 		<div class="col-12">
 			<h3>Administrer spil</h3>
@@ -36,6 +29,13 @@
 				<?php require DXL_PROFILE_PARTIALS_PATH . "/Member/member-games-list.php"; ?>
 			</div>
 			<button class="dxl-btn" data-bs-toggle="modal" data-bs-target="#addNewGameModal">Tilføj</button>
+		</div>
+	</div>
+	<div class="row update-member-theme border-bottom py-4">
+		<div class="col-12">
+			<h3>Tema indstillinger</h3>
+			<p>Personliggør dit dashboard med en valgfri farve</p>
+			<?php require DXL_PROFILE_PARTIALS_PATH . "/Member/update-theme.php"; ?>
 		</div>
 	</div>
 </div>
