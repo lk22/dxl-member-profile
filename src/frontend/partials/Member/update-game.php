@@ -1,7 +1,12 @@
 <div class="modal modal-md fade" backdrop="false" id="addNewGameModal" tabindex="-1" aria-labelledby="addNewGameModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header"><h3>Tilknyt spil titel</h3></div>
+      <div class="modal-header">
+        <h3>Tilknyt spil titel</h3>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
       <div class="modal-body p-4">
         <div class="row create-game-form">
           <p>Når du tilføjer et nyt spil til listen, kan du oprette begivenheder med tilknytning til spillet </p>

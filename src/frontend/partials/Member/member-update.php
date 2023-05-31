@@ -1,6 +1,12 @@
 <div class="modal modal-xl fade" backdrop="false" id="updateMemberInformationModal" tabindex="-1" aria-labelledby="updateMemberInformationModal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
+    <div class="modal-header">
+        <h3>Rediger medlemsoplysninger</h3>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-solid fa-times"></i>
+        </button>
+    </div>
       <div class="modal-body p-4">
         <form action="#" method="POST" class="update_profile_settings_form">
             <input type="hidden" name="id" value="<?php echo $profile["member"]->id ?>">

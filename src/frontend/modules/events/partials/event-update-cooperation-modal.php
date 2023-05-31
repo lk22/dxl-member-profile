@@ -4,6 +4,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Rediger <?php echo $profile["details"]["event"]["item"]->title; ?></h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-solid fa-times"></i>
+        </button>
       </div>
       <div class="modal-body">
         <form action="#" method="post" class="update-cooperation-event-form">
