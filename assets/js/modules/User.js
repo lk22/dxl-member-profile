@@ -42,8 +42,6 @@ const ProfileUser = {
                     member_id: MemberProfileUser.profile.member_id
                 },
                 success: function(response) {
-                    console.log(response)
-
                     if ( response.success ) {
                         new Swal({
                             title: "Success!",
@@ -143,8 +141,6 @@ const ProfileUser = {
                     })
                 },
                 success: function(response) {
-                    console.log(response)
-
                     const parsed = JSON.parse(response)
                     if ( parsed.status == "erorr" ) {
                         new Swal({

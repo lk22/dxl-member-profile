@@ -114,7 +114,6 @@ const ProfileEvent = {
                         event_type: e.currentTarget.dataset.type
                     },
                     success: function(response) {
-                        console.log(response);
     
                         const parsed = JSON.parse(response)
                         if (parsed.status == "success") window.location.reload()
@@ -257,7 +256,6 @@ const ProfileEvent = {
                 })
             },
             success: function(response) {
-                console.log(response) 
                 const parsed = JSON.parse(response)
 
                 if ( parsed.status == "success" ) {
@@ -302,7 +300,6 @@ const ProfileEvent = {
      */
     ajaxUpdateEvent: function( event ) {
         jQuery.ajax({ method: "POST", url: MemberProfileEvent.ajaxurl, data: event, success: function(response) {
-            console.log(response);
         
             const json = JSON.parse(response)
         
@@ -354,7 +351,7 @@ const ProfileEvent = {
                 showCancelButton: false
             })
             }, success: function(response) {
-                console.log(response);
+
 
                 const parsed = JSON.parse(response)
                 if ( parsed.status == "success" ) {
