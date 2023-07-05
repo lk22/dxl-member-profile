@@ -98,7 +98,7 @@
              *
              * @return void
              */
-            private function getGamesSettings($member): Iterable 
+            private function getGamesSettings($member)
             {
                 $games = $this->profileMemberGamesRepository
                     ->select()
