@@ -79,42 +79,6 @@ const ProfileUser = {
     },
 
     bindUpdateMember() {
-        jQuery('.theme-color-switcher').each(function(i, theme) {
-            jQuery(theme).on('click', function(e) {
-                const colorTheme = jQuery(theme).data('theme')
-                const color = jQuery(theme).data('theme-color')
-                const body = jQuery('body')
-                body.attr('data-theme', colorTheme)
-                body.find('a').css({
-                    "color": color
-                })
-
-                body.find('label').css({"color": color})
-    
-                body.find('.dxl-btn').css({
-                    "background-color": color
-                })
-    
-                jQuery('.member-theme-form').find('input[name="theme-color"]').val(color);
-                jQuery('.member-theme-form').find('input[name="theme-name"]').val(colorTheme);
-            })
-        })
-    
-        jQuery('.member-theme-form').on('submit', function(e) {
-            e.preventDefault();
-            const theme = jQuery('.member-theme-form').find('input[name="theme-name"]').val();
-            const themeColor = jQuery('.member-theme-form').find('input[name="theme-color"]').val();
-    
-            window.localStorage.setItem('theme', theme)
-            window.localStorage.setItem('theme_color', themeColor)
-    
-            new Swal({
-                title: "Tema Opdateret",
-                text: "Dit farve tema er opdateret",
-                icon: "success",
-                confirmButtonText: "Luk"
-            })
-        })
 
         ProfileUser.buttons.updateMemberButton.on('click', function(e) {
             e.preventDefault()

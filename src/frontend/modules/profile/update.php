@@ -31,13 +31,6 @@
 			<button class="dxl-btn" data-bs-toggle="modal" data-bs-target="#addNewGameModal">Tilføj</button>
 		</div>
 	</div>
-	<div class="row update-member-theme border-bottom py-4">
-		<div class="col-12">
-			<h3>Tema indstillinger</h3>
-			<p>Personliggør dit dashboard med en valgfri farve</p>
-			<?php require DXL_PROFILE_PARTIALS_PATH . "/Member/update-theme.php"; ?>
-		</div>
-	</div>
 </div>
 
 <?php require_once DXL_PROFILE_PARTIALS_PATH . "/Member/update-game.php"; ?>
