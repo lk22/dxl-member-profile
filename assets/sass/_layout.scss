@@ -52,10 +52,6 @@ body:not([class*=elementor-page-]) {
       text-decoration: none;
     }
 
-    .sidebar a:not([class*="theme-"]) {
-      color: $button-color;
-    }
-
     .responsive-sidebar {
 
       .nav-toggler .fas {
@@ -73,15 +69,6 @@ body:not([class*=elementor-page-]) {
       li {
         margin-bottom: 0.5rem;
         list-style-type: none;
-      }
-
-      a.dxl-btn {
-        font-size: 12px !important;
-      }
-      
-      a:not([class*="theme-"]) {
-        color: #ffffff;
-        font-size: 1.5em;
       }
     }
   }
