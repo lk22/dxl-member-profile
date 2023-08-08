@@ -30,8 +30,8 @@
 
     a, a:hover {
         font-size: 16px !important;
-        text-decoration: none;
-        color: #f9f9f9;
+        text-decoration: none; 
+        color: $button-color;
     }
 }
 
@@ -69,6 +69,10 @@
             flex-direction: column;
             align-items: center;
 
+            a {
+                color: #f9f9f9;
+            }
+
             .close-button {
                 position: absolute;
                 left: 20px;
@@ -81,7 +85,7 @@
             }
 
             ul li a {
-                color: #ffffff;
+                color: #f9f9f9 !important;
             }
 
             &.active {
