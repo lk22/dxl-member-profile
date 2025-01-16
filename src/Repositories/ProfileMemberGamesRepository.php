@@ -33,7 +33,7 @@
             public function getMemberGames(int $memberId) : array
             {
                 
-                
+                return [];
             }
         }
     } 
