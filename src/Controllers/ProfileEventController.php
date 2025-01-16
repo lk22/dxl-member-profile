@@ -3,10 +3,10 @@
 
   if ( ! defined('ABSPATH') ) exit;
 
-  use DxlEvents\Classes\Repositories\CooperationEventRepository;
-  use DxlEvents\Classes\Repositories\TrainingRepository;
-  use DxlEvents\Classes\Repositories\TournamentRepository;
-  use DxlEvents\Classes\Repositories\ParticipantRepository;
+  use DXL\Classes\Repositories\CooperationEventRepository;
+  use DXL\Classes\Repositories\TrainingRepository;
+  use DXL\Classes\Repositories\TournamentRepository;
+  use DXL\Classes\Repositories\ParticipantRepository;
 
   use DxlProfile\ActionsCreateEvent;
 
@@ -20,10 +20,10 @@
        */
       public function __construct()
       {
-        $this->cooperationEventRepository = new CooperationEventRepository();
-        $this->trainingRepository = new TrainingRepository();
-        $this->tournamentRepository = new TournamentRepository();
-        $this->participantRepository = new ParticipantRepository();
+        // $this->cooperationEventRepository = new CooperationEventRepository();
+        // $this->trainingRepository = new TrainingRepository();
+        // $this->tournamentRepository = new TournamentRepository();
+        // $this->participantRepository = new ParticipantRepository();
       }
 
       /**

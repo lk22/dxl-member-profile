@@ -2,13 +2,13 @@
 
     namespace DxlProfile\Repositories;
 
-    use Dxl\Classes\Abstracts\AbstractRepository;
+    // use Dxl\Classes\Abstracts\AbstractRepository;
 
     if ( ! defined('ABSPATH') ) exit;
 
     if ( ! class_exists('ProfileMemberGamesRepository') )
     {
-        class ProfileMemberGamesRepository extends AbstractRepository
+        class ProfileMemberGamesRepository
         {
             /**
              * Table name

@@ -19,7 +19,7 @@
 
     if ( ! class_exists('ProfileController') )
     {
-        class ProfileController implements RegistersAdminActionsInterface
+        class ProfileController
         {
 
             public $memberRepository;

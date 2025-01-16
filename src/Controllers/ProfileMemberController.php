@@ -1,8 +1,8 @@
 <?php 
     namespace DxlProfile\Controllers;
     
-    use DxlMembership\Classes\Repositories\MemberRepository;
-    use DxlMembership\Classes\Repositories\MemberProfileRepository;
+    use DXL\Classes\Repositories\MemberRepository;
+    use DXL\Classes\Repositories\MemberProfileRepository;
 
     if ( ! defined('ABSPATH') ) exit;
 

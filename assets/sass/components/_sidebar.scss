@@ -9,11 +9,15 @@
     .menu-bar {
         height: inherit;
         .navigation {
+            padding-block: 20px;
             li {
                 list-style: none;
                 margin-bottom: 0.75rem;
                 a {
                     text-decoration: none;
+                    span {
+                        font-size: 18px;
+                    }
                 }
             }
         }

@@ -33,7 +33,7 @@ body:not([class*=elementor-page-]) {
       min-height: calc(100vh - 100px);
 
       .bg-gray {
-        background-color: #ebebeb;
+        background-color: #ffffff;
       }
 
       h3 {
@@ -44,6 +44,10 @@ body:not([class*=elementor-page-]) {
         opacity: 0;
         animation: fadeUp 0.5s ease-in-out forwards;
         -webkit-animation: fadeUp 0.5s ease-in-out forwards;
+      }
+
+      .overview-container {
+        box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
       }
     }
 

@@ -145,7 +145,6 @@ const ProfileEvent = {
      */
     bindDeleteEvent: () => {
         ProfileEvent.buttons.deleteEventButton.on('click', (e) => {
-
             new Swal({
                 title: "Sletter begivenhed...",
                 text: "Vent venligst mens begivenheden bliver slettet...",
